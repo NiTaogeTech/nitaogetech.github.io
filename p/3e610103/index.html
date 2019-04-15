@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/resource/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/resource/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/resource/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/resource/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="看破设计模式,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="NiTaogeTech" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="单一职责原则（Single Responsibility Principle）SRP定义 There should never be more than one reason for a class to change.  一个类只干一个事儿。 可以参考JDBC连接代码。 优点 类的复杂性降低，职责清晰，增强可读性。 解耦，提高可维护性。  总结这个原则同样适用于类和方法。 里氏替换原则（Lisk">
+<meta name="keywords" content="看破设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="看破设计模式 1.设计原则">
+<meta property="og:url" content="http://tech.nitaoge.com/p/3e610103/index.html">
+<meta property="og:site_name" content="NiTaogeTech">
+<meta property="og:description" content="单一职责原则（Single Responsibility Principle）SRP定义 There should never be more than one reason for a class to change.  一个类只干一个事儿。 可以参考JDBC连接代码。 优点 类的复杂性降低，职责清晰，增强可读性。 解耦，提高可维护性。  总结这个原则同样适用于类和方法。 里氏替换原则（Lisk">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-15T15:59:23.585Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="看破设计模式 1.设计原则">
+<meta name="twitter:description" content="单一职责原则（Single Responsibility Principle）SRP定义 There should never be more than one reason for a class to change.  一个类只干一个事儿。 可以参考JDBC连接代码。 优点 类的复杂性降低，职责清晰，增强可读性。 解耦，提高可维护性。  总结这个原则同样适用于类和方法。 里氏替换原则（Lisk">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://tech.nitaoge.com/p/3e610103/">
+
+
+
+
+
+  <title>看破设计模式 1.设计原则 | NiTaogeTech</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/NiTaogeTech" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#FD6C6C; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NiTaogeTech</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Focus on Java, BD and Linux. </p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-看破红尘">
+          <a href="/p/note666" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-wheelchair-alt"></i> <br>
+            
+            看破红尘
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-看破springcloud">
+          <a href="/categories/springcloud" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-coffee"></i> <br>
+            
+            看破SpringCloud
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-看破mysql">
+          <a href="/categories/mysql" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-server"></i> <br>
+            
+            看破MySQL
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-看破redis">
+          <a href="/categories/redis" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-database"></i> <br>
+            
+            看破Redis
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-看破kafka">
+          <a href="/categories/kafka" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cubes"></i> <br>
+            
+            看破Kafka
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-看破docker">
+          <a href="/categories/docker" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cogs"></i> <br>
+            
+            看破Docker
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://tech.nitaoge.com/p/3e610103/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="中华郑六">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/resource/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NiTaogeTech">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">看破设计模式 1.设计原则</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T20:06:26+08:00">
+                2019-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/design/" itemprop="url" rel="index">
+                    <span itemprop="name">design</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/p/3e610103/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="p/3e610103/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye"></i> 热度
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>℃
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数&#58;</span>
+                
+                <span title="字数">
+                  2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">时长 &asymp;</span>
+                
+                <span title="时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="单一职责原则（Single-Responsibility-Principle）SRP"><a href="#单一职责原则（Single-Responsibility-Principle）SRP" class="headerlink" title="单一职责原则（Single Responsibility Principle）SRP"></a>单一职责原则（Single Responsibility Principle）SRP</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><blockquote>
+<p>There should never be more than one reason for a class to change.</p>
+</blockquote>
+<p>一个类只干一个事儿。 可以参考JDBC连接代码。</p>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
+<li>类的复杂性降低，职责清晰，增强可读性。</li>
+<li>解耦，提高可维护性。</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这个原则同样适用于类和方法。</p>
+<h1 id="里氏替换原则（Liskov-Substitution-Principle）LSP"><a href="#里氏替换原则（Liskov-Substitution-Principle）LSP" class="headerlink" title="里氏替换原则（Liskov Substitution Principle）LSP"></a>里氏替换原则（Liskov Substitution Principle）LSP</h1><h2 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h2><blockquote>
+<p>If for each object o1 of type S there is an object o2 of<br>type T such that for all programs P defined in terms of T,<br>the behavior of P is unchanged when o1 is substituted for o2 then S is a subtype of T.</p>
+</blockquote>
+<p>如果对每一个类型为S的对象o1， 都有类型为T的对象o2，<br>使得以T定义的所有程序P在所有的对象o1都代换成o2时，<br>程序P的行为没有发生变化， 那么类型S是类型T的子类型。 </p>
+<p>换句人话讲，所有引用基类的地方必须能透明地使用其子类的对象。</p>
+<p>包含以下4层含义：</p>
+<ul>
+<li>子类可以实现父类的抽象方法，但是不能覆盖父类的非抽象方法。</li>
+<li>子类中可以增加自己特有的方法。</li>
+<li>当子类覆盖或实现父类的方法时，方法的前置条件（即方法的形参）要比父类方法的输入参数更宽松。</li>
+<li>当子类的方法实现父类的抽象方法时，方法的后置条件（即方法的返回值）要比父类更严格。</li>
+</ul>
+<h2 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h2><ul>
+<li>明确类的定义和方法的行为，有利于复用，而且保证父子类行为一致。</li>
+</ul>
+<h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><p>里氏替换原则的提出主要是为了解决因继承不当导致的父子类行为不一致、运行结果与预期不符的问题。</p>
+<p>说白了，就是父类的方法尽量别动。</p>
+<h1 id="依赖倒置原则（Dependence-Inversion-Principle）DIP"><a href="#依赖倒置原则（Dependence-Inversion-Principle）DIP" class="headerlink" title="依赖倒置原则（Dependence Inversion Principle）DIP"></a>依赖倒置原则（Dependence Inversion Principle）DIP</h1><h2 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h2><blockquote>
+<p>High level modules should not depend upon low level modules.Both should depend upon<br>abstractions.Abstractions should not depend upon details.Details should depend upon abstractions.</p>
+</blockquote>
+<p>包含以下3层含义：</p>
+<ul>
+<li>高层模块不应该依赖低层模块， 两者都应该依赖其抽象；</li>
+<li>抽象不应该依赖细节；</li>
+<li>细节应该依赖抽象。</li>
+</ul>
+<p>底层模块：每一个逻辑的实现都是由不可分割的原子逻辑组成的，不可分割的原子逻辑就是底层模块。<br>高层模块：由原子逻辑再组装就是高层模块。<br>抽象：即抽象类或接口，两者是不能够实例化的。<br>细节：即具体的实现类，实现接口或者继承抽象类所产生的类，两者可以通过关键字new直接被实例化。</p>
+<p>最灵活的方式就是Setter方法传递依赖对象，当然如果不想提供灵活变更，可以在构造体中注入，参考代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IDriver</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drive</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Driver</span> <span class="keyword">implements</span> <span class="title">IDriver</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> ICar car;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCar</span><span class="params">(ICar car)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.car = car;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drive</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.car.run();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ICar</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Benz</span> <span class="keyword">implements</span> <span class="title">ICar</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"奔驰汽车开始运行..."</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BMW</span> <span class="keyword">implements</span> <span class="title">ICar</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"宝马汽车开始运行..."</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	IDriver driver = <span class="keyword">new</span> Driver();</span><br><span class="line">	ICar benz = <span class="keyword">new</span> Benz();</span><br><span class="line">	driver.drive(benz);</span><br><span class="line">	ICar benz = <span class="keyword">new</span> BMW();</span><br><span class="line">	driver.drive(benz);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="优点-2"><a href="#优点-2" class="headerlink" title="优点"></a>优点</h2><ul>
+<li>解耦，避免动一处而伤全身。</li>
+</ul>
+<h2 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h2><p>目的就是为了解耦，封装工具类和建立管道模型就遵循这种原则。</p>
+<h1 id="接口隔离原则（Interface-Segregation-Principles）ISP"><a href="#接口隔离原则（Interface-Segregation-Principles）ISP" class="headerlink" title="接口隔离原则（Interface Segregation Principles）ISP"></a>接口隔离原则（Interface Segregation Principles）ISP</h1><h2 id="定义-3"><a href="#定义-3" class="headerlink" title="定义"></a>定义</h2><blockquote>
+<p>Clients should not be forced to depend upon interfaces that they don’t use.</p>
+</blockquote>
+<blockquote>
+<p>The dependency of one class to another one should depend on the smallest possible interface.</p>
+</blockquote>
+<p>包含以下2层含义：</p>
+<ul>
+<li>客户端不应该强行依赖它不需要的接口。</li>
+<li>类间的依赖关系应该建立在最小的接口上。</li>
+</ul>
+<p>含义比较明确，尽量把接口拆得足够细，参考代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">I1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">I2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">I3</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method3</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">A</span> <span class="keyword">implements</span> <span class="title">I1</span>,<span class="title">I2</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Class A - method1()"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Class A - method2()"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">implements</span> <span class="title">I2</span>,<span class="title">I3</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Class B - method2()"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method3</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Class B - method3()"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="优点-3"><a href="#优点-3" class="headerlink" title="优点"></a>优点</h2><ul>
+<li>减少代码量，避免实现无必要的方法。</li>
+</ul>
+<h2 id="总结-3"><a href="#总结-3" class="headerlink" title="总结"></a>总结</h2><p>与单一职责原则很像，但还是有些区别的。</p>
+<p>单一职责原则针对的是类和方法；而接口隔离原则针对的是接口。</p>
+<h1 id="迪米特法则（Least-Knowledge-Principle）LKP"><a href="#迪米特法则（Least-Knowledge-Principle）LKP" class="headerlink" title="迪米特法则（Least Knowledge Principle）LKP"></a>迪米特法则（Least Knowledge Principle）LKP</h1><h2 id="定义-4"><a href="#定义-4" class="headerlink" title="定义"></a>定义</h2><blockquote>
+<p>Only talk to your immediate friends.</p>
+</blockquote>
+<p>一个类只和朋友交流。</p>
+<p>意思就是尽量减少与其他类的依赖，像这样：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">A</span> &#123;</span></span><br><span class="line">	<span class="keyword">private</span> B b;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">say</span><span class="params">()</span></span>&#123;</span><br><span class="line">		b.sayHello();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span></span>&#123;</span><br><span class="line">		b.flyInTheSky();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="优点-4"><a href="#优点-4" class="headerlink" title="优点"></a>优点</h2><ul>
+<li>解耦，不用管其他方法的实现，我只要用你提供的方法就行了。</li>
+</ul>
+<h2 id="总结-4"><a href="#总结-4" class="headerlink" title="总结"></a>总结</h2><p>太简单不说了。</p>
+<h1 id="开闭原则（Open-Closed-Principle）OCP"><a href="#开闭原则（Open-Closed-Principle）OCP" class="headerlink" title="开闭原则（Open-Closed Principle）OCP"></a>开闭原则（Open-Closed Principle）OCP</h1><h2 id="定义-5"><a href="#定义-5" class="headerlink" title="定义"></a>定义</h2><blockquote>
+<p>Software entities like classes,modules and functions should be open for extension but closed for<br>modifications.</p>
+</blockquote>
+<p>一个软件实体如类、 模块和函数应该对扩展开放，对修改关闭。</p>
+<p>也就是说，当软件需要变化时，尽量通过扩展软件实体的行为来实现变化，而不是通过修改已有的代码来实现变化。</p>
+<p>上代码：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IBook</span> &#123;</span><br><span class="line">	<span class="comment">//书籍有名称</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span>(<span class="params"></span>)</span>;</span><br><span class="line">	<span class="comment">//书籍有售价</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getPrice</span>(<span class="params"></span>)</span>;</span><br><span class="line">	<span class="comment">//书籍有作者</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getAuthor</span>(<span class="params"></span>)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">NovelBook</span> <span class="title">implements</span> <span class="title">IBook</span> &#123;</span><br><span class="line">	<span class="comment">//书籍名称</span></span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="comment">//书籍的价格</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> price;</span><br><span class="line">	<span class="comment">//书籍的作者</span></span><br><span class="line">	<span class="keyword">private</span> String author;</span><br><span class="line">	<span class="comment">//通过构造函数传递书籍数据</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">NovelBook</span>(<span class="params">String _name,<span class="keyword">int</span> _price,String _author</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = _name;</span><br><span class="line">		<span class="keyword">this</span>.price = _price;</span><br><span class="line">		<span class="keyword">this</span>.author = _author;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//获得作者是谁</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getAuthor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.author;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//书籍叫什么名字</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//获得书籍的价格</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getPrice</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.price;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BookStore</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> final <span class="keyword">static</span> ArrayList&lt;IBook&gt; bookList = <span class="keyword">new</span> ArrayList&lt;IBook&gt;();</span><br><span class="line">	<span class="comment">//static静态模块初始化数据， 实际项目中一般是由持久层完成</span></span><br><span class="line">	<span class="keyword">static</span>&#123;</span><br><span class="line">		bookList.<span class="keyword">add</span>(<span class="keyword">new</span> NovelBook(<span class="string">"天龙八部"</span>,<span class="number">3200</span>,<span class="string">"金庸"</span>));</span><br><span class="line">		bookList.<span class="keyword">add</span>(<span class="keyword">new</span> NovelBook(<span class="string">"巴黎圣母院"</span>,<span class="number">5600</span>,<span class="string">"雨果"</span>));</span><br><span class="line">		bookList.<span class="keyword">add</span>(<span class="keyword">new</span> NovelBook(<span class="string">"悲惨世界"</span>,<span class="number">3500</span>,<span class="string">"雨果"</span>));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//模拟书店买书</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(<span class="params">String[] args</span>)</span> &#123;</span><br><span class="line">		NumberFormat formatter = NumberFormat.getCurrencyInstance();</span><br><span class="line">		formatter.setMaximumFractionDigits(<span class="number">2</span>);</span><br><span class="line">		System.<span class="keyword">out</span>.println(<span class="string">"-----------书店卖出去的书籍记录如下： -----------"</span>);</span><br><span class="line">		<span class="keyword">for</span>(IBook book:bookList)&#123;</span><br><span class="line">			System.<span class="keyword">out</span>.println(<span class="string">"书籍名称： "</span> + book.getName()+<span class="string">"\t书籍作者： "</span></span><br><span class="line">			book.getAuthor()+<span class="string">"\t书籍价格： "</span>+ formatter.format (book.getPrice()/</span><br><span class="line">			<span class="number">100.0</span>)+<span class="string">"元"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">OffNovelBook</span> <span class="title">extends</span> <span class="title">NovelBook</span> &#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">OffNovelBook</span>(<span class="params">String _name,<span class="keyword">int</span> _price,String _author</span>)</span>&#123;</span><br><span class="line">		super(_name,_price,_author);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//覆写销售价格</span></span><br><span class="line">	@Override</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getPrice</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="comment">//原价</span></span><br><span class="line">		<span class="keyword">int</span> selfPrice = super.getPrice();</span><br><span class="line">		<span class="keyword">int</span> offPrice=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span>(selfPrice&gt;<span class="number">4000</span>)&#123; <span class="comment">//原价大于40元， 则打9折</span></span><br><span class="line">			offPrice = selfPrice * <span class="number">90</span> /<span class="number">100</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			offPrice = selfPrice * <span class="number">80</span> /<span class="number">100</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> offPrice;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BookStore</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> final <span class="keyword">static</span> ArrayList&lt;IBook&gt; bookList = <span class="keyword">new</span> ArrayList&lt;IBook&gt;();</span><br><span class="line">	<span class="comment">//static静态模块初始化数据， 实际项目中一般是由持久层完成</span></span><br><span class="line">	<span class="keyword">static</span>&#123;</span><br><span class="line">		bookList.<span class="keyword">add</span>(<span class="keyword">new</span> OffNovelBook(<span class="string">"天龙八部"</span>,<span class="number">3200</span>,<span class="string">"金庸"</span>));</span><br><span class="line">		bookList.<span class="keyword">add</span>(<span class="keyword">new</span> OffNovelBook(<span class="string">"巴黎圣母院"</span>,<span class="number">5600</span>,<span class="string">"雨果"</span>));</span><br><span class="line">		bookList.<span class="keyword">add</span>(<span class="keyword">new</span> OffNovelBook(<span class="string">"悲惨世界"</span>,<span class="number">3500</span>,<span class="string">"雨果"</span>));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//模拟书店买书</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(<span class="params">String[] args</span>)</span> &#123;</span><br><span class="line">		NumberFormat formatter = NumberFormat.getCurrencyInstance();</span><br><span class="line">		formatter.setMaximumFractionDigits(<span class="number">2</span>);</span><br><span class="line">		System.<span class="keyword">out</span>.println(<span class="string">"-----------书店卖出去的书籍记录如下： -----------"</span>);</span><br><span class="line">		<span class="keyword">for</span>(IBook book:bookList)&#123;</span><br><span class="line">			System.<span class="keyword">out</span>.println(<span class="string">"书籍名称： "</span> + book.getName()+<span class="string">"\t书籍作者： "</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="优点-5"><a href="#优点-5" class="headerlink" title="优点"></a>优点</h2><ul>
+<li>减少出现不必要问题的几率，避免节外生枝。</li>
+</ul>
+<h2 id="总结-5"><a href="#总结-5" class="headerlink" title="总结"></a>总结</h2><p>设计模式不必局限于这六大原则，要活学活用。</p>
+<p>在读过一些优秀的开源框架源码之后，潜移默化地形成这种设计思维，运用到开发中即可。</p>
+<h1 id="合成复用原则（Composite-Reuse-Principle）CRP"><a href="#合成复用原则（Composite-Reuse-Principle）CRP" class="headerlink" title="合成复用原则（Composite Reuse Principle）CRP"></a>合成复用原则（Composite Reuse Principle）CRP</h1><h2 id="定义-6"><a href="#定义-6" class="headerlink" title="定义"></a>定义</h2><p>要尽量使用合成和聚合，尽量不要使用继承。</p>
+<h2 id="优点-6"><a href="#优点-6" class="headerlink" title="优点"></a>优点</h2><ul>
+<li>不使用继承，不破坏类的封装性。</li>
+<li>可扩展性强，修改单一模块对全局影响不大。</li>
+</ul>
+<h2 id="总结-6"><a href="#总结-6" class="headerlink" title="总结"></a>总结</h2><p>如果两个类之间是“Has-A”的关系应使用组合或聚合，如果是“Is-A”关系可使用继承。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="http://product.dangdang.com/23427545.html" target="_blank" rel="noopener">设计模式之禅（第2版）</a></p>
+<p><a href="http://cmsblogs.com/?p=3396" target="_blank" rel="noopener">设计模式读书笔记文集</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/看破设计模式/" rel="tag"><i class="fa fa-tag"></i> 看破设计模式</a>
+          
+        </div>
+      
+
+
+      
+      
+
+      
+        
+<div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-thumbs-o-up"></i>感谢您的赏阅-------------</div>
+
+      
+
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>作者/文章:</span><a href="/" title="访问 中华郑六 的技术博客">中华郑六</a> / <a href="/p/3e610103/">看破设计模式 1.设计原则</a></p>
+  <p><span>原始链接:</span><a href="/p/3e610103/" title="看破设计模式 1.设计原则">http://tech.nitaoge.com/p/3e610103/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://tech.nitaoge.com/p/3e610103/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+
+      
+
+      
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果文章对您有用，多多少少给安排点儿</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>救我一下</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/resource/wechatpay.png" alt="中华郑六 拿微信救">
+        <p>拿微信救</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/resource/alipay.png" alt="中华郑六 拿支付宝救">
+        <p>拿支付宝救</p>
+      </div>
+    
+
+    
+      <div id="aliredpack" style="display: inline-block">
+        <img id="aliredpack_qr" src="/images/resource/aliredpack.png" alt="中华郑六 薅阿里羊毛">
+        <p>薅阿里羊毛</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      
+
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/p/698730d5/" rel="next" title="看破Zookeeper 1.快速安装及使用">
+                <i class="fa fa-chevron-left"></i> 看破Zookeeper 1.快速安装及使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/p/bafefb6b/" rel="prev" title="看破Java 2.知其所以然">
+                看破Java 2.知其所以然 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/resource/avatar.png" alt="中华郑六">
+            
+              <p class="site-author-name" itemprop="name">中华郑六</p>
+              <p class="site-description motion-element" itemprop="description">风尘之中多是性情中人。<br> /** <br> *底部评论请上墙 <br> *以武会友请邮件 <br>*/</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/NiTaogeTech" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:nitaogetech@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友链
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://tuna.moe/" title="清华大学TUNA协会" target="_blank">清华大学TUNA协会</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#单一职责原则（Single-Responsibility-Principle）SRP"><span class="nav-number">1.</span> <span class="nav-text">单一职责原则（Single Responsibility Principle）SRP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优点"><span class="nav-number">1.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#里氏替换原则（Liskov-Substitution-Principle）LSP"><span class="nav-number">2.</span> <span class="nav-text">里氏替换原则（Liskov Substitution Principle）LSP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义-1"><span class="nav-number">2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优点-1"><span class="nav-number">2.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-1"><span class="nav-number">2.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#依赖倒置原则（Dependence-Inversion-Principle）DIP"><span class="nav-number">3.</span> <span class="nav-text">依赖倒置原则（Dependence Inversion Principle）DIP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义-2"><span class="nav-number">3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优点-2"><span class="nav-number">3.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-2"><span class="nav-number">3.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接口隔离原则（Interface-Segregation-Principles）ISP"><span class="nav-number">4.</span> <span class="nav-text">接口隔离原则（Interface Segregation Principles）ISP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义-3"><span class="nav-number">4.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优点-3"><span class="nav-number">4.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-3"><span class="nav-number">4.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#迪米特法则（Least-Knowledge-Principle）LKP"><span class="nav-number">5.</span> <span class="nav-text">迪米特法则（Least Knowledge Principle）LKP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义-4"><span class="nav-number">5.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优点-4"><span class="nav-number">5.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-4"><span class="nav-number">5.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开闭原则（Open-Closed-Principle）OCP"><span class="nav-number">6.</span> <span class="nav-text">开闭原则（Open-Closed Principle）OCP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义-5"><span class="nav-number">6.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优点-5"><span class="nav-number">6.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-5"><span class="nav-number">6.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#合成复用原则（Composite-Reuse-Principle）CRP"><span class="nav-number">7.</span> <span class="nav-text">合成复用原则（Composite Reuse Principle）CRP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义-6"><span class="nav-number">7.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优点-6"><span class="nav-number">7.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-6"><span class="nav-number">7.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">8.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heartbeat"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">竭全力以尽忠义，倾薄学以献天下</span>
+</div>
+
+
+  <div class="footer-custom"><a target="_blank" href="http://www.miitbeian.gov.cn">辽ICP备17001238号</a><span style="margin:0 1em;">|</span><span id="runday">运行时长加载中...</span><span id="runtime"></span></div>
+
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访客
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">码字&#58;</span>
+    
+    <span title="码字">16.7k</span>
+  
+
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/custom/clickshzy.js?v=0.0.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/custom/runtime.js?v=0.0.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/custom/clipboard.min.js?v=0.0.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/custom/clipboard-btn.js?v=0.0.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://NiTaogeTech.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://tech.nitaoge.com/p/3e610103/';
+          this.page.identifier = 'p/3e610103/';
+          this.page.title = '看破设计模式 1.设计原则';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://NiTaogeTech.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

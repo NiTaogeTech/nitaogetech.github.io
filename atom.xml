@@ -94,13 +94,13 @@
   </entry>
   
   <entry>
-    <title>看破Netty 1.基本概念</title>
-    <link href="http://tech.nitaoge.com/p/eb662d2f/"/>
-    <id>http://tech.nitaoge.com/p/eb662d2f/</id>
+    <title>看破设计模式 3.使用设计模式的框架们</title>
+    <link href="http://tech.nitaoge.com/p/755f1ef7/"/>
+    <id>http://tech.nitaoge.com/p/755f1ef7/</id>
     <published>2019-03-22T12:06:26.000Z</published>
-    <updated>2019-04-15T15:59:23.589Z</updated>
+    <updated>2019-04-15T15:59:23.585Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p># </p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script>]]></content>
     
     <summary type="html">
     
@@ -111,10 +111,10 @@
     
     </summary>
     
-      <category term="netty" scheme="http://tech.nitaoge.com/categories/netty/"/>
+      <category term="design" scheme="http://tech.nitaoge.com/categories/design/"/>
     
     
-      <category term="看破Netty" scheme="http://tech.nitaoge.com/tags/%E7%9C%8B%E7%A0%B4Netty/"/>
+      <category term="看破设计模式" scheme="http://tech.nitaoge.com/tags/%E7%9C%8B%E7%A0%B4%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -194,31 +194,6 @@
   </entry>
   
   <entry>
-    <title>看破Java 5.IO</title>
-    <link href="http://tech.nitaoge.com/p/6a43eebc/"/>
-    <id>http://tech.nitaoge.com/p/6a43eebc/</id>
-    <published>2019-03-22T12:06:26.000Z</published>
-    <updated>2019-04-15T15:59:23.587Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="java" scheme="http://tech.nitaoge.com/categories/java/"/>
-    
-    
-      <category term="看破Java" scheme="http://tech.nitaoge.com/tags/%E7%9C%8B%E7%A0%B4Java/"/>
-    
-  </entry>
-  
-  <entry>
     <title>看破Jenkins 1.快速安装及使用</title>
     <link href="http://tech.nitaoge.com/p/17293ae1/"/>
     <id>http://tech.nitaoge.com/p/17293ae1/</id>
@@ -240,31 +215,6 @@
     
     
       <category term="看破Jenkins" scheme="http://tech.nitaoge.com/tags/%E7%9C%8B%E7%A0%B4Jenkins/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>看破JVM 1.</title>
-    <link href="http://tech.nitaoge.com/p/fc61a33c/"/>
-    <id>http://tech.nitaoge.com/p/fc61a33c/</id>
-    <published>2019-03-22T12:06:26.000Z</published>
-    <updated>2019-04-15T15:59:23.587Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="jvm" scheme="http://tech.nitaoge.com/categories/jvm/"/>
-    
-    
-      <category term="看破JVM" scheme="http://tech.nitaoge.com/tags/%E7%9C%8B%E7%A0%B4JVM/"/>
     
   </entry>
   
@@ -319,11 +269,11 @@
   </entry>
   
   <entry>
-    <title>看破Zookeeper 1.快速安装及使用</title>
-    <link href="http://tech.nitaoge.com/p/698730d5/"/>
-    <id>http://tech.nitaoge.com/p/698730d5/</id>
+    <title>看破调优 1.从java开发开始</title>
+    <link href="http://tech.nitaoge.com/p/5191fb9a/"/>
+    <id>http://tech.nitaoge.com/p/5191fb9a/</id>
     <published>2019-03-22T12:06:26.000Z</published>
-    <updated>2019-04-15T15:59:23.592Z</updated>
+    <updated>2019-04-15T16:17:01.349Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script>]]></content>
     
@@ -336,10 +286,35 @@
     
     </summary>
     
-      <category term="zookeeper" scheme="http://tech.nitaoge.com/categories/zookeeper/"/>
+      <category term="optimization" scheme="http://tech.nitaoge.com/categories/optimization/"/>
     
     
-      <category term="看破Zookeeper" scheme="http://tech.nitaoge.com/tags/%E7%9C%8B%E7%A0%B4Zookeeper/"/>
+      <category term="看破调优" scheme="http://tech.nitaoge.com/tags/%E7%9C%8B%E7%A0%B4%E8%B0%83%E4%BC%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>看破JVM 1.</title>
+    <link href="http://tech.nitaoge.com/p/fc61a33c/"/>
+    <id>http://tech.nitaoge.com/p/fc61a33c/</id>
+    <published>2019-03-22T12:06:26.000Z</published>
+    <updated>2019-04-15T15:59:23.587Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="jvm" scheme="http://tech.nitaoge.com/categories/jvm/"/>
+    
+    
+      <category term="看破JVM" scheme="http://tech.nitaoge.com/tags/%E7%9C%8B%E7%A0%B4JVM/"/>
     
   </entry>
   
@@ -419,6 +394,31 @@
   </entry>
   
   <entry>
+    <title>看破Netty 1.基本概念</title>
+    <link href="http://tech.nitaoge.com/p/eb662d2f/"/>
+    <id>http://tech.nitaoge.com/p/eb662d2f/</id>
+    <published>2019-03-22T12:06:26.000Z</published>
+    <updated>2019-04-15T15:59:23.589Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p># </p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="netty" scheme="http://tech.nitaoge.com/categories/netty/"/>
+    
+    
+      <category term="看破Netty" scheme="http://tech.nitaoge.com/tags/%E7%9C%8B%E7%A0%B4Netty/"/>
+    
+  </entry>
+  
+  <entry>
     <title>看破数据结构 1.线性表</title>
     <link href="http://tech.nitaoge.com/p/e8093df2/"/>
     <id>http://tech.nitaoge.com/p/e8093df2/</id>
@@ -440,31 +440,6 @@
     
     
       <category term="看破数据结构" scheme="http://tech.nitaoge.com/tags/%E7%9C%8B%E7%A0%B4%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>看破设计模式 2. 设计模式不止23种</title>
-    <link href="http://tech.nitaoge.com/p/86853348/"/>
-    <id>http://tech.nitaoge.com/p/86853348/</id>
-    <published>2019-03-22T12:06:26.000Z</published>
-    <updated>2019-04-15T15:59:23.585Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>所谓设计模式，就是软件设计的效仿模版，架构和软件设计没有万能钥匙，<br>只有选择合适的组合复用，才能大放异彩。</p><h1 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><blockquote><p>Ensure a class has only one instance, and provide a global point of access to it.</p></blockquote><p>确保某一个类只有一个实例， 而且自行实例化并向整个系统提供这个实例。 </p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>饿汉式：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class HungrySingleton &#123;</span><br><span class="line"></span><br><span class="line">    private static final HungrySingleton<span class="built_in"> instance </span>= new HungrySingleton();</span><br><span class="line"></span><br><span class="line">    private HungrySingleton() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static HungrySingleton instance() &#123;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void say() &#123;</span><br><span class="line">        System.out.println(<span class="string">"hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>懒汉式（要保证线程安全）：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class LazySingleton &#123;</span><br><span class="line"></span><br><span class="line">    private static LazySingleton<span class="built_in"> instance </span>= <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    private LazySingleton() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static LazySingleton instance() &#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">            synchronized (LazySingleton.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">                   <span class="built_in"> instance </span>= new LazySingleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void say() &#123;</span><br><span class="line">        System.out.println(<span class="string">"hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h2><p>为什么懒汉式单例要双重校验？</p><blockquote><p>当两个线程同时调用instance()方法时，由于singleTon==null，两个线程都可以通过第一个校验，<br>然后线程A持有锁，线程B等待。当线程A执行完实例化、释放锁，线程B进入代码块。</p></blockquote><blockquote><p>如果不加第二个校验，线程B又会实例化一个对象。就会违反单例模式设计原则。</p></blockquote><blockquote><p>如果不加第一个校验，也能实现单例，但多个线程反复竞争锁会增加系统开销，严重影响性能。</p></blockquote><h1 id="工厂模式-amp-简单工厂模式"><a href="#工厂模式-amp-简单工厂模式" class="headerlink" title="工厂模式 &amp; 简单工厂模式"></a>工厂模式 &amp; 简单工厂模式</h1><h2 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h2><blockquote><p>Define an interface for creating an object,but let subclasses decide which class to<br>instantiate.Factory Method lets a class defer instantiation to subclasses.</p></blockquote><p>定义一个用于创建对象的接口， 让子类决定实例化哪一个类。 工厂方法使一个类的实例化延迟到其子类。 </p><h2 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h2><h1 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h1><blockquote><p>Provide an interface for creating families of related or dependent objects without specifying<br>their concrete classes.</p></blockquote><p>为创建一组相关或相互依赖的对象提供一个接口，而且无须指定它们的具体类。 </p><h2 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h2><h1 id="模版方法模式"><a href="#模版方法模式" class="headerlink" title="模版方法模式"></a>模版方法模式</h1><h2 id="定义-3"><a href="#定义-3" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-3"><a href="#示例-3" class="headerlink" title="示例"></a>示例</h2><h1 id="建造者模式"><a href="#建造者模式" class="headerlink" title="建造者模式"></a>建造者模式</h1><h2 id="定义-4"><a href="#定义-4" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-4"><a href="#示例-4" class="headerlink" title="示例"></a>示例</h2><h1 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h1><h2 id="定义-5"><a href="#定义-5" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-5"><a href="#示例-5" class="headerlink" title="示例"></a>示例</h2><h1 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h1><h2 id="定义-6"><a href="#定义-6" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-6"><a href="#示例-6" class="headerlink" title="示例"></a>示例</h2><h1 id="中介者模式"><a href="#中介者模式" class="headerlink" title="中介者模式"></a>中介者模式</h1><h2 id="定义-7"><a href="#定义-7" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-7"><a href="#示例-7" class="headerlink" title="示例"></a>示例</h2><h1 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h1><h2 id="定义-8"><a href="#定义-8" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-8"><a href="#示例-8" class="headerlink" title="示例"></a>示例</h2><h1 id="责任链模式"><a href="#责任链模式" class="headerlink" title="责任链模式"></a>责任链模式</h1><h2 id="定义-9"><a href="#定义-9" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-9"><a href="#示例-9" class="headerlink" title="示例"></a>示例</h2><h1 id="装饰模式"><a href="#装饰模式" class="headerlink" title="装饰模式"></a>装饰模式</h1><h2 id="定义-10"><a href="#定义-10" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-10"><a href="#示例-10" class="headerlink" title="示例"></a>示例</h2><h1 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h1><h2 id="定义-11"><a href="#定义-11" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-11"><a href="#示例-11" class="headerlink" title="示例"></a>示例</h2><h1 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h1><h2 id="定义-12"><a href="#定义-12" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-12"><a href="#示例-12" class="headerlink" title="示例"></a>示例</h2><h1 id="迭代器模式"><a href="#迭代器模式" class="headerlink" title="迭代器模式"></a>迭代器模式</h1><h2 id="定义-13"><a href="#定义-13" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-13"><a href="#示例-13" class="headerlink" title="示例"></a>示例</h2><h1 id="组合模式"><a href="#组合模式" class="headerlink" title="组合模式"></a>组合模式</h1><h2 id="定义-14"><a href="#定义-14" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-14"><a href="#示例-14" class="headerlink" title="示例"></a>示例</h2><h1 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h1><h2 id="定义-15"><a href="#定义-15" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-15"><a href="#示例-15" class="headerlink" title="示例"></a>示例</h2><h1 id="门面模式"><a href="#门面模式" class="headerlink" title="门面模式"></a>门面模式</h1><h2 id="定义-16"><a href="#定义-16" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-16"><a href="#示例-16" class="headerlink" title="示例"></a>示例</h2><h1 id="备忘录模式"><a href="#备忘录模式" class="headerlink" title="备忘录模式"></a>备忘录模式</h1><h2 id="定义-17"><a href="#定义-17" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-17"><a href="#示例-17" class="headerlink" title="示例"></a>示例</h2><h1 id="访问者模式"><a href="#访问者模式" class="headerlink" title="访问者模式"></a>访问者模式</h1><h2 id="定义-18"><a href="#定义-18" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-18"><a href="#示例-18" class="headerlink" title="示例"></a>示例</h2><h1 id="状态模式"><a href="#状态模式" class="headerlink" title="状态模式"></a>状态模式</h1><h2 id="定义-19"><a href="#定义-19" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-19"><a href="#示例-19" class="headerlink" title="示例"></a>示例</h2><h1 id="解释器模式"><a href="#解释器模式" class="headerlink" title="解释器模式"></a>解释器模式</h1><h2 id="定义-20"><a href="#定义-20" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-20"><a href="#示例-20" class="headerlink" title="示例"></a>示例</h2><h1 id="享元模式"><a href="#享元模式" class="headerlink" title="享元模式"></a>享元模式</h1><h2 id="定义-21"><a href="#定义-21" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-21"><a href="#示例-21" class="headerlink" title="示例"></a>示例</h2><h1 id="桥梁模式"><a href="#桥梁模式" class="headerlink" title="桥梁模式"></a>桥梁模式</h1><h2 id="定义-22"><a href="#定义-22" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-22"><a href="#示例-22" class="headerlink" title="示例"></a>示例</h2><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这23种设计模式是94年8月就提出来的，显然它只是一种设计思维，没有任何脱离实际的方法是正确的，<br>所以还得具体问题具体分析，在设计过程中不断探索，还会发现新的世界。</p><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="http://product.dangdang.com/23427545.html" target="_blank" rel="noopener">设计模式之禅（第2版）</a> </p><p>设计模式之禅这本书，我读到第9章抽象工厂的时候，就发现作者有点开始扯犊子了。<br>他的思路并不清晰，人的思路一旦不清晰就容易含糊其辞，<br>试图通过列举怪力乱神、妖魔鬼怪等反科学、伪实践的例子来说服读者……</p><p>我认为没有实际应用场景和不做需求利弊权衡的设计都是扯犊子……</p><p><a href="http://product.dangdang.com/71052.html" target="_blank" rel="noopener">设计模式 GOF</a></p><p><a href="http://product.dangdang.com/20079096.html" target="_blank" rel="noopener">研磨设计模式</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="design" scheme="http://tech.nitaoge.com/categories/design/"/>
-    
-    
-      <category term="看破设计模式" scheme="http://tech.nitaoge.com/tags/%E7%9C%8B%E7%A0%B4%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -496,11 +471,11 @@
   </entry>
   
   <entry>
-    <title>看破调优 1.从java开发开始</title>
-    <link href="http://tech.nitaoge.com/p/5191fb9a/"/>
-    <id>http://tech.nitaoge.com/p/5191fb9a/</id>
+    <title>看破Java 5.IO</title>
+    <link href="http://tech.nitaoge.com/p/6a43eebc/"/>
+    <id>http://tech.nitaoge.com/p/6a43eebc/</id>
     <published>2019-03-22T12:06:26.000Z</published>
-    <updated>2019-04-15T15:59:23.590Z</updated>
+    <updated>2019-04-15T16:17:01.348Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script>]]></content>
     
@@ -513,10 +488,35 @@
     
     </summary>
     
-      <category term="optimization" scheme="http://tech.nitaoge.com/categories/optimization/"/>
+      <category term="java" scheme="http://tech.nitaoge.com/categories/java/"/>
     
     
-      <category term="看破调优" scheme="http://tech.nitaoge.com/tags/%E7%9C%8B%E7%A0%B4%E8%B0%83%E4%BC%98/"/>
+      <category term="看破Java" scheme="http://tech.nitaoge.com/tags/%E7%9C%8B%E7%A0%B4Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>看破设计模式 2. 设计模式不止23种</title>
+    <link href="http://tech.nitaoge.com/p/86853348/"/>
+    <id>http://tech.nitaoge.com/p/86853348/</id>
+    <published>2019-03-22T12:06:26.000Z</published>
+    <updated>2019-04-15T15:59:23.585Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>所谓设计模式，就是软件设计的效仿模版，架构和软件设计没有万能钥匙，<br>只有选择合适的组合复用，才能大放异彩。</p><h1 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><blockquote><p>Ensure a class has only one instance, and provide a global point of access to it.</p></blockquote><p>确保某一个类只有一个实例， 而且自行实例化并向整个系统提供这个实例。 </p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>饿汉式：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class HungrySingleton &#123;</span><br><span class="line"></span><br><span class="line">    private static final HungrySingleton<span class="built_in"> instance </span>= new HungrySingleton();</span><br><span class="line"></span><br><span class="line">    private HungrySingleton() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static HungrySingleton instance() &#123;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void say() &#123;</span><br><span class="line">        System.out.println(<span class="string">"hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>懒汉式（要保证线程安全）：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class LazySingleton &#123;</span><br><span class="line"></span><br><span class="line">    private static LazySingleton<span class="built_in"> instance </span>= <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    private LazySingleton() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static LazySingleton instance() &#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">            synchronized (LazySingleton.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">                   <span class="built_in"> instance </span>= new LazySingleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void say() &#123;</span><br><span class="line">        System.out.println(<span class="string">"hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h2><p>为什么懒汉式单例要双重校验？</p><blockquote><p>当两个线程同时调用instance()方法时，由于singleTon==null，两个线程都可以通过第一个校验，<br>然后线程A持有锁，线程B等待。当线程A执行完实例化、释放锁，线程B进入代码块。</p></blockquote><blockquote><p>如果不加第二个校验，线程B又会实例化一个对象。就会违反单例模式设计原则。</p></blockquote><blockquote><p>如果不加第一个校验，也能实现单例，但多个线程反复竞争锁会增加系统开销，严重影响性能。</p></blockquote><h1 id="工厂模式-amp-简单工厂模式"><a href="#工厂模式-amp-简单工厂模式" class="headerlink" title="工厂模式 &amp; 简单工厂模式"></a>工厂模式 &amp; 简单工厂模式</h1><h2 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h2><blockquote><p>Define an interface for creating an object,but let subclasses decide which class to<br>instantiate.Factory Method lets a class defer instantiation to subclasses.</p></blockquote><p>定义一个用于创建对象的接口， 让子类决定实例化哪一个类。 工厂方法使一个类的实例化延迟到其子类。 </p><h2 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h2><h1 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h1><blockquote><p>Provide an interface for creating families of related or dependent objects without specifying<br>their concrete classes.</p></blockquote><p>为创建一组相关或相互依赖的对象提供一个接口，而且无须指定它们的具体类。 </p><h2 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h2><h1 id="模版方法模式"><a href="#模版方法模式" class="headerlink" title="模版方法模式"></a>模版方法模式</h1><h2 id="定义-3"><a href="#定义-3" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-3"><a href="#示例-3" class="headerlink" title="示例"></a>示例</h2><h1 id="建造者模式"><a href="#建造者模式" class="headerlink" title="建造者模式"></a>建造者模式</h1><h2 id="定义-4"><a href="#定义-4" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-4"><a href="#示例-4" class="headerlink" title="示例"></a>示例</h2><h1 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h1><h2 id="定义-5"><a href="#定义-5" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-5"><a href="#示例-5" class="headerlink" title="示例"></a>示例</h2><h1 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h1><h2 id="定义-6"><a href="#定义-6" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-6"><a href="#示例-6" class="headerlink" title="示例"></a>示例</h2><h1 id="中介者模式"><a href="#中介者模式" class="headerlink" title="中介者模式"></a>中介者模式</h1><h2 id="定义-7"><a href="#定义-7" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-7"><a href="#示例-7" class="headerlink" title="示例"></a>示例</h2><h1 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h1><h2 id="定义-8"><a href="#定义-8" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-8"><a href="#示例-8" class="headerlink" title="示例"></a>示例</h2><h1 id="责任链模式"><a href="#责任链模式" class="headerlink" title="责任链模式"></a>责任链模式</h1><h2 id="定义-9"><a href="#定义-9" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-9"><a href="#示例-9" class="headerlink" title="示例"></a>示例</h2><h1 id="装饰模式"><a href="#装饰模式" class="headerlink" title="装饰模式"></a>装饰模式</h1><h2 id="定义-10"><a href="#定义-10" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-10"><a href="#示例-10" class="headerlink" title="示例"></a>示例</h2><h1 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h1><h2 id="定义-11"><a href="#定义-11" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-11"><a href="#示例-11" class="headerlink" title="示例"></a>示例</h2><h1 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h1><h2 id="定义-12"><a href="#定义-12" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-12"><a href="#示例-12" class="headerlink" title="示例"></a>示例</h2><h1 id="迭代器模式"><a href="#迭代器模式" class="headerlink" title="迭代器模式"></a>迭代器模式</h1><h2 id="定义-13"><a href="#定义-13" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-13"><a href="#示例-13" class="headerlink" title="示例"></a>示例</h2><h1 id="组合模式"><a href="#组合模式" class="headerlink" title="组合模式"></a>组合模式</h1><h2 id="定义-14"><a href="#定义-14" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-14"><a href="#示例-14" class="headerlink" title="示例"></a>示例</h2><h1 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h1><h2 id="定义-15"><a href="#定义-15" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-15"><a href="#示例-15" class="headerlink" title="示例"></a>示例</h2><h1 id="门面模式"><a href="#门面模式" class="headerlink" title="门面模式"></a>门面模式</h1><h2 id="定义-16"><a href="#定义-16" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-16"><a href="#示例-16" class="headerlink" title="示例"></a>示例</h2><h1 id="备忘录模式"><a href="#备忘录模式" class="headerlink" title="备忘录模式"></a>备忘录模式</h1><h2 id="定义-17"><a href="#定义-17" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-17"><a href="#示例-17" class="headerlink" title="示例"></a>示例</h2><h1 id="访问者模式"><a href="#访问者模式" class="headerlink" title="访问者模式"></a>访问者模式</h1><h2 id="定义-18"><a href="#定义-18" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-18"><a href="#示例-18" class="headerlink" title="示例"></a>示例</h2><h1 id="状态模式"><a href="#状态模式" class="headerlink" title="状态模式"></a>状态模式</h1><h2 id="定义-19"><a href="#定义-19" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-19"><a href="#示例-19" class="headerlink" title="示例"></a>示例</h2><h1 id="解释器模式"><a href="#解释器模式" class="headerlink" title="解释器模式"></a>解释器模式</h1><h2 id="定义-20"><a href="#定义-20" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-20"><a href="#示例-20" class="headerlink" title="示例"></a>示例</h2><h1 id="享元模式"><a href="#享元模式" class="headerlink" title="享元模式"></a>享元模式</h1><h2 id="定义-21"><a href="#定义-21" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-21"><a href="#示例-21" class="headerlink" title="示例"></a>示例</h2><h1 id="桥梁模式"><a href="#桥梁模式" class="headerlink" title="桥梁模式"></a>桥梁模式</h1><h2 id="定义-22"><a href="#定义-22" class="headerlink" title="定义"></a>定义</h2><h2 id="示例-22"><a href="#示例-22" class="headerlink" title="示例"></a>示例</h2><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这23种设计模式是94年8月就提出来的，显然它只是一种设计思维，没有任何脱离实际的方法是正确的，<br>所以还得具体问题具体分析，在设计过程中不断探索，还会发现新的世界。</p><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="http://product.dangdang.com/23427545.html" target="_blank" rel="noopener">设计模式之禅（第2版）</a> </p><p>设计模式之禅这本书，我读到第9章抽象工厂的时候，就发现作者有点开始扯犊子了。<br>他的思路并不清晰，人的思路一旦不清晰就容易含糊其辞，<br>试图通过列举怪力乱神、妖魔鬼怪等反科学、伪实践的例子来说服读者……</p><p>我认为没有实际应用场景和不做需求利弊权衡的设计都是扯犊子……</p><p><a href="http://product.dangdang.com/71052.html" target="_blank" rel="noopener">设计模式 GOF</a></p><p><a href="http://product.dangdang.com/20079096.html" target="_blank" rel="noopener">研磨设计模式</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="design" scheme="http://tech.nitaoge.com/categories/design/"/>
+    
+    
+      <category term="看破设计模式" scheme="http://tech.nitaoge.com/tags/%E7%9C%8B%E7%A0%B4%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   

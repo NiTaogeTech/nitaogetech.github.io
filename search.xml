@@ -35,14 +35,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[看破Netty 1.基本概念]]></title>
-    <url>%2Fp%2Feb662d2f%2F</url>
-    <content type="text"><![CDATA[#]]></content>
+    <title><![CDATA[看破设计模式 3.使用设计模式的框架们]]></title>
+    <url>%2Fp%2F755f1ef7%2F</url>
+    <content type="text"><![CDATA[]]></content>
       <categories>
-        <category>netty</category>
+        <category>design</category>
       </categories>
       <tags>
-        <tag>看破Netty</tag>
+        <tag>看破设计模式</tag>
       </tags>
   </entry>
   <entry>
@@ -79,17 +79,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[看破Java 5.IO]]></title>
-    <url>%2Fp%2F6a43eebc%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>看破Java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[看破Jenkins 1.快速安装及使用]]></title>
     <url>%2Fp%2F17293ae1%2F</url>
     <content type="text"><![CDATA[]]></content>
@@ -98,17 +87,6 @@
       </categories>
       <tags>
         <tag>看破Jenkins</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破JVM 1.]]></title>
-    <url>%2Fp%2Ffc61a33c%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>jvm</category>
-      </categories>
-      <tags>
-        <tag>看破JVM</tag>
       </tags>
   </entry>
   <entry>
@@ -134,14 +112,25 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[看破Zookeeper 1.快速安装及使用]]></title>
-    <url>%2Fp%2F698730d5%2F</url>
+    <title><![CDATA[看破调优 1.从java开发开始]]></title>
+    <url>%2Fp%2F5191fb9a%2F</url>
     <content type="text"><![CDATA[]]></content>
       <categories>
-        <category>zookeeper</category>
+        <category>optimization</category>
       </categories>
       <tags>
-        <tag>看破Zookeeper</tag>
+        <tag>看破调优</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破JVM 1.]]></title>
+    <url>%2Fp%2Ffc61a33c%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>jvm</category>
+      </categories>
+      <tags>
+        <tag>看破JVM</tag>
       </tags>
   </entry>
   <entry>
@@ -178,6 +167,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[看破Netty 1.基本概念]]></title>
+    <url>%2Fp%2Feb662d2f%2F</url>
+    <content type="text"><![CDATA[#]]></content>
+      <categories>
+        <category>netty</category>
+      </categories>
+      <tags>
+        <tag>看破Netty</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[看破数据结构 1.线性表]]></title>
     <url>%2Fp%2Fe8093df2%2F</url>
     <content type="text"><![CDATA[]]></content>
@@ -186,17 +186,6 @@
       </categories>
       <tags>
         <tag>看破数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破设计模式 2. 设计模式不止23种]]></title>
-    <url>%2Fp%2F86853348%2F</url>
-    <content type="text"><![CDATA[所谓设计模式，就是软件设计的效仿模版，架构和软件设计没有万能钥匙，只有选择合适的组合复用，才能大放异彩。 单例模式定义 Ensure a class has only one instance, and provide a global point of access to it. 确保某一个类只有一个实例， 而且自行实例化并向整个系统提供这个实例。 示例饿汉式：123456789101112131415public class HungrySingleton &#123; private static final HungrySingleton instance = new HungrySingleton(); private HungrySingleton() &#123; &#125; public static HungrySingleton instance() &#123; return instance; &#125; public void say() &#123; System.out.println("hello"); &#125;&#125; 懒汉式（要保证线程安全）：12345678910111213141516171819202122public class LazySingleton &#123; private static LazySingleton instance = null; private LazySingleton() &#123; &#125; public static LazySingleton instance() &#123; if (instance == null) &#123; synchronized (LazySingleton.class) &#123; if (instance == null) &#123; instance = new LazySingleton(); &#125; &#125; &#125; return instance; &#125; public void say() &#123; System.out.println("hello"); &#125;&#125; 疑问为什么懒汉式单例要双重校验？ 当两个线程同时调用instance()方法时，由于singleTon==null，两个线程都可以通过第一个校验，然后线程A持有锁，线程B等待。当线程A执行完实例化、释放锁，线程B进入代码块。 如果不加第二个校验，线程B又会实例化一个对象。就会违反单例模式设计原则。 如果不加第一个校验，也能实现单例，但多个线程反复竞争锁会增加系统开销，严重影响性能。 工厂模式 &amp; 简单工厂模式定义 Define an interface for creating an object,but let subclasses decide which class toinstantiate.Factory Method lets a class defer instantiation to subclasses. 定义一个用于创建对象的接口， 让子类决定实例化哪一个类。 工厂方法使一个类的实例化延迟到其子类。 示例抽象工厂模式 Provide an interface for creating families of related or dependent objects without specifyingtheir concrete classes. 为创建一组相关或相互依赖的对象提供一个接口，而且无须指定它们的具体类。 定义示例模版方法模式定义示例建造者模式定义示例代理模式定义示例原型模式定义示例中介者模式定义示例命令模式定义示例责任链模式定义示例装饰模式定义示例策略模式定义示例适配器模式定义示例迭代器模式定义示例组合模式定义示例观察者模式定义示例门面模式定义示例备忘录模式定义示例访问者模式定义示例状态模式定义示例解释器模式定义示例享元模式定义示例桥梁模式定义示例总结这23种设计模式是94年8月就提出来的，显然它只是一种设计思维，没有任何脱离实际的方法是正确的，所以还得具体问题具体分析，在设计过程中不断探索，还会发现新的世界。 参考资料设计模式之禅（第2版） 设计模式之禅这本书，我读到第9章抽象工厂的时候，就发现作者有点开始扯犊子了。他的思路并不清晰，人的思路一旦不清晰就容易含糊其辞，试图通过列举怪力乱神、妖魔鬼怪等反科学、伪实践的例子来说服读者…… 我认为没有实际应用场景和不做需求利弊权衡的设计都是扯犊子…… 设计模式 GOF 研磨设计模式]]></content>
-      <categories>
-        <category>design</category>
-      </categories>
-      <tags>
-        <tag>看破设计模式</tag>
       </tags>
   </entry>
   <entry>
@@ -212,47 +201,25 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[看破调优 1.从java开发开始]]></title>
-    <url>%2Fp%2F5191fb9a%2F</url>
+    <title><![CDATA[看破Java 5.IO]]></title>
+    <url>%2Fp%2F6a43eebc%2F</url>
     <content type="text"><![CDATA[]]></content>
       <categories>
-        <category>optimization</category>
+        <category>java</category>
       </categories>
       <tags>
-        <tag>看破调优</tag>
+        <tag>看破Java</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[看破IDEA 安装、使用、配置]]></title>
-    <url>%2Fp%2F24280e36%2F</url>
-    <content type="text"><![CDATA[为什么我改用IDEA？就eclipse每次打开都需要rebuild all projects，在网络环境及其恶劣的情况下，总是无故卡死，我就不想用它了。就这么倔！ 安装IDEA下载地址 这里有很多开发工具供你选择，我开发前后端分别用到了WebStorm和IDEA。 点击download来到下载选择页面，左边付费功能多，右边免费开源功能少。 windows程序目录如下，Mac的Contents结构也类似： 使用开始一个项目创建项目TODO 导入项目TODO 配置程序配置文件参数12345678910111213-Xms128m // 初始内存-Xmx750m // 最大内存-XX:ReservedCodeCacheSize=240m // 代码恢复缓存-XX:+UseConcMarkSweepGC // 设置老年代为并发收集-XX:SoftRefLRUPolicyMSPerMB=50-ea-Dsun.io.useCanonCaches=false-Djava.net.preferIPv4Stack=true-Djdk.http.auth.tunneling.disabledSchemes=""-XX:+HeapDumpOnOutOfMemoryError-XX:-OmitStackTraceInFastThrow-Dfile.encoding=UTF-8 // 文件编码集，解决控制台输出乱码问题-Deditable.java.test.console=true // 解决Junit @Test不能使用控制台输入问题 快捷键 常用快捷键 TODO 自定义快捷键 Settings -&gt; Keymap 代码模版 自定义代码模版 Settings -&gt; Editor -&gt; Live Templates]]></content>
-      <categories>
-        <category>tool</category>
-      </categories>
-      <tags>
-        <tag>看破IDEA</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破设计模式 3.使用设计模式的框架们]]></title>
-    <url>%2Fp%2F755f1ef7%2F</url>
-    <content type="text"><![CDATA[]]></content>
+    <title><![CDATA[看破设计模式 2. 设计模式不止23种]]></title>
+    <url>%2Fp%2F86853348%2F</url>
+    <content type="text"><![CDATA[所谓设计模式，就是软件设计的效仿模版，架构和软件设计没有万能钥匙，只有选择合适的组合复用，才能大放异彩。 单例模式定义 Ensure a class has only one instance, and provide a global point of access to it. 确保某一个类只有一个实例， 而且自行实例化并向整个系统提供这个实例。 示例饿汉式：123456789101112131415public class HungrySingleton &#123; private static final HungrySingleton instance = new HungrySingleton(); private HungrySingleton() &#123; &#125; public static HungrySingleton instance() &#123; return instance; &#125; public void say() &#123; System.out.println("hello"); &#125;&#125; 懒汉式（要保证线程安全）：12345678910111213141516171819202122public class LazySingleton &#123; private static LazySingleton instance = null; private LazySingleton() &#123; &#125; public static LazySingleton instance() &#123; if (instance == null) &#123; synchronized (LazySingleton.class) &#123; if (instance == null) &#123; instance = new LazySingleton(); &#125; &#125; &#125; return instance; &#125; public void say() &#123; System.out.println("hello"); &#125;&#125; 疑问为什么懒汉式单例要双重校验？ 当两个线程同时调用instance()方法时，由于singleTon==null，两个线程都可以通过第一个校验，然后线程A持有锁，线程B等待。当线程A执行完实例化、释放锁，线程B进入代码块。 如果不加第二个校验，线程B又会实例化一个对象。就会违反单例模式设计原则。 如果不加第一个校验，也能实现单例，但多个线程反复竞争锁会增加系统开销，严重影响性能。 工厂模式 &amp; 简单工厂模式定义 Define an interface for creating an object,but let subclasses decide which class toinstantiate.Factory Method lets a class defer instantiation to subclasses. 定义一个用于创建对象的接口， 让子类决定实例化哪一个类。 工厂方法使一个类的实例化延迟到其子类。 示例抽象工厂模式 Provide an interface for creating families of related or dependent objects without specifyingtheir concrete classes. 为创建一组相关或相互依赖的对象提供一个接口，而且无须指定它们的具体类。 定义示例模版方法模式定义示例建造者模式定义示例代理模式定义示例原型模式定义示例中介者模式定义示例命令模式定义示例责任链模式定义示例装饰模式定义示例策略模式定义示例适配器模式定义示例迭代器模式定义示例组合模式定义示例观察者模式定义示例门面模式定义示例备忘录模式定义示例访问者模式定义示例状态模式定义示例解释器模式定义示例享元模式定义示例桥梁模式定义示例总结这23种设计模式是94年8月就提出来的，显然它只是一种设计思维，没有任何脱离实际的方法是正确的，所以还得具体问题具体分析，在设计过程中不断探索，还会发现新的世界。 参考资料设计模式之禅（第2版） 设计模式之禅这本书，我读到第9章抽象工厂的时候，就发现作者有点开始扯犊子了。他的思路并不清晰，人的思路一旦不清晰就容易含糊其辞，试图通过列举怪力乱神、妖魔鬼怪等反科学、伪实践的例子来说服读者…… 我认为没有实际应用场景和不做需求利弊权衡的设计都是扯犊子…… 设计模式 GOF 研磨设计模式]]></content>
       <categories>
         <category>design</category>
       </categories>
       <tags>
         <tag>看破设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破网络编程 1.]]></title>
-    <url>%2Fp%2Fe149adbf%2F</url>
-    <content type="text"><![CDATA[#]]></content>
-      <categories>
-        <category>socket</category>
-      </categories>
-      <tags>
-        <tag>看破网络编程</tag>
       </tags>
   </entry>
   <entry>
@@ -267,6 +234,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[看破网络编程 1.]]></title>
+    <url>%2Fp%2Fe149adbf%2F</url>
+    <content type="text"><![CDATA[#]]></content>
+      <categories>
+        <category>socket</category>
+      </categories>
+      <tags>
+        <tag>看破网络编程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[看破Git 1.快速安装及使用]]></title>
     <url>%2Fp%2F2ab4ec8e%2F</url>
     <content type="text"><![CDATA[]]></content>
@@ -275,6 +253,28 @@
       </categories>
       <tags>
         <tag>看破Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破IDEA 安装、使用、配置]]></title>
+    <url>%2Fp%2F24280e36%2F</url>
+    <content type="text"><![CDATA[为什么我改用IDEA？就eclipse每次打开都需要rebuild all projects，在网络环境及其恶劣的情况下，总是无故卡死，我就不想用它了。就这么倔！ 安装IDEA下载地址 这里有很多开发工具供你选择，我开发前后端分别用到了WebStorm和IDEA。 点击download来到下载选择页面，左边付费功能多，右边免费开源功能少。 windows程序目录如下，Mac的Contents结构也类似： 使用开始一个项目创建项目TODO 导入项目TODO 配置程序配置文件参数12345678910111213-Xms128m // 初始内存-Xmx750m // 最大内存-XX:ReservedCodeCacheSize=240m // 代码恢复缓存-XX:+UseConcMarkSweepGC // 设置老年代为并发收集-XX:SoftRefLRUPolicyMSPerMB=50-ea-Dsun.io.useCanonCaches=false-Djava.net.preferIPv4Stack=true-Djdk.http.auth.tunneling.disabledSchemes=""-XX:+HeapDumpOnOutOfMemoryError-XX:-OmitStackTraceInFastThrow-Dfile.encoding=UTF-8 // 文件编码集，解决控制台输出乱码问题-Deditable.java.test.console=true // 解决Junit @Test不能使用控制台输入问题 快捷键 常用快捷键 TODO 自定义快捷键 Settings -&gt; Keymap 代码模版 自定义代码模版 Settings -&gt; Editor -&gt; Live Templates]]></content>
+      <categories>
+        <category>tool</category>
+      </categories>
+      <tags>
+        <tag>看破IDEA</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Zookeeper 1.快速安装及使用]]></title>
+    <url>%2Fp%2F698730d5%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>zookeeper</category>
+      </categories>
+      <tags>
+        <tag>看破Zookeeper</tag>
       </tags>
   </entry>
   <entry>

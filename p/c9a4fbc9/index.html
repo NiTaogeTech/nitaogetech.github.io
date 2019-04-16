@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="看破设计模式,">
 
 
 
@@ -88,17 +88,18 @@
 
 
 
-<meta name="description" content="风尘之中多是性情中人。 /**  *底部评论请上墙  *以武会友请邮件 */">
-<meta name="keywords" content="Java, BD, Linux">
-<meta property="og:type" content="website">
-<meta property="og:title" content="NiTaogeTech">
-<meta property="og:url" content="http://tech.nitaoge.com/categories/tool/index.html">
+<meta name="description" content="定义 Ensure a class has only one instance, and provide a global point of access to it.  确保某一个类只有一个实例， 而且自行实例化并向整个系统提供这个实例。  示例饿汉式123456789101112131415public class HungrySingleton &amp;#123;    private stati">
+<meta name="keywords" content="看破设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="看破设计模式 2. 创建型模式 - 单例模式(Singleton)">
+<meta property="og:url" content="http://tech.nitaoge.com/p/c9a4fbc9/index.html">
 <meta property="og:site_name" content="NiTaogeTech">
-<meta property="og:description" content="风尘之中多是性情中人。 /**  *底部评论请上墙  *以武会友请邮件 */">
+<meta property="og:description" content="定义 Ensure a class has only one instance, and provide a global point of access to it.  确保某一个类只有一个实例， 而且自行实例化并向整个系统提供这个实例。  示例饿汉式123456789101112131415public class HungrySingleton &amp;#123;    private stati">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-16T02:36:42.016Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NiTaogeTech">
-<meta name="twitter:description" content="风尘之中多是性情中人。 /**  *底部评论请上墙  *以武会友请邮件 */">
+<meta name="twitter:title" content="看破设计模式 2. 创建型模式 - 单例模式(Singleton)">
+<meta name="twitter:description" content="定义 Ensure a class has only one instance, and provide a global point of access to it.  确保某一个类只有一个实例， 而且自行实例化并向整个系统提供这个实例。  示例饿汉式123456789101112131415public class HungrySingleton &amp;#123;    private stati">
 
 
 
@@ -128,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://tech.nitaoge.com/categories/tool/">
+  <link rel="canonical" href="http://tech.nitaoge.com/p/c9a4fbc9/">
 
 
 
 
 
-  <title>分类: tool | NiTaogeTech</title>
+  <title>看破设计模式 2. 创建型模式 - 单例模式(Singleton) | NiTaogeTech</title>
   
 
 
@@ -153,7 +154,7 @@
     
   
 
-  <div class="container sidebar-position-right ">
+  <div class="container sidebar-position-right page-post-detail">
     <div class="headband"></div>
     <a href="https://github.com/NiTaogeTech" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#FD6C6C; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 
@@ -310,105 +311,319 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block category">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>tool<small>分类</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://tech.nitaoge.com/p/c9a4fbc9/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="中华郑六">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/resource/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NiTaogeTech">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/p/2ab4ec8e/" itemprop="url">
-              
-                <span itemprop="name">看破Git 1.快速安装及使用</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">看破设计模式 2. 创建型模式 - 单例模式(Singleton)</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-22T20:06:26+08:00" content="2019-03-22">
-          03-22
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T20:06:26+08:00">
+                2019-03-22
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/design/" itemprop="url" rel="index">
+                    <span itemprop="name">design</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/p/c9a4fbc9/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="p/c9a4fbc9/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye"></i> 热度
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>℃
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数&#58;</span>
+                
+                <span title="字数">
+                  443
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">时长 &asymp;</span>
+                
+                <span title="时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/p/24280e36/" itemprop="url">
-              
-                <span itemprop="name">看破IDEA 安装、使用、配置</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-22T20:06:26+08:00" content="2019-03-22">
-          03-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/p/7baf6824/" itemprop="url">
-              
-                <span itemprop="name">看破Markdown 语法收录</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2016-05-01T09:32:28+08:00" content="2016-05-01">
-          05-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><blockquote>
+<p>Ensure a class has only one instance, and provide a global point of access to it.</p>
+</blockquote>
+<p>确保某一个类只有一个实例， 而且自行实例化并向整个系统提供这个实例。 </p>
+<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><p>饿汉式<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class HungrySingleton &#123;</span><br><span class="line"></span><br><span class="line">    private static final HungrySingleton<span class="built_in"> instance </span>= new HungrySingleton();</span><br><span class="line"></span><br><span class="line">    private HungrySingleton() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static HungrySingleton instance() &#123;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void say() &#123;</span><br><span class="line">        System.out.println(<span class="string">"hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>懒汉式（加锁禁止重排序保证线程安全）<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class LazySingleton &#123;</span><br><span class="line"></span><br><span class="line">    private static volatile LazySingleton<span class="built_in"> instance </span>= <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    private LazySingleton() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static LazySingleton instance() &#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">            synchronized (LazySingleton.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">                   <span class="built_in"> instance </span>= new LazySingleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void say() &#123;</span><br><span class="line">        System.out.println(<span class="string">"hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当然Effective java推荐枚举式<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">public class EnumSingleton &#123;</span><br><span class="line"></span><br><span class="line">    private EnumSingleton() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private enum Singleton &#123;</span><br><span class="line">        INSTANCE;</span><br><span class="line"></span><br><span class="line">        private final EnumSingleton instance;</span><br><span class="line"></span><br><span class="line">        Singleton() &#123;</span><br><span class="line">           <span class="built_in"> instance </span>= new EnumSingleton();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public EnumSingleton getInstance() &#123;</span><br><span class="line">            return instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static EnumSingleton instance() &#123;</span><br><span class="line">        return Singleton.INSTANCE.getInstance();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void say() &#123;</span><br><span class="line">        System.out.println(<span class="string">"hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我选择静态内部类式<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">NiceSingleton</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">NiceSingleton</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">InstanceHolder</span> &#123;</span><br><span class="line">        <span class="keyword">private</span> final <span class="keyword">static</span> NiceSingleton instance = <span class="keyword">new</span> NiceSingleton();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> NiceSingleton <span class="title">instance</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> InstanceHolder.instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">say</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h1><ul>
+<li>为什么懒汉式单例要双重校验？</li>
+</ul>
+<blockquote>
+<p>当两个线程同时调用instance()方法时，由于singleton==null，两个线程都可以通过第一个校验，<br>然后线程A持有锁，线程B等待。当线程A执行完实例化、释放锁，线程B进入代码块。</p>
+</blockquote>
+<blockquote>
+<p>如果不加第二个校验，线程B又会实例化一个对象。就会违反单例模式设计原则。</p>
+</blockquote>
+<blockquote>
+<p>如果不加第一个校验，也能实现单例，但多个线程反复竞争锁会增加系统开销，严重影响性能。</p>
+</blockquote>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="http://product.dangdang.com/71052.html" target="_blank" rel="noopener">设计模式 GOF</a></p>
+<p><a href="http://product.dangdang.com/20079096.html" target="_blank" rel="noopener">研磨设计模式</a></p>
+<p><a href="http://product.dangdang.com/24157561.html" target="_blank" rel="noopener">图解设计模式</a></p>
+<p><a href="http://cmsblogs.com/?p=3396" target="_blank" rel="noopener">设计模式读书笔记文集</a></p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/看破设计模式/" rel="tag"><i class="fa fa-tag"></i> 看破设计模式</a>
+          
+        </div>
+      
+
+
+      
+      
+
+      
+        
+<div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-thumbs-o-up"></i>感谢您的赏阅-------------</div>
+
+      
+
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>作者/文章:</span><a href="/" title="访问 中华郑六 的技术博客">中华郑六</a> / <a href="/p/c9a4fbc9/">看破设计模式 2. 创建型模式 - 单例模式(Singleton)</a></p>
+  <p><span>原始链接:</span><a href="/p/c9a4fbc9/" title="看破设计模式 2. 创建型模式 - 单例模式(Singleton)">http://tech.nitaoge.com/p/c9a4fbc9/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://tech.nitaoge.com/p/c9a4fbc9/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+
+      
+
+      
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果文章对您有用，多多少少给安排点儿</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>救我一下</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/resource/wechatpay.png" alt="中华郑六 拿微信救">
+        <p>拿微信救</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/resource/alipay.png" alt="中华郑六 拿支付宝救">
+        <p>拿支付宝救</p>
+      </div>
+    
+
+    
+      <div id="aliredpack" style="display: inline-block">
+        <img id="aliredpack_qr" src="/images/resource/aliredpack.png" alt="中华郑六 薅阿里羊毛">
+        <p>薅阿里羊毛</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      
+
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/p/a718df1a/" rel="next" title="看破设计模式 3. 结构型模式 - 适配器模式(Adapter)">
+                <i class="fa fa-chevron-left"></i> 看破设计模式 3. 结构型模式 - 适配器模式(Adapter)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/p/da0fe888/" rel="prev" title="看破MySQL 2.基本概念">
+                看破MySQL 2.基本概念 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -416,6 +631,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -436,8 +665,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -454,7 +692,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -465,7 +703,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -476,7 +714,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -538,6 +776,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#定义"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#示例"><span class="nav-number">2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#疑问"><span class="nav-number">3.</span> <span class="nav-text">疑问</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -598,7 +852,7 @@
     
       <span class="post-meta-item-text">码字&#58;</span>
     
-    <span title="码字">16.7k</span>
+    <span title="码字">16.4k</span>
   
 
 </div>
@@ -731,6 +985,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -748,6 +1006,18 @@
       <script id="dsq-count-scr" src="https://NiTaogeTech.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://tech.nitaoge.com/p/c9a4fbc9/';
+          this.page.identifier = 'p/c9a4fbc9/';
+          this.page.title = '看破设计模式 2. 创建型模式 - 单例模式(Singleton)';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://NiTaogeTech.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   

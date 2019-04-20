@@ -94,6 +94,31 @@
   </entry>
   
   <entry>
+    <title>看破设计模式 2. 创建型模式 - 单例模式(Singleton)</title>
+    <link href="http://tech.nitaoge.com/p/c9a4fbc9/"/>
+    <id>http://tech.nitaoge.com/p/c9a4fbc9/</id>
+    <published>2019-03-22T12:06:26.000Z</published>
+    <updated>2019-04-16T02:40:52.456Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><blockquote><p>Ensure a class has only one instance, and provide a global point of access to it.</p></blockquote><p>确保某一个类只有一个实例， 而且自行实例化并向整个系统提供这个实例。 </p><h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><p>饿汉式<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class HungrySingleton &#123;</span><br><span class="line"></span><br><span class="line">    private static final HungrySingleton<span class="built_in"> instance </span>= new HungrySingleton();</span><br><span class="line"></span><br><span class="line">    private HungrySingleton() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static HungrySingleton instance() &#123;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void say() &#123;</span><br><span class="line">        System.out.println(<span class="string">"hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>懒汉式（加锁禁止重排序保证线程安全）<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class LazySingleton &#123;</span><br><span class="line"></span><br><span class="line">    private static volatile LazySingleton<span class="built_in"> instance </span>= <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    private LazySingleton() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static LazySingleton instance() &#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">            synchronized (LazySingleton.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">                   <span class="built_in"> instance </span>= new LazySingleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void say() &#123;</span><br><span class="line">        System.out.println(<span class="string">"hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>当然Effective java推荐枚举式<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">public class EnumSingleton &#123;</span><br><span class="line"></span><br><span class="line">    private EnumSingleton() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private enum Singleton &#123;</span><br><span class="line">        INSTANCE;</span><br><span class="line"></span><br><span class="line">        private final EnumSingleton instance;</span><br><span class="line"></span><br><span class="line">        Singleton() &#123;</span><br><span class="line">           <span class="built_in"> instance </span>= new EnumSingleton();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public EnumSingleton getInstance() &#123;</span><br><span class="line">            return instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static EnumSingleton instance() &#123;</span><br><span class="line">        return Singleton.INSTANCE.getInstance();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void say() &#123;</span><br><span class="line">        System.out.println(<span class="string">"hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>我选择静态内部类式<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">NiceSingleton</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">NiceSingleton</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">InstanceHolder</span> &#123;</span><br><span class="line">        <span class="keyword">private</span> final <span class="keyword">static</span> NiceSingleton instance = <span class="keyword">new</span> NiceSingleton();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> NiceSingleton <span class="title">instance</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> InstanceHolder.instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">say</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><h1 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h1><ul><li>为什么懒汉式单例要双重校验？</li></ul><blockquote><p>当两个线程同时调用instance()方法时，由于singleton==null，两个线程都可以通过第一个校验，<br>然后线程A持有锁，线程B等待。当线程A执行完实例化、释放锁，线程B进入代码块。</p></blockquote><blockquote><p>如果不加第二个校验，线程B又会实例化一个对象。就会违反单例模式设计原则。</p></blockquote><blockquote><p>如果不加第一个校验，也能实现单例，但多个线程反复竞争锁会增加系统开销，严重影响性能。</p></blockquote><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="http://product.dangdang.com/71052.html" target="_blank" rel="noopener">设计模式 GOF</a></p><p><a href="http://product.dangdang.com/20079096.html" target="_blank" rel="noopener">研磨设计模式</a></p><p><a href="http://product.dangdang.com/24157561.html" target="_blank" rel="noopener">图解设计模式</a></p><p><a href="http://cmsblogs.com/?p=3396" target="_blank" rel="noopener">设计模式读书笔记文集</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="design" scheme="http://tech.nitaoge.com/categories/design/"/>
+    
+    
+      <category term="看破设计模式" scheme="http://tech.nitaoge.com/tags/%E7%9C%8B%E7%A0%B4%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>看破设计模式 3. 结构型模式 - 适配器模式(Adapter)</title>
     <link href="http://tech.nitaoge.com/p/a718df1a/"/>
     <id>http://tech.nitaoge.com/p/a718df1a/</id>
@@ -144,6 +169,31 @@
   </entry>
   
   <entry>
+    <title>看破Git 1.快速安装及使用</title>
+    <link href="http://tech.nitaoge.com/p/2ab4ec8e/"/>
+    <id>http://tech.nitaoge.com/p/2ab4ec8e/</id>
+    <published>2019-03-22T12:06:26.000Z</published>
+    <updated>2019-04-16T02:36:42.028Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="devtool" scheme="http://tech.nitaoge.com/categories/devtool/"/>
+    
+    
+      <category term="看破Git" scheme="http://tech.nitaoge.com/tags/%E7%9C%8B%E7%A0%B4Git/"/>
+    
+  </entry>
+  
+  <entry>
     <title>看破IDEA 安装、使用、配置</title>
     <link href="http://tech.nitaoge.com/p/24280e36/"/>
     <id>http://tech.nitaoge.com/p/24280e36/</id>
@@ -169,31 +219,6 @@
   </entry>
   
   <entry>
-    <title>看破设计模式 2. 创建型模式 - 单例模式(Singleton)</title>
-    <link href="http://tech.nitaoge.com/p/c9a4fbc9/"/>
-    <id>http://tech.nitaoge.com/p/c9a4fbc9/</id>
-    <published>2019-03-22T12:06:26.000Z</published>
-    <updated>2019-04-16T02:40:52.456Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><blockquote><p>Ensure a class has only one instance, and provide a global point of access to it.</p></blockquote><p>确保某一个类只有一个实例， 而且自行实例化并向整个系统提供这个实例。 </p><h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><p>饿汉式<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class HungrySingleton &#123;</span><br><span class="line"></span><br><span class="line">    private static final HungrySingleton<span class="built_in"> instance </span>= new HungrySingleton();</span><br><span class="line"></span><br><span class="line">    private HungrySingleton() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static HungrySingleton instance() &#123;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void say() &#123;</span><br><span class="line">        System.out.println(<span class="string">"hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>懒汉式（加锁禁止重排序保证线程安全）<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class LazySingleton &#123;</span><br><span class="line"></span><br><span class="line">    private static volatile LazySingleton<span class="built_in"> instance </span>= <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    private LazySingleton() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static LazySingleton instance() &#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">            synchronized (LazySingleton.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">                   <span class="built_in"> instance </span>= new LazySingleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void say() &#123;</span><br><span class="line">        System.out.println(<span class="string">"hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>当然Effective java推荐枚举式<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">public class EnumSingleton &#123;</span><br><span class="line"></span><br><span class="line">    private EnumSingleton() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private enum Singleton &#123;</span><br><span class="line">        INSTANCE;</span><br><span class="line"></span><br><span class="line">        private final EnumSingleton instance;</span><br><span class="line"></span><br><span class="line">        Singleton() &#123;</span><br><span class="line">           <span class="built_in"> instance </span>= new EnumSingleton();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public EnumSingleton getInstance() &#123;</span><br><span class="line">            return instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static EnumSingleton instance() &#123;</span><br><span class="line">        return Singleton.INSTANCE.getInstance();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void say() &#123;</span><br><span class="line">        System.out.println(<span class="string">"hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>我选择静态内部类式<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">NiceSingleton</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">NiceSingleton</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">InstanceHolder</span> &#123;</span><br><span class="line">        <span class="keyword">private</span> final <span class="keyword">static</span> NiceSingleton instance = <span class="keyword">new</span> NiceSingleton();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> NiceSingleton <span class="title">instance</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> InstanceHolder.instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">say</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><h1 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h1><ul><li>为什么懒汉式单例要双重校验？</li></ul><blockquote><p>当两个线程同时调用instance()方法时，由于singleton==null，两个线程都可以通过第一个校验，<br>然后线程A持有锁，线程B等待。当线程A执行完实例化、释放锁，线程B进入代码块。</p></blockquote><blockquote><p>如果不加第二个校验，线程B又会实例化一个对象。就会违反单例模式设计原则。</p></blockquote><blockquote><p>如果不加第一个校验，也能实现单例，但多个线程反复竞争锁会增加系统开销，严重影响性能。</p></blockquote><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="http://product.dangdang.com/71052.html" target="_blank" rel="noopener">设计模式 GOF</a></p><p><a href="http://product.dangdang.com/20079096.html" target="_blank" rel="noopener">研磨设计模式</a></p><p><a href="http://product.dangdang.com/24157561.html" target="_blank" rel="noopener">图解设计模式</a></p><p><a href="http://cmsblogs.com/?p=3396" target="_blank" rel="noopener">设计模式读书笔记文集</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="design" scheme="http://tech.nitaoge.com/categories/design/"/>
-    
-    
-      <category term="看破设计模式" scheme="http://tech.nitaoge.com/tags/%E7%9C%8B%E7%A0%B4%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
     <title>看破MacOS 1.快捷键</title>
     <link href="http://tech.nitaoge.com/p/91dc983c/"/>
     <id>http://tech.nitaoge.com/p/91dc983c/</id>
@@ -215,31 +240,6 @@
     
     
       <category term="看破MacOS" scheme="http://tech.nitaoge.com/tags/%E7%9C%8B%E7%A0%B4MacOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>看破Git 1.快速安装及使用</title>
-    <link href="http://tech.nitaoge.com/p/2ab4ec8e/"/>
-    <id>http://tech.nitaoge.com/p/2ab4ec8e/</id>
-    <published>2019-03-22T12:06:26.000Z</published>
-    <updated>2019-04-16T02:36:42.028Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="devtool" scheme="http://tech.nitaoge.com/categories/devtool/"/>
-    
-    
-      <category term="看破Git" scheme="http://tech.nitaoge.com/tags/%E7%9C%8B%E7%A0%B4Git/"/>
     
   </entry>
   

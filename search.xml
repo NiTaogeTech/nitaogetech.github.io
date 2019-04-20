@@ -35,6 +35,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[看破设计模式 2. 创建型模式 - 单例模式(Singleton)]]></title>
+    <url>%2Fp%2Fc9a4fbc9%2F</url>
+    <content type="text"><![CDATA[定义 Ensure a class has only one instance, and provide a global point of access to it. 确保某一个类只有一个实例， 而且自行实例化并向整个系统提供这个实例。 示例饿汉式123456789101112131415public class HungrySingleton &#123; private static final HungrySingleton instance = new HungrySingleton(); private HungrySingleton() &#123; &#125; public static HungrySingleton instance() &#123; return instance; &#125; public void say() &#123; System.out.println("hello"); &#125;&#125; 懒汉式（加锁禁止重排序保证线程安全）12345678910111213141516171819202122public class LazySingleton &#123; private static volatile LazySingleton instance = null; private LazySingleton() &#123; &#125; public static LazySingleton instance() &#123; if (instance == null) &#123; synchronized (LazySingleton.class) &#123; if (instance == null) &#123; instance = new LazySingleton(); &#125; &#125; &#125; return instance; &#125; public void say() &#123; System.out.println("hello"); &#125;&#125; 当然Effective java推荐枚举式12345678910111213141516171819202122232425262728public class EnumSingleton &#123; private EnumSingleton() &#123; &#125; private enum Singleton &#123; INSTANCE; private final EnumSingleton instance; Singleton() &#123; instance = new EnumSingleton(); &#125; public EnumSingleton getInstance() &#123; return instance; &#125; &#125; public static EnumSingleton instance() &#123; return Singleton.INSTANCE.getInstance(); &#125; public void say() &#123; System.out.println("hello"); &#125;&#125; 我选择静态内部类式123456789101112131415161718public class NiceSingleton &#123; private NiceSingleton() &#123; &#125; private static class InstanceHolder &#123; private final static NiceSingleton instance = new NiceSingleton(); &#125; public static NiceSingleton instance() &#123; return InstanceHolder.instance; &#125; public void say() &#123; System.out.println("hello"); &#125;&#125; 疑问 为什么懒汉式单例要双重校验？ 当两个线程同时调用instance()方法时，由于singleton==null，两个线程都可以通过第一个校验，然后线程A持有锁，线程B等待。当线程A执行完实例化、释放锁，线程B进入代码块。 如果不加第二个校验，线程B又会实例化一个对象。就会违反单例模式设计原则。 如果不加第一个校验，也能实现单例，但多个线程反复竞争锁会增加系统开销，严重影响性能。 参考资料设计模式 GOF 研磨设计模式 图解设计模式 设计模式读书笔记文集]]></content>
+      <categories>
+        <category>design</category>
+      </categories>
+      <tags>
+        <tag>看破设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[看破设计模式 3. 结构型模式 - 适配器模式(Adapter)]]></title>
     <url>%2Fp%2Fa718df1a%2F</url>
     <content type="text"><![CDATA[定义示例疑问参考资料设计模式 GOF 研磨设计模式 图解设计模式 设计模式读书笔记文集]]></content>
@@ -57,6 +68,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[看破Git 1.快速安装及使用]]></title>
+    <url>%2Fp%2F2ab4ec8e%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>devtool</category>
+      </categories>
+      <tags>
+        <tag>看破Git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[看破IDEA 安装、使用、配置]]></title>
     <url>%2Fp%2F24280e36%2F</url>
     <content type="text"><![CDATA[为什么我改用IDEA？就eclipse每次打开都需要rebuild all projects，在网络环境及其恶劣的情况下，总是无故卡死，我就不想用它了。就这么倔！ 安装IDEA下载地址 这里有很多开发工具供你选择，我开发前后端分别用到了WebStorm和IDEA。 点击download来到下载选择页面，左边付费功能多，右边免费开源功能少。 windows程序目录如下，Mac的Contents结构也类似： 使用开始一个项目创建项目TODO 导入项目TODO 配置程序配置文件参数12345678910111213-Xms128m // 初始内存-Xmx750m // 最大内存-XX:ReservedCodeCacheSize=240m // 代码恢复缓存-XX:+UseConcMarkSweepGC // 设置老年代为并发收集-XX:SoftRefLRUPolicyMSPerMB=50-ea-Dsun.io.useCanonCaches=false-Djava.net.preferIPv4Stack=true-Djdk.http.auth.tunneling.disabledSchemes=""-XX:+HeapDumpOnOutOfMemoryError-XX:-OmitStackTraceInFastThrow-Dfile.encoding=UTF-8 // 文件编码集，解决控制台输出乱码问题-Deditable.java.test.console=true // 解决Junit @Test不能使用控制台输入问题 快捷键 常用快捷键 TODO 自定义快捷键 Settings -&gt; Keymap 代码模版 自定义代码模版 Settings -&gt; Editor -&gt; Live Templates]]></content>
@@ -68,17 +90,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[看破设计模式 2. 创建型模式 - 单例模式(Singleton)]]></title>
-    <url>%2Fp%2Fc9a4fbc9%2F</url>
-    <content type="text"><![CDATA[定义 Ensure a class has only one instance, and provide a global point of access to it. 确保某一个类只有一个实例， 而且自行实例化并向整个系统提供这个实例。 示例饿汉式123456789101112131415public class HungrySingleton &#123; private static final HungrySingleton instance = new HungrySingleton(); private HungrySingleton() &#123; &#125; public static HungrySingleton instance() &#123; return instance; &#125; public void say() &#123; System.out.println("hello"); &#125;&#125; 懒汉式（加锁禁止重排序保证线程安全）12345678910111213141516171819202122public class LazySingleton &#123; private static volatile LazySingleton instance = null; private LazySingleton() &#123; &#125; public static LazySingleton instance() &#123; if (instance == null) &#123; synchronized (LazySingleton.class) &#123; if (instance == null) &#123; instance = new LazySingleton(); &#125; &#125; &#125; return instance; &#125; public void say() &#123; System.out.println("hello"); &#125;&#125; 当然Effective java推荐枚举式12345678910111213141516171819202122232425262728public class EnumSingleton &#123; private EnumSingleton() &#123; &#125; private enum Singleton &#123; INSTANCE; private final EnumSingleton instance; Singleton() &#123; instance = new EnumSingleton(); &#125; public EnumSingleton getInstance() &#123; return instance; &#125; &#125; public static EnumSingleton instance() &#123; return Singleton.INSTANCE.getInstance(); &#125; public void say() &#123; System.out.println("hello"); &#125;&#125; 我选择静态内部类式123456789101112131415161718public class NiceSingleton &#123; private NiceSingleton() &#123; &#125; private static class InstanceHolder &#123; private final static NiceSingleton instance = new NiceSingleton(); &#125; public static NiceSingleton instance() &#123; return InstanceHolder.instance; &#125; public void say() &#123; System.out.println("hello"); &#125;&#125; 疑问 为什么懒汉式单例要双重校验？ 当两个线程同时调用instance()方法时，由于singleton==null，两个线程都可以通过第一个校验，然后线程A持有锁，线程B等待。当线程A执行完实例化、释放锁，线程B进入代码块。 如果不加第二个校验，线程B又会实例化一个对象。就会违反单例模式设计原则。 如果不加第一个校验，也能实现单例，但多个线程反复竞争锁会增加系统开销，严重影响性能。 参考资料设计模式 GOF 研磨设计模式 图解设计模式 设计模式读书笔记文集]]></content>
-      <categories>
-        <category>design</category>
-      </categories>
-      <tags>
-        <tag>看破设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[看破MacOS 1.快捷键]]></title>
     <url>%2Fp%2F91dc983c%2F</url>
     <content type="text"><![CDATA[快捷键打开Finderoption + command + space跳到指定目录shift + command + g 图示]]></content>
@@ -87,17 +98,6 @@
       </categories>
       <tags>
         <tag>看破MacOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Git 1.快速安装及使用]]></title>
-    <url>%2Fp%2F2ab4ec8e%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>devtool</category>
-      </categories>
-      <tags>
-        <tag>看破Git</tag>
       </tags>
   </entry>
   <entry>
@@ -256,6 +256,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[看破LinuxCommand 1.基础使用命令]]></title>
+    <url>%2Fp%2F963f6fb2%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>linuxcmd</category>
+      </categories>
+      <tags>
+        <tag>看破LinuxCommand</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[看破MySQL 1.快速安装及使用]]></title>
     <url>%2Fp%2F87c87cf%2F</url>
     <content type="text"><![CDATA[]]></content>
@@ -278,14 +289,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[看破LinuxCommand 1.基础使用命令]]></title>
-    <url>%2Fp%2F963f6fb2%2F</url>
-    <content type="text"><![CDATA[]]></content>
+    <title><![CDATA[看破Netty 1.基本概念]]></title>
+    <url>%2Fp%2Feb662d2f%2F</url>
+    <content type="text"><![CDATA[#]]></content>
       <categories>
-        <category>linuxcmd</category>
+        <category>netty</category>
       </categories>
       <tags>
-        <tag>看破LinuxCommand</tag>
+        <tag>看破Netty</tag>
       </tags>
   </entry>
   <entry>
@@ -300,25 +311,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[看破ApacheBench 1.快速安装及使用]]></title>
-    <url>%2Fp%2Fda68c872%2F</url>
+    <title><![CDATA[看破Tcpcopy 1.快速安装及使用]]></title>
+    <url>%2Fp%2Ff9d0a7b1%2F</url>
     <content type="text"><![CDATA[]]></content>
       <categories>
         <category>testtool</category>
       </categories>
       <tags>
-        <tag>看破ApacheBench</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Netty 1.基本概念]]></title>
-    <url>%2Fp%2Feb662d2f%2F</url>
-    <content type="text"><![CDATA[#]]></content>
-      <categories>
-        <category>netty</category>
-      </categories>
-      <tags>
-        <tag>看破Netty</tag>
+        <tag>看破Tcpcopy</tag>
       </tags>
   </entry>
   <entry>
@@ -366,6 +366,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[看破ApacheBench 1.快速安装及使用]]></title>
+    <url>%2Fp%2Fda68c872%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>testtool</category>
+      </categories>
+      <tags>
+        <tag>看破ApacheBench</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[看破Jmeter 1.快速安装及使用]]></title>
     <url>%2Fp%2F1631c841%2F</url>
     <content type="text"><![CDATA[]]></content>
@@ -374,17 +385,6 @@
       </categories>
       <tags>
         <tag>看破Jmeter</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Tcpcopy 1.快速安装及使用]]></title>
-    <url>%2Fp%2Ff9d0a7b1%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>testtool</category>
-      </categories>
-      <tags>
-        <tag>看破Tcpcopy</tag>
       </tags>
   </entry>
   <entry>
@@ -401,7 +401,7 @@
   <entry>
     <title><![CDATA[朝花夕拾，五味杂陈]]></title>
     <url>%2Fp%2Fnote666%2F</url>
-    <content type="text"><![CDATA[声明本博客使用GitPages+hexo+nexT开源组件搭建，除了网费电费手工费其余没花一分钱。 只为本人在开发和学习过程中做知识总结，并且未做SEO优化，不为任何盈利性质活动，也不接受任何广告与合作。 （如果觉得我的文章对你有帮助，赞助我点网费也不失为一种积德行善，好人一生平安……） 如博客中文章有转载忘了加出处，请及时指出并邮件本人nitaogetech@gmail.com。 看破系列 Java Development 看破设计模式 看破Java 看破并发 看破Netty 看破JVM 看破调优 Spring Framework and Open-Source Components 看破SpringBoot 看破SpringCloud 看破SpringSecurity 看破Activiti 看破Apollo 看破Elastic-job 看破GoogleGuava Linux 看破Linux命令 看破LinuxShell DevOps 看破Gradle 看破Jenkins 看破Docker Database 看破MySQL 看破ShardingSphere Cache &amp; MQ 看破Redis 看破RabbitMQ 看破Kafka Bigdata 看破Zookeeper 看破Scala 看破Hadoop 看破Hbase 看破Hive 看破Spark 看破Storm 看破Flume 看破博主中华郑六（1992.11 - ?），籍贯辽宁沈阳辽中区。 一个游过祖国大好河山，喜欢广结天下英雄豪杰，乐观看待社会发展，相信自己可以在北京定居，为了来北京做真正的技术把车卖了的年轻人…… 看破书单123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354前端《JavaScript权威指南》《JQuery高级编程》《21天学通HTML+CSS+JavaScript Web开发》计算机基础 &amp; Linux &amp; 网络协议《数据结构》《操作系统》《计算机组成》《计算机网络》《循序渐进Linux》《图解HTTP》JavaSE &amp; JavaEE &amp; Servlet Server &amp; 编程思想《Java核心技术 卷1 基础知识》《Java核心技术 卷2 高级特性》《Java编程思想》《Effective Java中文版》《Java_EE_7权威指南_卷1》《Java_EE_7权威指南_卷2》《tomcat架构解析》《tomcat内核设计剖析》《重构_改善既有代码的设计》《设计模式_可复用面向对象软件的基础》《研磨设计模式》并发编程 &amp; JVM &amp; 通信《Java并发编程之美》《实战JAVA虚拟机 JVM故障诊断与性能优化》《深入理解JVM ＆ G1 GC》《Netty权威指南》《netty进阶之路：跟着案例学netty》Spring《SpringBoot实战》《深入理解Spring Cloud与微服务构建》缓存 &amp; 消息《Redis实战》《RabbitMQ实战》《Kafka权威指南》《Kafka源码解析与实战》数据库《高性能mysql》《MySQL 8 Cookbook（中文版）》《深入理解MariaDB与MySQL》DevOps《Maven实战》《Gradle实战》《Jenkins权威指南》《Docker 容器与容器云》《基于Kubernetes的容器云平台实战》代理网关《Nginx高性能Web服务器详解》《精通Nginx》搜索引擎《深入理解ElasticSearch》《从Lucene到Elasticsearch：全文检索实战》《Elasticsearch技术解析与实战》《ELK Stack权威指南》大数据 《ZooKeeper-分布式过程协同技术详解》]]></content>
+    <content type="text"><![CDATA[声明本博客使用GitPages+hexo+nexT开源组件搭建，除了网费电费域名及手工费其余没花一分钱。 只为本人在开发和学习过程中做知识总结，并且未做SEO优化，不为任何盈利性质活动，也不接受任何广告与合作。 （如果觉得我的文章对你有帮助，赞助我点网费也不失为一种积德行善，好人一生平安……） 如博客中文章有转载忘了加出处，请及时指出并邮件本人nitaogetech@gmail.com。 看破系列Java Development看破设计模式 看破Java 看破并发 看破Netty 看破JVM 看破调优 Spring Framework and Open-Source Components看破SpringBoot 看破SpringCloud 看破SpringSecurity 看破Activiti 看破Apollo 看破Elastic-job 看破GoogleGuava Linux看破Linux命令 看破LinuxShell DevOps看破Gradle 看破Jenkins 看破Docker Database看破MySQL 看破ShardingSphere Cache &amp; MQ看破Redis 看破RabbitMQ 看破Kafka Bigdata看破Zookeeper 看破Scala 看破Hadoop 看破Hbase 看破Hive 看破Spark 看破Storm 看破Flume 看破博主中华郑六（1992.11 - ?），籍贯辽宁沈阳辽中区。 一个游过祖国大好河山，喜欢广结天下英雄豪杰，乐观看待社会发展，相信自己可以在北京定居，为了来北京做真正的技术把车卖了的年轻人…… 看破书单前端《JavaScript权威指南》《JQuery高级编程》《21天学通HTML+CSS+JavaScript Web开发》 计算机基础 &amp; Linux &amp; 网络协议《数据结构》《操作系统》《计算机组成》《计算机网络》《循序渐进Linux》《图解HTTP》 JavaSE &amp; JavaEE &amp; Servlet Server &amp; 编程思想《Java核心技术 卷1 基础知识》《Java核心技术 卷2 高级特性》《Java编程思想》《Effective Java中文版》《Java_EE_7权威指南_卷1》《Java_EE_7权威指南卷2》《tomcat架构解析》《tomcat内核设计剖析》《重构改善既有代码的设计》《设计模式_可复用面向对象软件的基础》《研磨设计模式》 并发编程 &amp; JVM &amp; 通信《Java并发编程之美》《实战JAVA虚拟机 JVM故障诊断与性能优化》《深入理解JVM ＆ G1 GC》《Netty权威指南》《netty进阶之路：跟着案例学netty》 Spring《SpringBoot实战》《深入理解Spring Cloud与微服务构建》 缓存 &amp; 消息《Redis实战》《RabbitMQ实战》《Kafka权威指南》《Kafka源码解析与实战》 数据库《高性能mysql》《MySQL 8 Cookbook（中文版）》《深入理解MariaDB与MySQL》 DevOps《Maven实战》《Gradle实战》《Jenkins权威指南》《Docker 容器与容器云》《基于Kubernetes的容器云平台实战》 代理网关《Nginx高性能Web服务器详解》《精通Nginx》 搜索引擎《深入理解ElasticSearch》《从Lucene到Elasticsearch：全文检索实战》《Elasticsearch技术解析与实战》《ELK Stack权威指南》 大数据《ZooKeeper-分布式过程协同技术详解》]]></content>
       <categories>
         <category>other</category>
       </categories>

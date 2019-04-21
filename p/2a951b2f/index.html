@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="NiTaogeTech">
 <meta property="og:description" content="我的环境docker版本: 18.09.5内核版本: 3.10.0-862.el7.x86_64系统版本: CentOS Linux release 7.6.1810 (Core)CPU: Intel(R) Core(TM) i3-8100 CPU @ 3.60GHz 4核Memory: 16GDisk: 128G SSD(/)+1T SATA(/disk1) 安装准备内核支持Docker 对 L">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-21T07:41:41.193Z">
+<meta property="og:updated_time" content="2019-04-21T07:47:53.978Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="看破Docker 1.快速安装">
 <meta name="twitter:description" content="我的环境docker版本: 18.09.5内核版本: 3.10.0-862.el7.x86_64系统版本: CentOS Linux release 7.6.1810 (Core)CPU: Intel(R) Core(TM) i3-8100 CPU @ 3.60GHz 4核Memory: 16GDisk: 128G SSD(/)+1T SATA(/disk1) 安装准备内核支持Docker 对 L">
@@ -423,7 +423,7 @@
                   <span class="post-meta-item-text">字数&#58;</span>
                 
                 <span title="字数">
-                  3.2k
+                  3.3k
                 </span>
               
 
@@ -599,7 +599,7 @@
 <li>这里也可以不急着启动，先到Linux postinstall页面查看如何处理安装善后工作。</li>
 <li>我启动之后拉不下来hello-world镜像，所以得配置国内镜像加速。</li>
 </ul>
-<h2 id="善后"><a href="#善后" class="headerlink" title="善后"></a>善后</h2><h3 id="配置国内镜像加速"><a href="#配置国内镜像加速" class="headerlink" title="配置国内镜像加速"></a>配置国内镜像加速</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -<span class="selector-tag">p</span> /etc/docker</span><br><span class="line">sudo tee /etc/docker/daemon<span class="selector-class">.json</span> &lt;&lt;-<span class="string">'EOF'</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"registry-mirrors"</span>: [</span><br><span class="line">  <span class="string">"https://rplu9ros.mirror.aliyuncs.com"</span>,</span><br><span class="line">  <span class="string">"https://registry.docker-cn.com"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
+<h2 id="善后"><a href="#善后" class="headerlink" title="善后"></a>善后</h2><h3 id="配置国内镜像加速"><a href="#配置国内镜像加速" class="headerlink" title="配置国内镜像加速"></a>配置国内镜像加速</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -<span class="selector-tag">p</span> /etc/docker</span><br><span class="line">sudo tee /etc/docker/daemon<span class="selector-class">.json</span> &lt;&lt;-<span class="string">'EOF'</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"registry-mirrors"</span>: [</span><br><span class="line">  <span class="string">"https://需自己注册阿里云账号.mirror.aliyuncs.com"</span>,</span><br><span class="line">  <span class="string">"https://registry.docker-cn.com"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
 <h3 id="用普通用户管理docker"><a href="#用普通用户管理docker" class="headerlink" title="用普通用户管理docker"></a>用普通用户管理docker</h3><blockquote>
 <p>Manage Docker as a non-root user</p>
 <blockquote>

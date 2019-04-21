@@ -97,7 +97,7 @@
 <meta property="og:description" content="重新梳理一下JAVA开发中常用到的核心语法，随遇到随补充…… 封装将变量和方法封装成一个类，通过实例化的方式赋予其为对象。 可以看下八大基本数据类型的包装类加深理解：  怎么包装成类的？ 怎么继承Number实现obj.xxxValue()的？ 怎么实现自动拆箱装箱的？  继承子类继承超类允许的属性和方法。 内部类在类的内部声明类，就是内部类。特性：  可以通过声明多个内部类，实现多继承。 内部类">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/10/165242e52c2beee2?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:updated_time" content="2019-04-15T15:59:23.586Z">
+<meta property="og:updated_time" content="2019-04-21T07:39:35.440Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="看破Java 1.核心语法">
 <meta name="twitter:description" content="重新梳理一下JAVA开发中常用到的核心语法，随遇到随补充…… 封装将变量和方法封装成一个类，通过实例化的方式赋予其为对象。 可以看下八大基本数据类型的包装类加深理解：  怎么包装成类的？ 怎么继承Number实现obj.xxxValue()的？ 怎么实现自动拆箱装箱的？  继承子类继承超类允许的属性和方法。 内部类在类的内部声明类，就是内部类。特性：  可以通过声明多个内部类，实现多继承。 内部类">
@@ -674,11 +674,16 @@
 <h2 id="虚引用（PhantomReference）"><a href="#虚引用（PhantomReference）" class="headerlink" title="虚引用（PhantomReference）"></a>虚引用（PhantomReference）</h2><p>与其他几种引用都不同，虚引用并不会决定对象的生命周期。<br>如果一个对象仅持有虚引用，那么它就和没有任何引用一样，在任何时候都可能被垃圾回收器回收。<br>虚引用主要用来跟踪对象被垃圾回收器回收的活动。</p>
 <p>虚引用必须和引用队列 （ReferenceQueue）联合使用，当垃圾回收器准备回收一个对象时，如果发现它还有虚引用，就会在回收对象的内存之前，把这个虚引用加入到与之关联的引用队列中。</p>
 <figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ReferenceQueue&lt;<span class="keyword">String</span>[]&gt; referenceQueue = <span class="keyword">new</span> <span class="type">ReferenceQueue</span>&lt;<span class="keyword">String</span>[]&gt;();</span><br><span class="line">PhantomReference&lt;<span class="keyword">String</span>[]&gt; referent = <span class="keyword">new</span> <span class="type">PhantomReference</span>&lt;<span class="keyword">String</span>&gt;(<span class="keyword">new</span> <span class="type">String</span>[]&#123;<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>&#125;, referenceQueue);</span><br></pre></td></tr></table></figure>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>详细内容及基本语法请参考：</p>
-<p><a href="http://www.runoob.com/java/java-tutorial.html" target="_blank" rel="noopener">JAVA | 菜鸟教程</a></p>
-<p><a href="http://product.dangdang.com/1395624125.html" target="_blank" rel="noopener">Java编程思想</a></p>
-<p><a href="http://product.dangdang.com/1294027177.html" target="_blank" rel="noopener">Java核心技术卷I基础知识 | Java核心技术卷II高级特性</a></p>
-<p><a href="http://product.dangdang.com/26437835.html" target="_blank" rel="noopener">Effective Java中文版</a></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><p>《Java核心技术卷I基础知识》</p>
+</li>
+<li><p>《Java核心技术卷II高级特性》</p>
+</li>
+<li><p>《Effective Java中文版》</p>
+</li>
+<li><p>《Java编程思想》</p>
+</li>
+</ul>
 
       
     </div>
@@ -785,8 +790,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/p/ff55f559/" rel="next" title="看破Java 4.集合">
-                <i class="fa fa-chevron-left"></i> 看破Java 4.集合
+              <a href="/p/c46700a5/" rel="next" title="看破Java 3.JDK8 Core">
+                <i class="fa fa-chevron-left"></i> 看破Java 3.JDK8 Core
               </a>
             
           </div>
@@ -795,8 +800,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/p/91dc983c/" rel="prev" title="看破MacOS 1.快捷键">
-                看破MacOS 1.快捷键 <i class="fa fa-chevron-right"></i>
+              <a href="/p/18a22795/" rel="prev" title="看破Gradle 1.快速安装及使用">
+                看破Gradle 1.快速安装及使用 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -887,7 +892,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1047,7 +1052,7 @@
     
       <span class="post-meta-item-text">码字&#58;</span>
     
-    <span title="码字">19.7k</span>
+    <span title="码字">22.3k</span>
   
 
 </div>

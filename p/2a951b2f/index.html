@@ -88,18 +88,20 @@
 
 
 
-<meta name="description" content="我的环境docker版本: 18.09.5内核版本: 3.10.0-862.el7.x86_64系统版本: CentOS Linux release 7.6.1810 (Core)CPU: Intel(R) Core(TM) i3-8100 CPU @ 3.60GHz 4核Memory: 16GDisk: 128G SSD(/)+1T SATA(/disk1) 安装准备内核支持Docker 对 L">
+<meta name="description" content="基本概念Docker是什么？Docker是一个开发，运输和运行应用程序的开放平台。Docker使您可以将应用程序与基础架构分离，以便快速交付软件。使用Docker，您可以像管理应用程序一样管理基础架构。通过利用Docker的方法快速发送，测试和部署代码，您可以显着减少编写代码和在生产中运行代码之间的延迟。 总之Docker结合k8s用于自动化构建微服务架构。 Docker架构为了一统容器江山，Go">
 <meta name="keywords" content="看破Docker">
 <meta property="og:type" content="article">
-<meta property="og:title" content="看破Docker 1.快速安装">
+<meta property="og:title" content="看破Docker 1.基本概念及快速安装">
 <meta property="og:url" content="http://tech.nitaoge.com/p/2a951b2f/index.html">
 <meta property="og:site_name" content="NiTaogeTech">
-<meta property="og:description" content="我的环境docker版本: 18.09.5内核版本: 3.10.0-862.el7.x86_64系统版本: CentOS Linux release 7.6.1810 (Core)CPU: Intel(R) Core(TM) i3-8100 CPU @ 3.60GHz 4核Memory: 16GDisk: 128G SSD(/)+1T SATA(/disk1) 安装准备内核支持Docker 对 L">
+<meta property="og:description" content="基本概念Docker是什么？Docker是一个开发，运输和运行应用程序的开放平台。Docker使您可以将应用程序与基础架构分离，以便快速交付软件。使用Docker，您可以像管理应用程序一样管理基础架构。通过利用Docker的方法快速发送，测试和部署代码，您可以显着减少编写代码和在生产中运行代码之间的延迟。 总之Docker结合k8s用于自动化构建微服务架构。 Docker架构为了一统容器江山，Go">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-21T07:47:53.978Z">
+<meta property="og:image" content="http://tech.nitaoge.com/images/docker/architecture.svg">
+<meta property="og:updated_time" content="2019-04-21T08:42:11.013Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="看破Docker 1.快速安装">
-<meta name="twitter:description" content="我的环境docker版本: 18.09.5内核版本: 3.10.0-862.el7.x86_64系统版本: CentOS Linux release 7.6.1810 (Core)CPU: Intel(R) Core(TM) i3-8100 CPU @ 3.60GHz 4核Memory: 16GDisk: 128G SSD(/)+1T SATA(/disk1) 安装准备内核支持Docker 对 L">
+<meta name="twitter:title" content="看破Docker 1.基本概念及快速安装">
+<meta name="twitter:description" content="基本概念Docker是什么？Docker是一个开发，运输和运行应用程序的开放平台。Docker使您可以将应用程序与基础架构分离，以便快速交付软件。使用Docker，您可以像管理应用程序一样管理基础架构。通过利用Docker的方法快速发送，测试和部署代码，您可以显着减少编写代码和在生产中运行代码之间的延迟。 总之Docker结合k8s用于自动化构建微服务架构。 Docker架构为了一统容器江山，Go">
+<meta name="twitter:image" content="http://tech.nitaoge.com/images/docker/architecture.svg">
 
 
 
@@ -135,7 +137,7 @@
 
 
 
-  <title>看破Docker 1.快速安装 | NiTaogeTech</title>
+  <title>看破Docker 1.基本概念及快速安装 | NiTaogeTech</title>
   
 
 
@@ -342,7 +344,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">看破Docker 1.快速安装</h1>
+          <h1 class="post-title" itemprop="name headline">看破Docker 1.基本概念及快速安装</h1>
         
 
         <div class="post-meta">
@@ -423,7 +425,7 @@
                   <span class="post-meta-item-text">字数&#58;</span>
                 
                 <span title="字数">
-                  3.3k
+                  3.6k
                 </span>
               
 
@@ -439,7 +441,7 @@
                   <span class="post-meta-item-text">时长 &asymp;</span>
                 
                 <span title="时长">
-                  16
+                  17
                 </span>
               
             </div>
@@ -460,7 +462,31 @@
       
 
       
-        <h1 id="我的环境"><a href="#我的环境" class="headerlink" title="我的环境"></a>我的环境</h1><p>docker版本: 18.09.5<br>内核版本: 3.10.0-862.el7.x86_64<br>系统版本: CentOS Linux release 7.6.1810 (Core)<br>CPU: Intel(R) Core(TM) i3-8100 CPU @ 3.60GHz 4核<br>Memory: 16G<br>Disk: 128G SSD(/)+1T SATA(/disk1)</p>
+        <h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><h2 id="Docker是什么？"><a href="#Docker是什么？" class="headerlink" title="Docker是什么？"></a>Docker是什么？</h2><p>Docker是一个开发，运输和运行应用程序的开放平台。Docker使您可以将应用程序与基础架构分离，以便快速交付软件。使用Docker，您可以像管理应用程序一样管理基础架构。通过利用Docker的方法快速发送，测试和部署代码，您可以显着减少编写代码和在生产中运行代码之间的延迟。</p>
+<p>总之Docker结合k8s用于自动化构建微服务架构。</p>
+<h2 id="Docker架构"><a href="#Docker架构" class="headerlink" title="Docker架构"></a>Docker架构</h2><p>为了一统容器江山，Google、CoreOS、Docker等公司成立了一个名为Open Container Initiative（OCI）的组织，来制定容器规范，保证不同厂商开发的容器可移植。</p>
+<p>目前OCI发布了两个规范：runtime spec（运行机制）和image format spec（镜像格式）。</p>
+<p>Docker使用客户端 - 服务器架构。Docker 客户端与Docker 守护进程通信，后者负责构建，运行和分发Docker容器。Docker客户端和守护程序可以 在同一系统上运行，也可以将Docker客户端连接到远程Docker守护程序。Docker客户端和守护程序使用REST API，通过UNIX套接字或网络接口进行通信。</p>
+<p><img src="/images/docker/architecture.svg" alt></p>
+<p>架构包括：</p>
+<ul>
+<li>Docker守护进程（dockerd）</li>
+<li>Docker客户端（docker client）</li>
+<li>Docker镜像仓库（Registry）</li>
+<li>Docker容器对象（docker objects）<ul>
+<li>镜像 (images)</li>
+<li>容器（containers）</li>
+<li>容器API（services）</li>
+</ul>
+</li>
+</ul>
+<h2 id="底层使用技术"><a href="#底层使用技术" class="headerlink" title="底层使用技术"></a>底层使用技术</h2><ul>
+<li>namespaces</li>
+<li>cgroups</li>
+<li>UnionFS</li>
+<li>libcontainer</li>
+</ul>
+<h1 id="我的环境"><a href="#我的环境" class="headerlink" title="我的环境"></a>我的环境</h1><p>docker版本: 18.09.5<br>内核版本: 3.10.0-862.el7.x86_64<br>系统版本: CentOS Linux release 7.6.1810 (Core)<br>CPU: Intel(R) Core(TM) i3-8100 CPU @ 3.60GHz 4核<br>Memory: 16G<br>Disk: 128G SSD(/)+1T SATA(/disk1)</p>
 <h1 id="安装准备"><a href="#安装准备" class="headerlink" title="安装准备"></a>安装准备</h1><h2 id="内核支持"><a href="#内核支持" class="headerlink" title="内核支持"></a>内核支持</h2><p>Docker 对 Linux 内核版本的最低要求是3.10，如果内核版本低于 3.10 会缺少一些运行 Docker 容器的功能。这些比较旧的内核，在一定条件下会导致数据丢失和频繁恐慌错误。</p>
 <p>推荐使用版本号为（3.x.y）的 3.10 Linux 内核版本（或者新的维护版本），保持跟上内核的次要版本更新来确保内核的BUG已经被修复。</p>
 <h2 id="系统要求"><a href="#系统要求" class="headerlink" title="系统要求"></a>系统要求</h2><blockquote>
@@ -486,7 +512,7 @@
 <p>The contents of /var/lib/docker/, including images, containers, volumes, and networks, are preserved. The Docker CE package is now called docker-ce.</p>
 </blockquote>
 <ul>
-<li>在制定规范后docker-engine改为docker-ee（企业版）和docker-ce（社区版）两个版本，所以我选择docker-ce进行安装。</li>
+<li>官方提供docker-ee（企业版）和docker-ce（社区版）两个版本，我选择docker-ce进行安装。</li>
 </ul>
 <h2 id="安装方式"><a href="#安装方式" class="headerlink" title="安装方式"></a>安装方式</h2><blockquote>
 <p>You can install Docker CE in different ways, depending on your needs:</p>
@@ -757,8 +783,8 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>作者/文章:</span><a href="/" title="访问 中华郑六 的技术博客">中华郑六</a> / <a href="/p/2a951b2f/">看破Docker 1.快速安装</a></p>
-  <p><span>原始链接:</span><a href="/p/2a951b2f/" title="看破Docker 1.快速安装">http://tech.nitaoge.com/p/2a951b2f/</a>
+  <p><span>作者/文章:</span><a href="/" title="访问 中华郑六 的技术博客">中华郑六</a> / <a href="/p/2a951b2f/">看破Docker 1.基本概念及快速安装</a></p>
+  <p><span>原始链接:</span><a href="/p/2a951b2f/" title="看破Docker 1.基本概念及快速安装">http://tech.nitaoge.com/p/2a951b2f/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://tech.nitaoge.com/p/2a951b2f/" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
@@ -1020,7 +1046,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#我的环境"><span class="nav-number">1.</span> <span class="nav-text">我的环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装准备"><span class="nav-number">2.</span> <span class="nav-text">安装准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内核支持"><span class="nav-number">2.1.</span> <span class="nav-text">内核支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统要求"><span class="nav-number">2.2.</span> <span class="nav-text">系统要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卸载老版本"><span class="nav-number">2.3.</span> <span class="nav-text">卸载老版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装方式"><span class="nav-number">2.4.</span> <span class="nav-text">安装方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加持续集成和测试的版本库"><span class="nav-number">2.5.</span> <span class="nav-text">添加持续集成和测试的版本库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">3.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#启动"><span class="nav-number">3.1.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#善后"><span class="nav-number">3.2.</span> <span class="nav-text">善后</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置国内镜像加速"><span class="nav-number">3.2.1.</span> <span class="nav-text">配置国内镜像加速</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用普通用户管理docker"><span class="nav-number">3.2.2.</span> <span class="nav-text">用普通用户管理docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置开机启动"><span class="nav-number">3.2.3.</span> <span class="nav-text">配置开机启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Docker守护程序侦听连接的位置"><span class="nav-number">3.2.4.</span> <span class="nav-text">配置Docker守护程序侦听连接的位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内核兼容性检查"><span class="nav-number">3.2.5.</span> <span class="nav-text">内核兼容性检查</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更新"><span class="nav-number">4.</span> <span class="nav-text">更新</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#卸载"><span class="nav-number">5.</span> <span class="nav-text">卸载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker是什么？"><span class="nav-number">1.1.</span> <span class="nav-text">Docker是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker架构"><span class="nav-number">1.2.</span> <span class="nav-text">Docker架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#底层使用技术"><span class="nav-number">1.3.</span> <span class="nav-text">底层使用技术</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#我的环境"><span class="nav-number">2.</span> <span class="nav-text">我的环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装准备"><span class="nav-number">3.</span> <span class="nav-text">安装准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内核支持"><span class="nav-number">3.1.</span> <span class="nav-text">内核支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统要求"><span class="nav-number">3.2.</span> <span class="nav-text">系统要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卸载老版本"><span class="nav-number">3.3.</span> <span class="nav-text">卸载老版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装方式"><span class="nav-number">3.4.</span> <span class="nav-text">安装方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加持续集成和测试的版本库"><span class="nav-number">3.5.</span> <span class="nav-text">添加持续集成和测试的版本库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">4.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#启动"><span class="nav-number">4.1.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#善后"><span class="nav-number">4.2.</span> <span class="nav-text">善后</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置国内镜像加速"><span class="nav-number">4.2.1.</span> <span class="nav-text">配置国内镜像加速</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用普通用户管理docker"><span class="nav-number">4.2.2.</span> <span class="nav-text">用普通用户管理docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置开机启动"><span class="nav-number">4.2.3.</span> <span class="nav-text">配置开机启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Docker守护程序侦听连接的位置"><span class="nav-number">4.2.4.</span> <span class="nav-text">配置Docker守护程序侦听连接的位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内核兼容性检查"><span class="nav-number">4.2.5.</span> <span class="nav-text">内核兼容性检查</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更新"><span class="nav-number">5.</span> <span class="nav-text">更新</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#卸载"><span class="nav-number">6.</span> <span class="nav-text">卸载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
 
           </div>
@@ -1087,7 +1113,7 @@
     
       <span class="post-meta-item-text">码字&#58;</span>
     
-    <span title="码字">22.3k</span>
+    <span title="码字">22.6k</span>
   
 
 </div>
@@ -1246,7 +1272,7 @@
         var disqus_config = function () {
           this.page.url = 'http://tech.nitaoge.com/p/2a951b2f/';
           this.page.identifier = 'p/2a951b2f/';
-          this.page.title = '看破Docker 1.快速安装';
+          this.page.title = '看破Docker 1.基本概念及快速安装';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://NiTaogeTech.disqus.com/embed.js';

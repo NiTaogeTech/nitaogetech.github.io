@@ -97,7 +97,7 @@
 <meta property="og:description" content="基本概念Docker是什么？Docker是一个开发，运输和运行应用程序的开放平台。Docker使您可以将应用程序与基础架构分离，以便快速交付软件。使用Docker，您可以像管理应用程序一样管理基础架构。通过利用Docker的方法快速发送，测试和部署代码，您可以显着减少编写代码和在生产中运行代码之间的延迟。 总之Docker结合k8s用于自动化构建微服务架构。 Docker架构为了一统容器江山，Go">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://tech.nitaoge.com/images/docker/architecture.svg">
-<meta property="og:updated_time" content="2019-04-21T08:42:11.013Z">
+<meta property="og:updated_time" content="2019-04-25T01:35:37.265Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="看破Docker 1.基本概念及快速安装">
 <meta name="twitter:description" content="基本概念Docker是什么？Docker是一个开发，运输和运行应用程序的开放平台。Docker使您可以将应用程序与基础架构分离，以便快速交付软件。使用Docker，您可以像管理应用程序一样管理基础架构。通过利用Docker的方法快速发送，测试和部署代码，您可以显着减少编写代码和在生产中运行代码之间的延迟。 总之Docker结合k8s用于自动化构建微服务架构。 Docker架构为了一统容器江山，Go">
@@ -466,7 +466,7 @@
 <p>总之Docker结合k8s用于自动化构建微服务架构。</p>
 <h2 id="Docker架构"><a href="#Docker架构" class="headerlink" title="Docker架构"></a>Docker架构</h2><p>为了一统容器江山，Google、CoreOS、Docker等公司成立了一个名为Open Container Initiative（OCI）的组织，来制定容器规范，保证不同厂商开发的容器可移植。</p>
 <p>目前OCI发布了两个规范：runtime spec（运行机制）和image format spec（镜像格式）。</p>
-<p>Docker使用客户端 - 服务器架构。Docker 客户端与Docker 守护进程通信，后者负责构建，运行和分发Docker容器。Docker客户端和守护程序可以 在同一系统上运行，也可以将Docker客户端连接到远程Docker守护程序。Docker客户端和守护程序使用REST API，通过UNIX套接字或网络接口进行通信。</p>
+<p>Docker使用C/S架构。Docker客户端与Docker守护进程通信，后者负责构建，运行和分发Docker容器。Docker客户端和守护程序可以在同一系统上运行，也可以将Docker客户端连接到远程Docker守护程序。Docker客户端和守护程序使用REST API，通过UNIX套接字或网络接口进行通信。</p>
 <p><img src="/images/docker/architecture.svg" alt></p>
 <p>架构包括：</p>
 <ul>
@@ -708,7 +708,7 @@
 <li>既然官方推荐修改daemon.json开启远程访问，就听他的。</li>
 </ul>
 <blockquote>
-<p>1.Set the hosts array in the /etc/docker/daemon.json to connect to the UNIX socket and an IP address, as follows:<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="attr">"hosts"</span>: [<span class="string">"unix:///var/run/docker.sock"</span>, <span class="string">"tcp:/127.0.0.1:2375"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>1.Set the hosts array in the /etc/docker/daemon.json to connect to the UNIX socket and an IP address, as follows:<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="attr">"hosts"</span>: [<span class="string">"unix:///var/run/docker.sock"</span>, <span class="string">"tcp://127.0.0.1:2375"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <blockquote>
 <p>2.Restart Docker.<br><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo<span class="keyword"> system</span>ctl daemon-reload</span><br><span class="line">sudo<span class="keyword"> system</span>ctl restart docker</span><br></pre></td></tr></table></figure></p>
@@ -717,7 +717,7 @@
 <p>3.Check to see whether the change was honored by reviewing the output of netstat to confirm dockerd is listening on the configured port.<br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo netstat -lntp | grep dockerd</span><br><span class="line">tcp        <span class="number">0</span>      <span class="number">0</span> <span class="number">127.0</span><span class="meta">.0</span><span class="meta">.1</span>:<span class="number">2375</span>          <span class="number">0.0</span><span class="meta">.0</span><span class="meta">.0</span>:*               LISTEN      <span class="number">3758</span>/dockerd</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <ul>
-<li>这里使用systemctl启动会失败，后面详细研究下启动方式。</li>
+<li>这里使用不修改服务脚本的话，启动会失败，请参考2.服务配置。</li>
 </ul>
 <h3 id="内核兼容性检查"><a href="#内核兼容性检查" class="headerlink" title="内核兼容性检查"></a>内核兼容性检查</h3><blockquote>
 <p>Docker cannot run correctly if your kernel is older than version 3.10 or if it is missing some modules. To check kernel compatibility, you can download and run the check-config.sh script.<br>The script only works on Linux, not macOS.</p>
@@ -734,13 +734,16 @@
 <p>Images, containers, volumes, or customized configuration files on your host are not automatically removed. To delete all images, containers, and volumes:<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo rm -rf /var/<span class="class"><span class="keyword">lib</span>/<span class="title">docker</span></span></span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
-<li><p><a href="https://docs.docker.com/install/linux/docker-ce/centos/" target="_blank" rel="noopener">官方文档</a></p>
+<li><p><a href="https://docs.docker.com/install/linux/docker-ce/centos/" target="_blank" rel="noopener">docker官方文档</a></p>
 </li>
 <li><p>《每天5分钟玩转Docker容器技术》</p>
 </li>
 </ul>
 <ul>
-<li>《每天5分钟玩转Kubernetes》</li>
+<li><p><a href="https://kubernetes.io/docs/home/" target="_blank" rel="noopener">k8s官方文档</a></p>
+</li>
+<li><p>《每天5分钟玩转Kubernetes》</p>
+</li>
 </ul>
 <ul>
 <li>《基于Kubernetes的容器云平台实战》</li>
@@ -851,8 +854,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/p/906310c9/" rel="next" title="看破Redis 1.快速安装及使用">
-                <i class="fa fa-chevron-left"></i> 看破Redis 1.快速安装及使用
+              <a href="/p/8491e96f/" rel="next" title="看破Docker 3.命令详解">
+                <i class="fa fa-chevron-left"></i> 看破Docker 3.命令详解
               </a>
             
           </div>
@@ -861,8 +864,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/p/8491e96f/" rel="prev" title="看破Docker 3.使用命令详解">
-                看破Docker 3.使用命令详解 <i class="fa fa-chevron-right"></i>
+              <a href="/p/24f59f15/" rel="prev" title="看破Docker 2.玩转配置">
+                看破Docker 2.玩转配置 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -953,7 +956,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -964,7 +967,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -975,7 +978,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1113,7 +1116,7 @@
     
       <span class="post-meta-item-text">码字&#58;</span>
     
-    <span title="码字">22.6k</span>
+    <span title="码字">24.3k</span>
   
 
 </div>

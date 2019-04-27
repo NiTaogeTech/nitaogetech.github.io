@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="看破Linux,">
+  <meta name="keywords" content="看破Docker,">
 
 
 
@@ -88,18 +88,18 @@
 
 
 
-<meta name="description" content="查看网卡属性ifconfigifconfig 网卡名 网卡文件路径vi /etc/sysconfig/network-scripts/ifcfg-ens33 配置属性说明//TODO TYPE=Ethernet　　　接口类型，常见的有ETHERNET（以太网）、Bridge(桥接接口)BOOTPROTO=dhcp　　激活此接口使用什么协议来配置接口属性：dhcp，boot，static，noneD">
-<meta name="keywords" content="看破Linux">
+<meta name="description" content="启动方式">
+<meta name="keywords" content="看破Docker">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CentOS 网卡配置">
-<meta property="og:url" content="http://tech.nitaoge.com/p/3c78723c/index.html">
+<meta property="og:title" content="看破Docker 8.XXXXX">
+<meta property="og:url" content="http://tech.nitaoge.com/p/a2e86a42/index.html">
 <meta property="og:site_name" content="NiTaogeTech">
-<meta property="og:description" content="查看网卡属性ifconfigifconfig 网卡名 网卡文件路径vi /etc/sysconfig/network-scripts/ifcfg-ens33 配置属性说明//TODO TYPE=Ethernet　　　接口类型，常见的有ETHERNET（以太网）、Bridge(桥接接口)BOOTPROTO=dhcp　　激活此接口使用什么协议来配置接口属性：dhcp，boot，static，noneD">
+<meta property="og:description" content="启动方式">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-15T15:59:23.588Z">
+<meta property="og:updated_time" content="2019-04-21T10:18:16.476Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CentOS 网卡配置">
-<meta name="twitter:description" content="查看网卡属性ifconfigifconfig 网卡名 网卡文件路径vi /etc/sysconfig/network-scripts/ifcfg-ens33 配置属性说明//TODO TYPE=Ethernet　　　接口类型，常见的有ETHERNET（以太网）、Bridge(桥接接口)BOOTPROTO=dhcp　　激活此接口使用什么协议来配置接口属性：dhcp，boot，static，noneD">
+<meta name="twitter:title" content="看破Docker 8.XXXXX">
+<meta name="twitter:description" content="启动方式">
 
 
 
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://tech.nitaoge.com/p/3c78723c/">
+  <link rel="canonical" href="http://tech.nitaoge.com/p/a2e86a42/">
 
 
 
 
 
-  <title>CentOS 网卡配置 | NiTaogeTech</title>
+  <title>看破Docker 8.XXXXX | NiTaogeTech</title>
   
 
 
@@ -325,7 +325,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://tech.nitaoge.com/p/3c78723c/">
+    <link itemprop="mainEntityOfPage" href="http://tech.nitaoge.com/p/a2e86a42/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="中华郑六">
@@ -342,7 +342,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CentOS 网卡配置</h1>
+          <h1 class="post-title" itemprop="name headline">看破Docker 8.XXXXX</h1>
         
 
         <div class="post-meta">
@@ -354,8 +354,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-15T16:35:12+08:00">
-                2016-06-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-20T19:35:43+08:00">
+                2019-04-20
               </time>
             
 
@@ -377,8 +377,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
+                  <a href="/categories/docker/" itemprop="url" rel="index">
+                    <span itemprop="name">docker</span>
                   </a>
                 </span>
 
@@ -395,8 +395,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/p/3c78723c/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="p/3c78723c/" itemprop="commentCount"></span>
+                <a href="/p/a2e86a42/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="p/a2e86a42/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -423,7 +423,7 @@
                   <span class="post-meta-item-text">字数&#58;</span>
                 
                 <span title="字数">
-                  328
+                  4
                 </span>
               
 
@@ -460,25 +460,7 @@
       
 
       
-        <h3 id="查看网卡属性"><a href="#查看网卡属性" class="headerlink" title="查看网卡属性"></a>查看网卡属性</h3><p><code>ifconfig</code><br><code>ifconfig 网卡名</code></p>
-<h3 id="网卡文件路径"><a href="#网卡文件路径" class="headerlink" title="网卡文件路径"></a>网卡文件路径</h3><p><code>vi /etc/sysconfig/network-scripts/ifcfg-ens33</code></p>
-<h3 id="配置属性说明-TODO"><a href="#配置属性说明-TODO" class="headerlink" title="配置属性说明//TODO"></a>配置属性说明//TODO</h3><blockquote>
-<p>TYPE=Ethernet　　　接口类型，常见的有ETHERNET（以太网）、Bridge(桥接接口)<br>BOOTPROTO=dhcp　　激活此接口使用什么协议来配置接口属性：dhcp，boot，static，none<br>DEFROUTE=yes　　　<br>PEERDNS=yes　　如果BOOTPROTO的值为“dhcp”，是否允许dhcp<br>DNS1：第一DNS服务器指向；若/etc/resolve的配置文件也有，则此处优先<br>DNS2：备用DNS服务器指向；<br>PEERROUTES=yes<br>IPV4_FAILURE_FATAL=no<br>IPV6INIT=yes　　是否初始化IPV6<br>IPV6_AUTOCONF=yes<br>IPV6_DEFROUTE=yes<br>IPV6_PEERDNS=yes<br>IPV6_PEERROUTES=yes<br>IPV6_FAILURE_FATAL=no<br>IPV6_ADDR_GEN_MODE=stable-privacy<br>NAME=ens33<br>UUID=0ea5507b-feab-4d8a-b582-e1874ca0bb97　　此设备的唯一标识<br>DEVICE=ens33　　此配置文件对应的设备名称<br>ONBOOT=yes　　操作系统启动时，在系统引导过程中，是否激活此接口<br>IPADDR： 指明IP地址；<br>NETMASK：子网掩码；CentOS 7支持使用PREFIX以长度方式指明子网掩码；<br>GATEWAY：默认网关；<br>USERCTL：是否允许普通用户控制此设备；</p>
-</blockquote>
-<p>举例：</p>
-<blockquote>
-<p>TYPE=”Ethernet”<br>PROXY_METHOD=”none”<br>BROWSER_ONLY=”no”<br>BOOTPROTO=”none”<br>DEFROUTE=”yes”<br>IPV4_FAILURE_FATAL=”no”<br>IPV6INIT=”yes”<br>IPV6_AUTOCONF=”yes”<br>IPV6_DEFROUTE=”yes”<br>IPV6_FAILURE_FATAL=”no”<br>IPV6_ADDR_GEN_MODE=”stable-privacy”<br>NAME=”ens33”<br>UUID=”1db89cb7-a94b-43b5-94ef-3bc7b2dd2f4d”<br>DEVICE=”ens33”<br>ONBOOT=”yes”<br>IPADDR=”192.168.2.61”<br>PREFIX=”24”<br>GATEWAY=”192.168.2.2”<br>DNS1=”192.168.2.2”<br>IPV6_PRIVACY=”no”</p>
-</blockquote>
-<h3 id="重启网络服务"><a href="#重启网络服务" class="headerlink" title="重启网络服务"></a>重启网络服务</h3><p><code>service network restart</code><br><code>/etc/init.d/network restart</code><br><code>systemctl restart network</code></p>
-<h3 id="修改主机名"><a href="#修改主机名" class="headerlink" title="修改主机名"></a>修改主机名</h3><p><code>hostname 主机名</code></p>
-<blockquote>
-<p>当前有效</p>
-</blockquote>
-<p><code>vi /etc/hostname</code></p>
-<blockquote>
-<p>重启生效</p>
-</blockquote>
-
+        <h1 id="启动方式"><a href="#启动方式" class="headerlink" title="启动方式"></a>启动方式</h1>
       
     </div>
     
@@ -493,7 +475,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/看破Linux/" rel="tag"><i class="fa fa-tag"></i> 看破Linux</a>
+            <a href="/tags/看破Docker/" rel="tag"><i class="fa fa-tag"></i> 看破Docker</a>
           
         </div>
       
@@ -516,9 +498,9 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>作者/文章:</span><a href="/" title="访问 中华郑六 的技术博客">中华郑六</a> / <a href="/p/3c78723c/">CentOS 网卡配置</a></p>
-  <p><span>原始链接:</span><a href="/p/3c78723c/" title="CentOS 网卡配置">http://tech.nitaoge.com/p/3c78723c/</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://tech.nitaoge.com/p/3c78723c/" aria-label="复制成功！"></i></span>
+  <p><span>作者/文章:</span><a href="/" title="访问 中华郑六 的技术博客">中华郑六</a> / <a href="/p/a2e86a42/">看破Docker 8.XXXXX</a></p>
+  <p><span>原始链接:</span><a href="/p/a2e86a42/" title="看破Docker 8.XXXXX">http://tech.nitaoge.com/p/a2e86a42/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://tech.nitaoge.com/p/a2e86a42/" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -584,8 +566,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/p/b3612680/" rel="next" title="CentOS 安装初始配置">
-                <i class="fa fa-chevron-left"></i> CentOS 安装初始配置
+              <a href="/p/19fe1117/" rel="next" title="看破Docker 5.容器">
+                <i class="fa fa-chevron-left"></i> 看破Docker 5.容器
               </a>
             
           </div>
@@ -593,10 +575,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/p/9e12d6b2/" rel="prev" title="本地安装Linux环境 - 克隆虚拟机">
-                本地安装Linux环境 - 克隆虚拟机 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -686,7 +664,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -697,7 +675,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -708,7 +686,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -779,7 +757,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看网卡属性"><span class="nav-number">1.</span> <span class="nav-text">查看网卡属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网卡文件路径"><span class="nav-number">2.</span> <span class="nav-text">网卡文件路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置属性说明-TODO"><span class="nav-number">3.</span> <span class="nav-text">配置属性说明//TODO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重启网络服务"><span class="nav-number">4.</span> <span class="nav-text">重启网络服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改主机名"><span class="nav-number">5.</span> <span class="nav-text">修改主机名</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#启动方式"><span class="nav-number">1.</span> <span class="nav-text">启动方式</span></a></li></ol></div>
             
 
           </div>
@@ -846,7 +824,7 @@
     
       <span class="post-meta-item-text">码字&#58;</span>
     
-    <span title="码字">22.6k</span>
+    <span title="码字">24.3k</span>
   
 
 </div>
@@ -1003,9 +981,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://tech.nitaoge.com/p/3c78723c/';
-          this.page.identifier = 'p/3c78723c/';
-          this.page.title = 'CentOS 网卡配置';
+          this.page.url = 'http://tech.nitaoge.com/p/a2e86a42/';
+          this.page.identifier = 'p/a2e86a42/';
+          this.page.title = '看破Docker 8.XXXXX';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://NiTaogeTech.disqus.com/embed.js';

@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="看破LinuxCommand,">
+  <meta name="keywords" content="看破CentOS,">
 
 
 
@@ -88,15 +88,18 @@
 
 
 
-<meta name="keywords" content="看破LinuxCommand">
+<meta name="description" content="背景在家搞了两台PC，虚了10+台机器来玩，如果用本地域名解析(/etc/hosts)那就太麻烦了，干脆搞个DNS服务器，所有机器添加DNS地址，增删解析记录只改一次就行了。 准备关闭防火墙关闭Selinux 安装安装bind相关软件1# yum  -y  install bind* 启动服务123#  systemctl start named.service         --启动DNS服务">
+<meta name="keywords" content="看破CentOS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="看破LinuxCommand 1.基础使用命令">
-<meta property="og:url" content="http://tech.nitaoge.com/p/963f6fb2/index.html">
+<meta property="og:title" content="看破CentOS 3.搭建DNS服务器">
+<meta property="og:url" content="http://tech.nitaoge.com/p/10622d9b/index.html">
 <meta property="og:site_name" content="NiTaogeTech">
+<meta property="og:description" content="背景在家搞了两台PC，虚了10+台机器来玩，如果用本地域名解析(/etc/hosts)那就太麻烦了，干脆搞个DNS服务器，所有机器添加DNS地址，增删解析记录只改一次就行了。 准备关闭防火墙关闭Selinux 安装安装bind相关软件1# yum  -y  install bind* 启动服务123#  systemctl start named.service         --启动DNS服务">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-20T04:21:23.357Z">
+<meta property="og:updated_time" content="2019-04-27T02:19:22.988Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="看破LinuxCommand 1.基础使用命令">
+<meta name="twitter:title" content="看破CentOS 3.搭建DNS服务器">
+<meta name="twitter:description" content="背景在家搞了两台PC，虚了10+台机器来玩，如果用本地域名解析(/etc/hosts)那就太麻烦了，干脆搞个DNS服务器，所有机器添加DNS地址，增删解析记录只改一次就行了。 准备关闭防火墙关闭Selinux 安装安装bind相关软件1# yum  -y  install bind* 启动服务123#  systemctl start named.service         --启动DNS服务">
 
 
 
@@ -126,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://tech.nitaoge.com/p/963f6fb2/">
+  <link rel="canonical" href="http://tech.nitaoge.com/p/10622d9b/">
 
 
 
 
 
-  <title>看破LinuxCommand 1.基础使用命令 | NiTaogeTech</title>
+  <title>看破CentOS 3.搭建DNS服务器 | NiTaogeTech</title>
   
 
 
@@ -322,7 +325,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://tech.nitaoge.com/p/963f6fb2/">
+    <link itemprop="mainEntityOfPage" href="http://tech.nitaoge.com/p/10622d9b/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="中华郑六">
@@ -339,7 +342,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">看破LinuxCommand 1.基础使用命令</h1>
+          <h1 class="post-title" itemprop="name headline">看破CentOS 3.搭建DNS服务器</h1>
         
 
         <div class="post-meta">
@@ -351,8 +354,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T20:06:26+08:00">
-                2019-03-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-15T16:35:12+08:00">
+                2016-06-15
               </time>
             
 
@@ -374,8 +377,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linuxcmd/" itemprop="url" rel="index">
-                    <span itemprop="name">linuxcmd</span>
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
                   </a>
                 </span>
 
@@ -392,8 +395,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/p/963f6fb2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="p/963f6fb2/" itemprop="commentCount"></span>
+                <a href="/p/10622d9b/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="p/10622d9b/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -420,7 +423,7 @@
                   <span class="post-meta-item-text">字数&#58;</span>
                 
                 <span title="字数">
-                  0
+                  749
                 </span>
               
 
@@ -436,7 +439,7 @@
                   <span class="post-meta-item-text">时长 &asymp;</span>
                 
                 <span title="时长">
-                  1
+                  3
                 </span>
               
             </div>
@@ -457,7 +460,27 @@
       
 
       
-        
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>在家搞了两台PC，虚了10+台机器来玩，如果用本地域名解析(/etc/hosts)那就太麻烦了，干脆搞个DNS服务器，所有机器添加DNS地址，增删解析记录只改一次就行了。</p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>关闭防火墙<br>关闭Selinux</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>安装bind相关软件<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> yum  -y  install <span class="built_in">bind</span>*</span></span><br></pre></td></tr></table></figure></p>
+<p>启动服务<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#  systemctl start named.service         --启动DNS服务</span></span><br><span class="line"><span class="meta">#  systemctl enable named.service     --设置为开机启动</span></span><br><span class="line"><span class="meta">#  netstat -anlp | grep named             --查看监听端口为53</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>named默认监听TCP、UDP协议的53端口，以及TCP的953端口：<br>其中UDP 53端口一般对所有客户机开放，以提供解析服务；<br>TCP 53端口一般只对特定从域名服务器开放，提高解析记录传输通道；TCP 953端口默认只对本机（127.0.0.1）开放，用于为rndc远程管理工具提供控制通道</p>
+</blockquote>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><p>配置文件：/etc/named.conf、/etc/named.rfc1912.zones等<br>数据文件目录：/var/named/</p>
+<h2 id="服务配置"><a href="#服务配置" class="headerlink" title="服务配置"></a>服务配置</h2><p>修改服务配置文件，绑定dns服务器端口，允许所有人访问。<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#  vim  /etc/named.conf</span></span><br><span class="line"></span><br><span class="line"> listen-on<span class="built_in"> port </span>53 &#123; 192.168.1.49; &#125;;</span><br><span class="line">        allow-query     &#123; any; &#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="正向解析（将域名解析成IP）"><a href="#正向解析（将域名解析成IP）" class="headerlink" title="正向解析（将域名解析成IP）"></a>正向解析（将域名解析成IP）</h2><p>添加正向解析域<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vim /etc/named.rfc1912.zones</span></span><br><span class="line"></span><br><span class="line">zone <span class="string">"ntg"</span> <span class="keyword">IN</span> &#123;</span><br><span class="line">       <span class="built_in"> type </span>master;</span><br><span class="line">        file <span class="string">"data/ntg.zone"</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>添加解析记录，文件中注释以“;”开头。<br><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># vim /var/named/data/ntg.zone</span><br><span class="line"></span><br><span class="line"><span class="meta">$TTL</span> <span class="number">1</span>D</span><br><span class="line">@  <span class="keyword">IN</span>     <span class="keyword">SOA</span>  vhdns.ntg.com. nitaogetech.gmail.com.  (</span><br><span class="line">                                        <span class="number">2019042701</span>   <span class="comment">; serial</span></span><br><span class="line">                                        <span class="number">1</span>D      <span class="comment">; refresh</span></span><br><span class="line">                                        <span class="number">1</span>H      <span class="comment">; retry</span></span><br><span class="line">                                        <span class="number">1</span>W      <span class="comment">; expire</span></span><br><span class="line">                                        <span class="number">3</span>H )    <span class="comment">; minimum</span></span><br><span class="line"></span><br><span class="line">@                <span class="keyword">IN</span>      <span class="keyword">NS</span>      vhdns</span><br><span class="line">vhdns            <span class="keyword">IN</span>      <span class="keyword">A</span>       <span class="number">192.168.1.49</span></span><br><span class="line">vhtest           <span class="keyword">IN</span>      <span class="keyword">A</span>       <span class="number">192.168.1.249</span></span><br><span class="line">rhmac            <span class="keyword">IN</span>      <span class="keyword">A</span>       <span class="number">192.168.1.50</span></span><br><span class="line">rh1              <span class="keyword">IN</span>      <span class="keyword">A</span>       <span class="number">192.168.1.60</span></span><br><span class="line">vh1              <span class="keyword">IN</span>      <span class="keyword">A</span>       <span class="number">192.168.1.51</span></span><br><span class="line">vh2              <span class="keyword">IN</span>      <span class="keyword">A</span>       <span class="number">192.168.1.52</span></span><br><span class="line">vh3              <span class="keyword">IN</span>      <span class="keyword">A</span>       <span class="number">192.168.1.53</span></span><br><span class="line">vh11             <span class="keyword">IN</span>      <span class="keyword">A</span>       <span class="number">192.168.1.61</span></span><br><span class="line">vh12             <span class="keyword">IN</span>      <span class="keyword">A</span>       <span class="number">192.168.1.62</span></span><br><span class="line">vh13             <span class="keyword">IN</span>      <span class="keyword">A</span>       <span class="number">192.168.1.63</span></span><br><span class="line">vh14             <span class="keyword">IN</span>      <span class="keyword">A</span>       <span class="number">192.168.1.64</span></span><br><span class="line">vh15             <span class="keyword">IN</span>      <span class="keyword">A</span>       <span class="number">192.168.1.65</span></span><br><span class="line">vh16             <span class="keyword">IN</span>      <span class="keyword">A</span>       <span class="number">192.168.1.66</span></span><br><span class="line">vh17             <span class="keyword">IN</span>      <span class="keyword">A</span>       <span class="number">192.168.1.67</span></span><br><span class="line">vh18             <span class="keyword">IN</span>      <span class="keyword">A</span>       <span class="number">192.168.1.68</span></span><br><span class="line">vh19             <span class="keyword">IN</span>      <span class="keyword">A</span>       <span class="number">192.168.1.69</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="反向解析（将IP解析成域名）"><a href="#反向解析（将IP解析成域名）" class="headerlink" title="反向解析（将IP解析成域名）"></a>反向解析（将IP解析成域名）</h2><p>也是添加反向解析域，添加反向解析记录。我暂时不需要，先不搞了……</p>
+<h2 id="检查解析域配置是否正确"><a href="#检查解析域配置是否正确" class="headerlink" title="检查解析域配置是否正确"></a>检查解析域配置是否正确</h2><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># <span class="keyword">named</span>-checkzone ntg /var/<span class="keyword">named</span>/<span class="keyword">data</span>/ntg.zone</span><br><span class="line">zone ntg/<span class="keyword">IN</span>: loaded serial <span class="number">2019042701</span></span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+<h2 id="重启服务"><a href="#重启服务" class="headerlink" title="重启服务"></a>重启服务</h2><p>配置好了之后重启DNS服务<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># systemctl  restart named</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="解析测试"><a href="#解析测试" class="headerlink" title="解析测试"></a>解析测试</h1><p>在另一台机器上的网卡配置中或在/etc/resolv.conf中（看你是否用NetworkManager）添加DNS地址。<br>我这里DNS地址是192.168.1.49，注意刚配好的DNS要放在前面，否则可能会先去从外网DNS解析。<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vi /etc/sysconfig/network-scripts/ifcfg-eth0</span></span><br><span class="line"></span><br><span class="line"><span class="attr">DNS1</span>=<span class="string">"192.168.1.49"</span></span><br><span class="line"><span class="attr">DNS2</span>=<span class="string">"192.168.1.1"</span></span><br></pre></td></tr></table></figure></p>
+<p>查看域名解析信息<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#  <span class="selector-tag">dig</span>  <span class="selector-tag">www</span><span class="selector-class">.test</span><span class="selector-class">.com</span>                     <span class="selector-tag">--</span>查询<span class="selector-tag">DNS</span>包括<span class="selector-tag">NS</span>记录，<span class="selector-tag">A</span>记录，<span class="selector-tag">MX</span>记录等相关信息</span><br><span class="line">#  <span class="selector-tag">nslookup</span>  <span class="selector-tag">www</span><span class="selector-class">.test</span><span class="selector-class">.com</span></span><br><span class="line">#  <span class="selector-tag">host</span>  <span class="selector-tag">www</span><span class="selector-class">.test</span><span class="selector-class">.com</span>                   <span class="selector-tag">--</span>测试域名系统工作是否正常</span><br></pre></td></tr></table></figure></p>
+<p>比如：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># <span class="selector-tag">nslookup</span> <span class="selector-tag">rhmac</span><span class="selector-class">.ntg</span></span><br><span class="line"><span class="selector-tag">Server</span>:		192<span class="selector-class">.168</span><span class="selector-class">.1</span><span class="selector-class">.49</span></span><br><span class="line"><span class="selector-tag">Address</span>:	192<span class="selector-class">.168</span><span class="selector-class">.1</span><span class="selector-class">.49</span><span class="selector-id">#53</span></span><br><span class="line"></span><br><span class="line"><span class="selector-tag">Name</span>:	<span class="selector-tag">rhmac</span><span class="selector-class">.ntg</span></span><br><span class="line"><span class="selector-tag">Address</span>: 192<span class="selector-class">.168</span><span class="selector-class">.1</span><span class="selector-class">.50</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="集群高可用"><a href="#集群高可用" class="headerlink" title="集群高可用"></a>集群高可用</h1><p>// 有时间搞搞高可用</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://blog.51cto.com/13525470/2054121" target="_blank" rel="noopener">CentOS 7.3 搭建DNS服务器</a></p>
+<p><a href="https://wuyanteng.github.io/2017/09/14/keepalived-%E4%B8%BB%E4%BB%8E-LVS-DR%E6%A8%A1%E5%9E%8B-DNS%E5%AE%9E%E7%8E%B0%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4%E6%9C%8D%E5%8A%A1/" target="_blank" rel="noopener">keepalived(主从)+LVS(DR模型)+DNS实现高可用集群服务</a></p>
+
       
     </div>
     
@@ -472,7 +495,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/看破LinuxCommand/" rel="tag"><i class="fa fa-tag"></i> 看破LinuxCommand</a>
+            <a href="/tags/看破CentOS/" rel="tag"><i class="fa fa-tag"></i> 看破CentOS</a>
           
         </div>
       
@@ -495,9 +518,9 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>作者/文章:</span><a href="/" title="访问 中华郑六 的技术博客">中华郑六</a> / <a href="/p/963f6fb2/">看破LinuxCommand 1.基础使用命令</a></p>
-  <p><span>原始链接:</span><a href="/p/963f6fb2/" title="看破LinuxCommand 1.基础使用命令">http://tech.nitaoge.com/p/963f6fb2/</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://tech.nitaoge.com/p/963f6fb2/" aria-label="复制成功！"></i></span>
+  <p><span>作者/文章:</span><a href="/" title="访问 中华郑六 的技术博客">中华郑六</a> / <a href="/p/10622d9b/">看破CentOS 3.搭建DNS服务器</a></p>
+  <p><span>原始链接:</span><a href="/p/10622d9b/" title="看破CentOS 3.搭建DNS服务器">http://tech.nitaoge.com/p/10622d9b/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://tech.nitaoge.com/p/10622d9b/" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -563,8 +586,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/p/2ab4ec8e/" rel="next" title="看破Git 1.快速安装及使用">
-                <i class="fa fa-chevron-left"></i> 看破Git 1.快速安装及使用
+              <a href="/p/3756abdd/" rel="next" title="看破CentOS 2.安装KVM虚拟机、VNC远程桌面">
+                <i class="fa fa-chevron-left"></i> 看破CentOS 2.安装KVM虚拟机、VNC远程桌面
               </a>
             
           </div>
@@ -573,8 +596,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/p/bafefb6b/" rel="prev" title="看破Java 2.知其所以然">
-                看破Java 2.知其所以然 <i class="fa fa-chevron-right"></i>
+              <a href="/p/7919749f/" rel="prev" title="看破Linux 1.">
+                看破Linux 1. <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -638,8 +661,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -656,7 +688,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -667,7 +699,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -678,7 +710,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -740,6 +772,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#准备"><span class="nav-number">2.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">3.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置"><span class="nav-number">4.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#服务配置"><span class="nav-number">4.1.</span> <span class="nav-text">服务配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正向解析（将域名解析成IP）"><span class="nav-number">4.2.</span> <span class="nav-text">正向解析（将域名解析成IP）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反向解析（将IP解析成域名）"><span class="nav-number">4.3.</span> <span class="nav-text">反向解析（将IP解析成域名）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查解析域配置是否正确"><span class="nav-number">4.4.</span> <span class="nav-text">检查解析域配置是否正确</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重启服务"><span class="nav-number">4.5.</span> <span class="nav-text">重启服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解析测试"><span class="nav-number">5.</span> <span class="nav-text">解析测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#集群高可用"><span class="nav-number">6.</span> <span class="nav-text">集群高可用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -800,7 +848,7 @@
     
       <span class="post-meta-item-text">码字&#58;</span>
     
-    <span title="码字">22.6k</span>
+    <span title="码字">24.3k</span>
   
 
 </div>
@@ -957,9 +1005,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://tech.nitaoge.com/p/963f6fb2/';
-          this.page.identifier = 'p/963f6fb2/';
-          this.page.title = '看破LinuxCommand 1.基础使用命令';
+          this.page.url = 'http://tech.nitaoge.com/p/10622d9b/';
+          this.page.identifier = 'p/10622d9b/';
+          this.page.title = '看破CentOS 3.搭建DNS服务器';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://NiTaogeTech.disqus.com/embed.js';

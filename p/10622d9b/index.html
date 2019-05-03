@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="NiTaogeTech">
 <meta property="og:description" content="背景在家搞了两台PC，虚了10+台机器来玩，如果用本地域名解析(/etc/hosts)那就太麻烦了，干脆搞个DNS服务器，所有机器添加DNS地址，增删解析记录只改一次就行了。 准备关闭防火墙关闭Selinux 安装安装bind相关软件1# yum  -y  install bind* 启动服务123#  systemctl start named.service         --启动DNS服务">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-27T03:47:18.998Z">
+<meta property="og:updated_time" content="2019-05-03T14:19:57.646Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="看破CentOS 3.搭建DNS服务器">
 <meta name="twitter:description" content="背景在家搞了两台PC，虚了10+台机器来玩，如果用本地域名解析(/etc/hosts)那就太麻烦了，干脆搞个DNS服务器，所有机器添加DNS地址，增删解析记录只改一次就行了。 准备关闭防火墙关闭Selinux 安装安装bind相关软件1# yum  -y  install bind* 启动服务123#  systemctl start named.service         --启动DNS服务">
@@ -354,8 +354,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-15T16:35:12+08:00">
-                2016-06-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-13T07:22:47+08:00">
+                2019-02-13
               </time>
             
 
@@ -477,7 +477,7 @@
 <h1 id="解析测试"><a href="#解析测试" class="headerlink" title="解析测试"></a>解析测试</h1><p>在另一台机器上的网卡配置中或在/etc/resolv.conf中（看你是否用NetworkManager）添加DNS地址。<br>我这里DNS地址是192.168.1.49，注意刚配好的DNS要放在前面，否则可能会先去从外网DNS解析。<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vi /etc/sysconfig/network-scripts/ifcfg-eth0</span></span><br><span class="line"></span><br><span class="line"><span class="attr">DNS1</span>=<span class="string">"192.168.1.49"</span></span><br><span class="line"><span class="attr">DNS2</span>=<span class="string">"192.168.1.1"</span></span><br></pre></td></tr></table></figure></p>
 <p>查看域名解析信息<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#  <span class="selector-tag">dig</span>  <span class="selector-tag">www</span><span class="selector-class">.test</span><span class="selector-class">.com</span>                     <span class="selector-tag">--</span>查询<span class="selector-tag">DNS</span>包括<span class="selector-tag">NS</span>记录，<span class="selector-tag">A</span>记录，<span class="selector-tag">MX</span>记录等相关信息</span><br><span class="line">#  <span class="selector-tag">nslookup</span>  <span class="selector-tag">www</span><span class="selector-class">.test</span><span class="selector-class">.com</span></span><br><span class="line">#  <span class="selector-tag">host</span>  <span class="selector-tag">www</span><span class="selector-class">.test</span><span class="selector-class">.com</span>                   <span class="selector-tag">--</span>测试域名系统工作是否正常</span><br></pre></td></tr></table></figure></p>
 <p>比如：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># <span class="selector-tag">nslookup</span> <span class="selector-tag">rhmac</span><span class="selector-class">.ntg</span></span><br><span class="line"><span class="selector-tag">Server</span>:		192<span class="selector-class">.168</span><span class="selector-class">.1</span><span class="selector-class">.49</span></span><br><span class="line"><span class="selector-tag">Address</span>:	192<span class="selector-class">.168</span><span class="selector-class">.1</span><span class="selector-class">.49</span><span class="selector-id">#53</span></span><br><span class="line"></span><br><span class="line"><span class="selector-tag">Name</span>:	<span class="selector-tag">rhmac</span><span class="selector-class">.ntg</span></span><br><span class="line"><span class="selector-tag">Address</span>: 192<span class="selector-class">.168</span><span class="selector-class">.1</span><span class="selector-class">.50</span></span><br></pre></td></tr></table></figure></p>
-<h1 id="集群高可用"><a href="#集群高可用" class="headerlink" title="集群高可用"></a>集群高可用</h1><p>// 有时间搞搞高可用</p>
+<h1 id="集群高可用"><a href="#集群高可用" class="headerlink" title="集群高可用"></a>集群高可用</h1><p>// 暂时用不到高可用</p>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://blog.51cto.com/13525470/2054121" target="_blank" rel="noopener">CentOS 7.3 搭建DNS服务器</a></p>
 <p><a href="https://wuyanteng.github.io/2017/09/14/keepalived-%E4%B8%BB%E4%BB%8E-LVS-DR%E6%A8%A1%E5%9E%8B-DNS%E5%AE%9E%E7%8E%B0%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4%E6%9C%8D%E5%8A%A1/" target="_blank" rel="noopener">keepalived(主从)+LVS(DR模型)+DNS实现高可用集群服务</a></p>
 
@@ -586,8 +586,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/p/3756abdd/" rel="next" title="看破CentOS 2.安装KVM虚拟机、VNC远程桌面">
-                <i class="fa fa-chevron-left"></i> 看破CentOS 2.安装KVM虚拟机、VNC远程桌面
+              <a href="/p/7919749f/" rel="next" title="看破Linux 1.从命令入手">
+                <i class="fa fa-chevron-left"></i> 看破Linux 1.从命令入手
               </a>
             
           </div>
@@ -596,8 +596,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/p/7919749f/" rel="prev" title="看破Linux 1.">
-                看破Linux 1. <i class="fa fa-chevron-right"></i>
+              <a href="/p/3474802a/" rel="prev" title="看破Linux 2.系统目录结构">
+                看破Linux 2.系统目录结构 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -688,7 +688,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -699,7 +699,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -710,7 +710,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -848,7 +848,7 @@
     
       <span class="post-meta-item-text">码字&#58;</span>
     
-    <span title="码字">23.9k</span>
+    <span title="码字">49.1k</span>
   
 
 </div>

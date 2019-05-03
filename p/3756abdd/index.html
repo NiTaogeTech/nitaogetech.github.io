@@ -96,13 +96,13 @@
 <meta property="og:site_name" content="NiTaogeTech">
 <meta property="og:description" content="安装vnc远程桌面准备关闭防火墙 安装1# yum install tigervnc-server tigervnc-server-module 修改配置文件拷贝&amp;amp;配置123456789101112# cp /lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@:1.service# vim /etc/sy">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://tech.nitaoge.com/images/centos/Screenshot%202019-04-27%2011.35.01.png">
-<meta property="og:image" content="http://tech.nitaoge.com/images/centos/Screenshot%202019-04-27%2011.35.01.png">
-<meta property="og:updated_time" content="2019-04-27T03:47:18.997Z">
+<meta property="og:image" content="http://tech.nitaoge.com/images/centos/Screenshot%202019-02-12%2009.30.26.png">
+<meta property="og:image" content="http://tech.nitaoge.com/images/centos/Screenshot%202019-02-12%2009.30.26.png">
+<meta property="og:updated_time" content="2019-05-03T14:18:24.018Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="看破CentOS 2.安装KVM虚拟机、VNC远程桌面">
 <meta name="twitter:description" content="安装vnc远程桌面准备关闭防火墙 安装1# yum install tigervnc-server tigervnc-server-module 修改配置文件拷贝&amp;amp;配置123456789101112# cp /lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@:1.service# vim /etc/sy">
-<meta name="twitter:image" content="http://tech.nitaoge.com/images/centos/Screenshot%202019-04-27%2011.35.01.png">
+<meta name="twitter:image" content="http://tech.nitaoge.com/images/centos/Screenshot%202019-02-12%2009.30.26.png">
 
 
 
@@ -357,8 +357,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-15T16:35:12+08:00">
-                2016-06-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-12T08:17:51+08:00">
+                2019-02-12
               </time>
             
 
@@ -473,17 +473,17 @@
 <p>查看日志<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># <span class="keyword">grep</span> vnc /var/<span class="built_in">log</span>/<span class="keyword">messages</span></span><br></pre></td></tr></table></figure></p>
 <p>停止VNC<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vncserver -<span class="built_in">kill</span> :1</span></span><br></pre></td></tr></table></figure></p>
 <p>VNC viewer<br><a href="https://www.realvnc.com/en/connect/download/viewer/" target="_blank" rel="noopener">下载vnc viewer</a></p>
-<p>连接目标主机<br><img src="/images/centos/Screenshot 2019-04-27 11.35.01.png" alt></p>
+<p>连接目标主机<br><img src="/images/centos/Screenshot 2019-02-12 09.30.26.png" alt></p>
 <h1 id="安装KVM虚拟机（使用virt-manager图形管理）"><a href="#安装KVM虚拟机（使用virt-manager图形管理）" class="headerlink" title="安装KVM虚拟机（使用virt-manager图形管理）"></a>安装KVM虚拟机（使用virt-manager图形管理）</h1><h2 id="准备-1"><a href="#准备-1" class="headerlink" title="准备"></a>准备</h2><p>kvm相关包<br>qemu-kvm          主要的KVM程序包<br>python-virtinst   创建虚拟机所需要的命令行工具和程序库<br>virt-manager      GUI虚拟机管理工具<br>virt-top          虚拟机统计命令<br>virt-viewer       GUI连接程序，连接到已配置好的虚拟机<br>libvirt           C语言工具包，提供libvirt服务<br>libvirt-client    虚拟客户机提供的C语言工具包<br>virt-install      基于libvirt服务的虚拟机创建命令<br>bridge-utils      创建和管理桥接设备的工具</p>
 <p>检查cpu是否支持虚拟化<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># <span class="keyword">grep</span> vmx <span class="regexp">/proc/</span>cpuinfo</span><br></pre></td></tr></table></figure></p>
 <p>查看系统是否加载kvm模块，没有则手动加载<br><figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># modprobe kvm</span></span><br><span class="line"><span class="comment"># modprobe kvm-intel</span></span><br><span class="line"><span class="comment"># lsmod | grep kvm</span></span><br><span class="line">kvm_intel            <span class="number"> 170086 </span> 0</span><br><span class="line">kvm                  <span class="number"> 566340 </span><span class="number"> 1 </span>kvm_intel</span><br><span class="line">irqbypass             <span class="number"> 13503 </span><span class="number"> 1 </span>kvm</span><br></pre></td></tr></table></figure></p>
-<p>内核模块导出了一个名为/dev/kvm的设备，这个设备将虚拟机的的地址空间独立于内核或者任何应用程序的地址空间。<br><figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ll /dev/kvm</span></span><br><span class="line">crw-rw-rw-.<span class="number"> 1 </span>root kvm 10,<span class="number"> 232 </span>1月 <span class="number"> 29 </span>11:56 /dev/kvm</span><br></pre></td></tr></table></figure></p>
+<p>内核模块导出了一个名为/dev/kvm的设备，这个设备将虚拟机的的地址空间独立于内核或者任何应用程序的地址空间。<br><figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ll /dev/kvm</span></span><br><span class="line">crw-rw-rw-.<span class="number"> 1 </span>root kvm 10,<span class="number"> 232 </span>2月 <span class="number"> 12 </span>11:56 /dev/kvm</span><br></pre></td></tr></table></figure></p>
 <h2 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h2><p>安装kvm相关包<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># <span class="selector-tag">yum</span> <span class="selector-tag">-y</span> <span class="selector-tag">install</span> <span class="selector-tag">bridge-utils</span> <span class="selector-tag">libcanberra-gtk2</span> <span class="selector-tag">qemu-kvm</span><span class="selector-class">.x86_64</span> <span class="selector-tag">qemu-kvm-tools</span><span class="selector-class">.x86_64</span> \</span><br><span class="line"><span class="selector-tag">libvirt</span><span class="selector-class">.x86_64</span> <span class="selector-tag">libvirt-cim</span><span class="selector-class">.x86_64</span> <span class="selector-tag">libvirt-client</span><span class="selector-class">.x86_64</span> \</span><br><span class="line"><span class="selector-tag">libvirt-java</span><span class="selector-class">.noarch</span> <span class="selector-tag">libvirt-python</span><span class="selector-class">.x86_64</span> <span class="selector-tag">libiscsi-1</span><span class="selector-class">.7</span><span class="selector-class">.0-5</span><span class="selector-class">.el6</span><span class="selector-class">.x86_64</span>  <span class="selector-tag">dbus-devel</span> \</span><br><span class="line"><span class="selector-tag">virt-clone</span> <span class="selector-tag">tunctl</span> <span class="selector-tag">virt-manager</span> <span class="selector-tag">libvirt</span> <span class="selector-tag">libvirt-python</span> <span class="selector-tag">python-virtinst</span></span><br></pre></td></tr></table></figure></p>
 <p>安装中文字符，解决界面乱码问题<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># yum install -y dejavu-lgc-sans-fonts</span></span><br><span class="line"><span class="meta"># yum groupinstall -y "Fonts"</span></span><br></pre></td></tr></table></figure></p>
 <p>启用libvirt<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># systemctl enable libvirtd</span></span><br><span class="line"><span class="meta"># systemctl start libvirtd</span></span><br></pre></td></tr></table></figure></p>
-<p>将CentOS的ISO镜像传入目标主机<br><figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ll /disk2/sysiso/</span></span><br><span class="line">总用量 4481024</span><br><span class="line">-rwxr-xr-x.<span class="number"> 1 </span>qemu qemu<span class="number"> 4588568576 </span>4月 <span class="number"> 25 </span>23:03 CentOS-7-x86_64-DVD-1810.iso</span><br></pre></td></tr></table></figure></p>
+<p>将CentOS的ISO镜像传入目标主机<br><figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ll /disk2/sysiso/</span></span><br><span class="line">总用量 4481024</span><br><span class="line">-rwxr-xr-x.<span class="number"> 1 </span>qemu qemu<span class="number"> 4588568576 </span>2月 <span class="number"> 12 </span>15:03 CentOS-7-x86_64-DVD-1810.iso</span><br></pre></td></tr></table></figure></p>
 <p>使用VNC连接目标主机&amp;使用virt-manager图形管理工具创建虚拟机<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># virt-manager</span></span><br></pre></td></tr></table></figure></p>
-<p><img src="/images/centos/Screenshot 2019-04-27 11.35.01.png" alt></p>
+<p><img src="/images/centos/Screenshot 2019-02-12 09.30.26.png" alt></p>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://blog.csdn.net/u011414200/article/details/47402313" target="_blank" rel="noopener">Centos7 安装VNC</a></p>
 <p><a href="https://www.cnblogs.com/kevingrace/p/8377645.html" target="_blank" rel="noopener">Centos7.4安装kvm虚拟机（使用virt-manager管理）</a></p>
 
@@ -602,8 +602,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/p/10622d9b/" rel="prev" title="看破CentOS 3.搭建DNS服务器">
-                看破CentOS 3.搭建DNS服务器 <i class="fa fa-chevron-right"></i>
+              <a href="/p/7919749f/" rel="prev" title="看破Linux 1.从命令入手">
+                看破Linux 1.从命令入手 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -694,7 +694,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -705,7 +705,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -716,7 +716,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -854,7 +854,7 @@
     
       <span class="post-meta-item-text">码字&#58;</span>
     
-    <span title="码字">23.9k</span>
+    <span title="码字">49.1k</span>
   
 
 </div>

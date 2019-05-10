@@ -97,7 +97,7 @@
 <meta property="og:description" content="背景目前Linux中比较主流的编辑器有nano、vi/vim和emacs。简单看了下nano的风格，好像回到了上世纪70年代，相信历史进程的我，不信它功能比vim强，所以用它可以，但真的没必要。而vi作为rh、centos系统自带编辑器，学之利弊多说无益。centos7.6已默认安装vim，老版本没有可以yum安装。而emacs更像一个IDE，我承认其功能强大，但如果我想在每台服务器上使用emac">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://tech.nitaoge.com/images/linux/Screenshot%202019-02-21%2012.38.56.png">
-<meta property="og:updated_time" content="2019-05-03T14:36:39.688Z">
+<meta property="og:updated_time" content="2019-05-09T07:20:05.388Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="看破Linux 5.编辑神器-vim">
 <meta name="twitter:description" content="背景目前Linux中比较主流的编辑器有nano、vi/vim和emacs。简单看了下nano的风格，好像回到了上世纪70年代，相信历史进程的我，不信它功能比vim强，所以用它可以，但真的没必要。而vi作为rh、centos系统自带编辑器，学之利弊多说无益。centos7.6已默认安装vim，老版本没有可以yum安装。而emacs更像一个IDE，我承认其功能强大，但如果我想在每台服务器上使用emac">
@@ -512,7 +512,7 @@
 <li>先按数字，然后按w/W、b/B是向前或向后移动N个文本框。</li>
 <li>Ctrl+g，显示当前光标位置百分比。</li>
 <li>按大写G将光标移到文本末尾行，按数字1+G移到文本首行，按数字+G移动到第N行开头位置。</li>
-<li>按大写<code></code>，恢复光标到使用G移动光标前的位置。</li>
+<li>按``，恢复光标到使用G移动光标前的位置。</li>
 <li>(，光标移动到当前句子开头或上个句子开头。</li>
 <li>)，光标移动到下一个句子开头。</li>
 <li>{，光标移动到当前段落开头或上一段落开头。</li>
@@ -524,7 +524,7 @@
 <li>m+字符，给当前光标位置标记为字符。</li>
 <li>`+字符，移动光标到字符标记处。</li>
 <li>‘+字符，移动光标到字符标记的行首。</li>
-<li><code></code>，恢复光标到移动前位置。</li>
+<li>``，恢复光标到移动前位置。</li>
 <li>‘’，恢复光标到移动前位置行首。</li>
 </ul>
 <h2 id="复制操作"><a href="#复制操作" class="headerlink" title="复制操作"></a>复制操作</h2><ul>
@@ -620,8 +620,9 @@
 <li>字符$ -&gt; 匹配结尾字符</li>
 <li>.   -&gt; 匹配转义符</li>
 <li>[]   -&gt; 匹配中括号内任意字符</li>
+<li>\&lt;  -&gt; 只匹配单词开头</li>
+<li>>  -&gt; 只匹配单词末尾</li>
 </ul>
-<p>实际正则组合起来很复杂，以后单独拿一篇文章搞正则。</p>
 <h1 id="高端玩法"><a href="#高端玩法" class="headerlink" title="高端玩法"></a>高端玩法</h1><h2 id="执行Unix命令"><a href="#执行Unix命令" class="headerlink" title="执行Unix命令"></a>执行Unix命令</h2><ul>
 <li>!date，新开命令行执行date命令</li>
 <li>:r !date，在当前行输出date命令结果</li>
@@ -804,8 +805,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/p/5234275c/" rel="next" title="看破Linux 4.得ShellScript者得Linux">
-                <i class="fa fa-chevron-left"></i> 看破Linux 4.得ShellScript者得Linux
+              <a href="/p/5234275c/" rel="next" title="看破Linux 4.ShellScript">
+                <i class="fa fa-chevron-left"></i> 看破Linux 4.ShellScript
               </a>
             
           </div>
@@ -814,8 +815,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/p/76029495/" rel="prev" title="看破Linux 6.systemd服务管理工具">
-                看破Linux 6.systemd服务管理工具 <i class="fa fa-chevron-right"></i>
+              <a href="/p/76029495/" rel="prev" title="看破Linux 6.systemd服务管理">
+                看破Linux 6.systemd服务管理 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -906,7 +907,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -917,7 +918,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -928,7 +929,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1066,7 +1067,7 @@
     
       <span class="post-meta-item-text">码字&#58;</span>
     
-    <span title="码字">54.4k</span>
+    <span title="码字">65k</span>
   
 
 </div>

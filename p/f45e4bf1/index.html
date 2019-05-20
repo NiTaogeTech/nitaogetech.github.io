@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/resource/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/resource/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/resource/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/resource/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="看破Linux,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="NiTaogeTech" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="概念rsync是一个文件同步工具。lsyncd是一个实时、单向、多机、多模式的文件同步工具。 网上有不少通过rsync+inotify实现实时同步的帖子和博客，inotify是一个文件变动事件监控工具，但其自身存在丢事件的BUG，所以不用。 rsync有三种方式，一是本地同步，二是ssh远程同步，三是daemon远程同步，前两种跟cp、scp类似，本文使用的是daemon方式同步。lsyncd在r">
+<meta name="keywords" content="看破Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="看破Linux 10.rsync+lsync实现数据实时同步">
+<meta property="og:url" content="http://tech.nitaoge.com/p/f45e4bf1/index.html">
+<meta property="og:site_name" content="NiTaogeTech">
+<meta property="og:description" content="概念rsync是一个文件同步工具。lsyncd是一个实时、单向、多机、多模式的文件同步工具。 网上有不少通过rsync+inotify实现实时同步的帖子和博客，inotify是一个文件变动事件监控工具，但其自身存在丢事件的BUG，所以不用。 rsync有三种方式，一是本地同步，二是ssh远程同步，三是daemon远程同步，前两种跟cp、scp类似，本文使用的是daemon方式同步。lsyncd在r">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-20T07:18:20.646Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="看破Linux 10.rsync+lsync实现数据实时同步">
+<meta name="twitter:description" content="概念rsync是一个文件同步工具。lsyncd是一个实时、单向、多机、多模式的文件同步工具。 网上有不少通过rsync+inotify实现实时同步的帖子和博客，inotify是一个文件变动事件监控工具，但其自身存在丢事件的BUG，所以不用。 rsync有三种方式，一是本地同步，二是ssh远程同步，三是daemon远程同步，前两种跟cp、scp类似，本文使用的是daemon方式同步。lsyncd在r">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://tech.nitaoge.com/p/f45e4bf1/">
+
+
+
+
+
+  <title>看破Linux 10.rsync+lsync实现数据实时同步 | NiTaogeTech</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/NiTaogeTech" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#FD6C6C; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NiTaogeTech</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Focus on Java, BD and Linux. </p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-看破红尘">
+          <a href="/p/note666" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-wheelchair-alt"></i> <br>
+            
+            看破红尘
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-看破springcloud">
+          <a href="/categories/springcloud" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-coffee"></i> <br>
+            
+            看破SpringCloud
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-看破mysql">
+          <a href="/categories/mysql" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-server"></i> <br>
+            
+            看破MySQL
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-看破redis">
+          <a href="/categories/redis" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-database"></i> <br>
+            
+            看破Redis
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-看破kafka">
+          <a href="/categories/kafka" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cubes"></i> <br>
+            
+            看破Kafka
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-看破docker">
+          <a href="/categories/docker" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cogs"></i> <br>
+            
+            看破Docker
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://tech.nitaoge.com/p/f45e4bf1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="中华郑六">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/resource/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NiTaogeTech">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">看破Linux 10.rsync+lsync实现数据实时同步</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-01T09:10:28+08:00">
+                2019-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/p/f45e4bf1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="p/f45e4bf1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye"></i> 热度
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>℃
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数&#58;</span>
+                
+                <span title="字数">
+                  1.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">时长 &asymp;</span>
+                
+                <span title="时长">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>rsync是一个文件同步工具。<br>lsyncd是一个实时、单向、多机、多模式的文件同步工具。</p>
+<p>网上有不少通过rsync+inotify实现实时同步的帖子和博客，inotify是一个文件变动事件监控工具，但其自身存在丢事件的BUG，所以不用。</p>
+<p>rsync有三种方式，一是本地同步，二是ssh远程同步，三是daemon远程同步，<br>前两种跟cp、scp类似，本文使用的是daemon方式同步。<br>lsyncd在rsync同步基础上，实现了监控文件变动，并更新目标服务器目录的功能。</p>
+<h1 id="了解rsync"><a href="#了解rsync" class="headerlink" title="了解rsync"></a>了解rsync</h1><p><a href="https://rsync.samba.org/documentation.html" target="_blank" rel="noopener">rsync官方文档</a></p>
+<p><a href="http://www.cnblogs.com/f-ck-need-u/p/7226781.html" target="_blank" rel="noopener">骏马金龙-rsync算法原理和工作流程分析</a></p>
+<h1 id="了解lsync"><a href="#了解lsync" class="headerlink" title="了解lsync"></a>了解lsync</h1><p><a href="https://axkibe.github.io/lsyncd/manual/config/file/" target="_blank" rel="noopener">lsync官方文档</a></p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>现有两台服务器jenkins1.ntg、jenkins2.ntg<br>系统都是CentOS Linux release 7.6.1810 (Core)</p>
+<p>jenkins1.ntg做同步源服务器，安装lsyncd；<br>jenkins2.ntg做同步目标服务器，安装rsync。</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>rsync CentOS7.6上是有装的，如果没有请去官网下载。<br><a href="https://download.samba.org/pub/rsync/" target="_blank" rel="noopener">rsync下载地址</a></p>
+<p>lsyncd 需要自己安装<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># yum -y install lsyncd</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><p>配置目标服务器：</p>
+<p>开启rsync daemon的配置<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vim /etc/rsyncd.conf</span></span><br><span class="line"></span><br><span class="line">port = 873</span><br><span class="line">uid = root</span><br><span class="line">gid = root</span><br><span class="line"><span class="keyword">use</span> chroot = <span class="keyword">no</span></span><br><span class="line"><span class="keyword">max</span> connections = <span class="number">20</span></span><br><span class="line"><span class="keyword">timeout</span> = <span class="number">300</span></span><br><span class="line">pid <span class="keyword">file</span> = /<span class="keyword">var</span>/run/rsyncd.pid</span><br><span class="line"><span class="keyword">lock</span> <span class="keyword">file</span> = /<span class="keyword">var</span>/run/rsync.lock</span><br><span class="line"><span class="keyword">log</span> <span class="keyword">file</span> = /disk1/lsyncd/rsyncd.log</span><br><span class="line">dont <span class="keyword">compress</span> = *.gz *.tgz *.zip *.z *.Z *.rpm *.deb *.bz2</span><br><span class="line"><span class="keyword">exclude</span> = lost+<span class="keyword">found</span>/</span><br><span class="line"><span class="keyword">ignore</span> nonreadable = yes</span><br><span class="line"></span><br><span class="line">[<span class="keyword">test</span>]</span><br><span class="line"><span class="keyword">path</span> = /tmp/<span class="keyword">test</span>/</span><br><span class="line"><span class="keyword">read</span> <span class="keyword">only</span> = <span class="literal">false</span></span><br><span class="line"><span class="keyword">list</span> = <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
+<p>配置源服务器：</p>
+<p>lsyncd默认配置文件在/etc/lsyncd.conf<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># rpm -ql lsyncd | <span class="keyword">grep</span> lsyncd.<span class="keyword">conf</span></span><br><span class="line">/etc/lsyncd.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure></p>
+<p>我将配置文件放在/disk1/conf/lsyncd.conf，内容如下<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vim /disk1/conf/lsyncd.conf</span></span><br><span class="line"></span><br><span class="line">settings &#123;</span><br><span class="line">    <span class="attr">logfile</span> =<span class="string">"/disk1/log/lsyncd/lsyncd.log"</span>,</span><br><span class="line">    <span class="attr">statusFile</span> =<span class="string">"/disk1/log/lsyncd/lsyncd.status"</span>,</span><br><span class="line">    <span class="attr">inotifyMode</span> = <span class="string">"CloseWrite"</span>,</span><br><span class="line">    <span class="attr">maxProcesses</span> = <span class="number">8</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sync &#123;</span><br><span class="line">    default.rsync,</span><br><span class="line">    <span class="attr">source</span> = <span class="string">"/tmp/test"</span>,</span><br><span class="line">    <span class="attr">target</span> = <span class="string">"jenkins@jenkins2.ntg::test"</span>, </span><br><span class="line">    <span class="attr">init</span> = <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">delete</span> = <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">exclude</span> = &#123; <span class="string">".*"</span>, <span class="string">".tmp"</span> &#125;,</span><br><span class="line">    <span class="attr">delay</span> = <span class="number">30</span>,</span><br><span class="line">    <span class="attr">rsync</span> = &#123;</span><br><span class="line">        <span class="attr">binary</span> = <span class="string">"/usr/bin/rsync"</span>,</span><br><span class="line">        <span class="attr">archive</span> = <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">compress</span> = <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">verbose</span> = <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><p>目标服务器：<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># systemctl start rsyncd</span></span><br></pre></td></tr></table></figure></p>
+<p>源服务器：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># lsyncd -<span class="keyword">log</span> Exec /disk1/<span class="keyword">conf</span>/lsyncd.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>启动jenkins，jenkins自动向/disk1/data/jenkins/中放数据文件<br><figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># systemctl start jenkins</span></span><br><span class="line"></span><br><span class="line">[root@jenkins1 test]<span class="comment"># ll /disk1/data/jenkins/</span></span><br><span class="line">总用量 52</span><br><span class="line">-rw-r--r-- <span class="number"> 1 </span>jenkins jenkins<span class="number"> 1661 </span>5月 <span class="number"> 12 </span>19:42 config.xml</span><br><span class="line">-rw-r--r-- <span class="number"> 1 </span>jenkins jenkins  <span class="number"> 29 </span>5月 <span class="number"> 12 </span>19:37 failed-boot-attempts.txt</span><br><span class="line">-rw-r--r-- <span class="number"> 1 </span>jenkins jenkins <span class="number"> 156 </span>5月 <span class="number"> 12 </span>19:37 hudson.model.UpdateCenter.xml</span><br><span class="line">-rw-r--r-- <span class="number"> 1 </span>jenkins jenkins <span class="number"> 370 </span>5月 <span class="number"> 12 </span>19:47 hudson.plugins.git.GitTool.xml</span><br><span class="line">-rw------- <span class="number"> 1 </span>jenkins jenkins<span class="number"> 1712 </span>5月 <span class="number"> 12 </span>19:37 identity.key.enc</span><br><span class="line">-rw-r--r-- <span class="number"> 1 </span>jenkins jenkins<span class="number"> 1783 </span>5月 <span class="number"> 12 </span>19:49 jenkins.install.InstallUtil.installingPlugins</span><br><span class="line">-rw-r--r-- <span class="number"> 1 </span>jenkins jenkins   <span class="number"> 5 </span>5月 <span class="number"> 12 </span>19:37 jenkins.install.UpgradeWizard.state</span><br><span class="line">-rw-r--r-- <span class="number"> 1 </span>jenkins jenkins <span class="number"> 171 </span>5月 <span class="number"> 12 </span>19:37 jenkins.telemetry.Correlator.xml</span><br><span class="line">drwxr-xr-x <span class="number"> 2 </span>jenkins jenkins   <span class="number"> 6 </span>5月 <span class="number"> 12 </span>19:37 jobs</span><br><span class="line">drwxr-xr-x <span class="number"> 3 </span>jenkins jenkins  <span class="number"> 19 </span>5月 <span class="number"> 12 </span>19:37 logs</span><br><span class="line">-rw-r--r-- <span class="number"> 1 </span>jenkins jenkins <span class="number"> 907 </span>5月 <span class="number"> 12 </span>19:37 nodeMonitors.xml</span><br><span class="line">drwxr-xr-x <span class="number"> 2 </span>jenkins jenkins   <span class="number"> 6 </span>5月 <span class="number"> 12 </span>19:37 nodes</span><br><span class="line">drwxr-xr-x<span class="number"> 59 </span>jenkins jenkins<span class="number"> 8192 </span>5月 <span class="number"> 12 </span>19:48 plugins</span><br><span class="line">-rw-r--r-- <span class="number"> 1 </span>jenkins jenkins  <span class="number"> 64 </span>5月 <span class="number"> 12 </span>19:37 secret.key</span><br><span class="line">-rw-r--r-- <span class="number"> 1 </span>jenkins jenkins   <span class="number"> 0 </span>5月 <span class="number"> 12 </span>19:37 secret.key.not-so-secret</span><br><span class="line">drwx------ <span class="number"> 4 </span>jenkins jenkins <span class="number"> 265 </span>5月 <span class="number"> 12 </span>19:37 secrets</span><br><span class="line">drwxr-xr-x <span class="number"> 2 </span>jenkins jenkins <span class="number"> 182 </span>5月 <span class="number"> 12 </span>19:44 updates</span><br><span class="line">drwxr-xr-x <span class="number"> 2 </span>jenkins jenkins  <span class="number"> 24 </span>5月 <span class="number"> 12 </span>19:37 userContent</span><br><span class="line">drwxr-xr-x <span class="number"> 3 </span>jenkins jenkins  <span class="number"> 56 </span>5月 <span class="number"> 12 </span>19:37 users</span><br><span class="line">drwxr-xr-x <span class="number"> 2 </span>jenkins jenkins   <span class="number"> 6 </span>5月 <span class="number"> 12 </span>19:48 workflow-libs</span><br></pre></td></tr></table></figure></p>
+<p>再看jenkins2.ntg中，文件已被同步过来。<br><figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[root@jenkins2 test]<span class="comment"># ll /disk1/data/jenkins/</span></span><br><span class="line">总用量 52</span><br><span class="line">-rw-r--r-- <span class="number"> 1 </span>jenkins jenkins<span class="number"> 1661 </span>5月 <span class="number"> 12 </span>19:42 config.xml</span><br><span class="line">-rw-r--r-- <span class="number"> 1 </span>jenkins jenkins  <span class="number"> 29 </span>5月 <span class="number"> 12 </span>19:37 failed-boot-attempts.txt</span><br><span class="line">-rw-r--r-- <span class="number"> 1 </span>jenkins jenkins <span class="number"> 156 </span>5月 <span class="number"> 12 </span>19:37 hudson.model.UpdateCenter.xml</span><br><span class="line">-rw-r--r-- <span class="number"> 1 </span>jenkins jenkins <span class="number"> 370 </span>5月 <span class="number"> 12 </span>19:47 hudson.plugins.git.GitTool.xml</span><br><span class="line">-rw------- <span class="number"> 1 </span>jenkins jenkins<span class="number"> 1712 </span>5月 <span class="number"> 12 </span>19:37 identity.key.enc</span><br><span class="line">-rw-r--r-- <span class="number"> 1 </span>jenkins jenkins<span class="number"> 1783 </span>5月 <span class="number"> 12 </span>19:48 jenkins.install.InstallUtil.installingPlugins</span><br><span class="line">-rw-r--r-- <span class="number"> 1 </span>jenkins jenkins   <span class="number"> 5 </span>5月 <span class="number"> 12 </span>19:37 jenkins.install.UpgradeWizard.state</span><br><span class="line">-rw-r--r-- <span class="number"> 1 </span>jenkins jenkins <span class="number"> 171 </span>5月 <span class="number"> 12 </span>19:37 jenkins.telemetry.Correlator.xml</span><br><span class="line">drwxr-xr-x <span class="number"> 2 </span>jenkins jenkins   <span class="number"> 6 </span>5月 <span class="number"> 12 </span>19:37 jobs</span><br><span class="line">drwxr-xr-x <span class="number"> 3 </span>jenkins jenkins  <span class="number"> 19 </span>5月 <span class="number"> 12 </span>19:37 logs</span><br><span class="line">-rw-r--r-- <span class="number"> 1 </span>jenkins jenkins <span class="number"> 907 </span>5月 <span class="number"> 12 </span>19:37 nodeMonitors.xml</span><br><span class="line">drwxr-xr-x <span class="number"> 2 </span>jenkins jenkins   <span class="number"> 6 </span>5月 <span class="number"> 12 </span>19:37 nodes</span><br><span class="line">drwxr-xr-x<span class="number"> 59 </span>jenkins jenkins<span class="number"> 8192 </span>5月 <span class="number"> 12 </span>19:48 plugins</span><br><span class="line">-rw-r--r-- <span class="number"> 1 </span>jenkins jenkins  <span class="number"> 64 </span>5月 <span class="number"> 12 </span>19:37 secret.key</span><br><span class="line">-rw-r--r-- <span class="number"> 1 </span>jenkins jenkins   <span class="number"> 0 </span>5月 <span class="number"> 12 </span>19:37 secret.key.not-so-secret</span><br><span class="line">drwx------ <span class="number"> 4 </span>jenkins jenkins <span class="number"> 265 </span>5月 <span class="number"> 12 </span>19:37 secrets</span><br><span class="line">drwxr-xr-x <span class="number"> 2 </span>jenkins jenkins <span class="number"> 182 </span>5月 <span class="number"> 12 </span>19:44 updates</span><br><span class="line">drwxr-xr-x <span class="number"> 2 </span>jenkins jenkins  <span class="number"> 24 </span>5月 <span class="number"> 12 </span>19:37 userContent</span><br><span class="line">drwxr-xr-x <span class="number"> 3 </span>jenkins jenkins  <span class="number"> 56 </span>5月 <span class="number"> 12 </span>19:37 users</span><br><span class="line">drwxr-xr-x <span class="number"> 2 </span>jenkins jenkins   <span class="number"> 6 </span>5月 <span class="number"> 12 </span>19:48 workflow-libs</span><br></pre></td></tr></table></figure></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>上面写的步骤是文件从A-&gt;B单向同步，一点毛病都没有。</p>
+<p>我又试了双向同步，也就是双主，A-&gt;B，B-&gt;A。<br>因为每次同步操作间隔时间都由delay控制，比如delay是30秒，在这30秒内，如果AB同时操作同一文件，那么就会先发制人，先手操作会覆盖后边的操作。</p>
+<p>所以这种主从同步方式，只适用于单向数据备份，双机热备。<br>双机热备切换时，为保证数据一致性，还得确认同步工具停止和启动的先后顺序，以免发生旧数据覆盖新数据的情况。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/看破Linux/" rel="tag"><i class="fa fa-tag"></i> 看破Linux</a>
+          
+        </div>
+      
+
+
+      
+      
+
+      
+        
+<div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-thumbs-o-up"></i>感谢您的赏阅-------------</div>
+
+      
+
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>作者/文章:</span><a href="/" title="访问 中华郑六 的技术博客">中华郑六</a> / <a href="/p/f45e4bf1/">看破Linux 10.rsync+lsync实现数据实时同步</a></p>
+  <p><span>原始链接:</span><a href="/p/f45e4bf1/" title="看破Linux 10.rsync+lsync实现数据实时同步">http://tech.nitaoge.com/p/f45e4bf1/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://tech.nitaoge.com/p/f45e4bf1/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+
+      
+
+      
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果文章对您有用，多多少少给安排点儿</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>救我一下</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/resource/wechatpay.png" alt="中华郑六 拿微信救">
+        <p>拿微信救</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/resource/alipay.png" alt="中华郑六 拿支付宝救">
+        <p>拿支付宝救</p>
+      </div>
+    
+
+    
+      <div id="aliredpack" style="display: inline-block">
+        <img id="aliredpack_qr" src="/images/resource/aliredpack.png" alt="中华郑六 薅阿里羊毛">
+        <p>薅阿里羊毛</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      
+
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/p/6037a63b/" rel="next" title="看破SaltStack 2.快速安装及使用">
+                <i class="fa fa-chevron-left"></i> 看破SaltStack 2.快速安装及使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/p/6037a63b/" rel="prev" title="看破SaltStack 2.快速安装及使用">
+                看破SaltStack 2.快速安装及使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/resource/avatar.png" alt="中华郑六">
+            
+              <p class="site-author-name" itemprop="name">中华郑六</p>
+              <p class="site-description motion-element" itemprop="description">风尘之中多是性情中人。<br> /** <br> *底部评论请上墙 <br> *以武会友请邮件 <br>*/</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">103</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/NiTaogeTech" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:nitaogetech@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友链
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://tuna.moe/" title="清华大学TUNA协会" target="_blank">清华大学TUNA协会</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#了解rsync"><span class="nav-number">2.</span> <span class="nav-text">了解rsync</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#了解lsync"><span class="nav-number">3.</span> <span class="nav-text">了解lsync</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#准备"><span class="nav-number">4.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">5.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置"><span class="nav-number">6.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动"><span class="nav-number">7.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试"><span class="nav-number">8.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heartbeat"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">What are u prepare todo?</span>
+</div>
+
+
+  <div class="footer-custom"><a target="_blank" href="http://www.miitbeian.gov.cn">辽ICP备17001238号</a><span style="margin:0 1em;">|</span><span id="runday">运行时长加载中...</span><span id="runtime"></span></div>
+
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访客
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">码字&#58;</span>
+    
+    <span title="码字">71k</span>
+  
+
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/custom/clickshzy.js?v=0.0.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/custom/runtime.js?v=0.0.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/custom/clipboard.min.js?v=0.0.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/custom/clipboard-btn.js?v=0.0.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://NiTaogeTech.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://tech.nitaoge.com/p/f45e4bf1/';
+          this.page.identifier = 'p/f45e4bf1/';
+          this.page.title = '看破Linux 10.rsync+lsync实现数据实时同步';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://NiTaogeTech.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

@@ -88,15 +88,18 @@
 
 
 
+<meta name="description" content="安装 官方安装文档  访问MySQL Yum源下载Yum源安装包。 我这里选择版本8，(mysql80-community-release-el7-3.noarch.rpm)1# wget https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm 安装完rpm包会自动添加yum源 &amp;amp;&amp;amp; 列出yum源中m">
 <meta name="keywords" content="看破MySQL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="看破MySQL 1.快速安装及使用">
 <meta property="og:url" content="http://tech.nitaoge.com/p/87c87cf/index.html">
 <meta property="og:site_name" content="NiTaogeTech">
+<meta property="og:description" content="安装 官方安装文档  访问MySQL Yum源下载Yum源安装包。 我这里选择版本8，(mysql80-community-release-el7-3.noarch.rpm)1# wget https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm 安装完rpm包会自动添加yum源 &amp;amp;&amp;amp; 列出yum源中m">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-09T03:55:20.019Z">
+<meta property="og:updated_time" content="2019-05-15T04:03:06.668Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="看破MySQL 1.快速安装及使用">
+<meta name="twitter:description" content="安装 官方安装文档  访问MySQL Yum源下载Yum源安装包。 我这里选择版本8，(mysql80-community-release-el7-3.noarch.rpm)1# wget https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm 安装完rpm包会自动添加yum源 &amp;amp;&amp;amp; 列出yum源中m">
 
 
 
@@ -420,7 +423,7 @@
                   <span class="post-meta-item-text">字数&#58;</span>
                 
                 <span title="字数">
-                  0
+                  224
                 </span>
               
 
@@ -457,7 +460,19 @@
       
 
       
-        
+        <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><ul>
+<li><a href="https://dev.mysql.com/doc/mysql-yum-repo-quick-guide/en/" target="_blank" rel="noopener">官方安装文档</a></li>
+</ul>
+<p>访问<a href="https://dev.mysql.com/downloads/repo/yum/" target="_blank" rel="noopener">MySQL Yum源</a>下载Yum源安装包。</p>
+<p>我这里选择版本8，(mysql80-community-release-el7-3.noarch.rpm)<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># wget http<span class="variable">s:</span>//dev.mysql.<span class="keyword">com</span>/<span class="built_in">get</span>/mysql80-community-release-el7-<span class="number">3</span>.noarch.rpm</span><br></pre></td></tr></table></figure></p>
+<p>安装完rpm包会自动添加yum源 &amp;&amp; 列出yum源中mysql相关包<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># rpm -Uvh mysql80-community-release-el7-3.noarch.rpm</span></span><br><span class="line"><span class="meta"># yum repolist all | grep mysql</span></span><br></pre></td></tr></table></figure></p>
+<p>如果想安装5.7，就禁用8.0源，启用5.7源。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># yum-<span class="built_in">config</span>-manager <span class="comment">--disable mysql80-community</span></span><br><span class="line"># yum-<span class="built_in">config</span>-manager <span class="comment">--enable mysql57-community</span></span><br></pre></td></tr></table></figure></p>
+<p>安装<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># yum install mysql-community-server</span></span><br></pre></td></tr></table></figure></p>
+<p>启停<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># systemctl start mysqld.service</span></span><br><span class="line"><span class="meta"># systemctl status mysqld.service</span></span><br></pre></td></tr></table></figure></p>
+<p>5.6之前用mysql_secure_installation初始化配置，<br>5.7之后不再需要手动配置。<br>启动之后，查看root初始化密码<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># <span class="keyword">grep</span> <span class="string">'temporary password'</span> /var/<span class="built_in">log</span>/mysqld.<span class="built_in">log</span></span><br></pre></td></tr></table></figure></p>
+<p>修改密码<br><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># mysql -uroot -p</span></span><br><span class="line"><span class="meta"># mysql&gt; ALTER USER <span class="string">'root'</span>@<span class="string">'localhost'</span> IDENTIFIED BY <span class="string">'MyNewPass4!'</span><span class="comment">;</span></span></span><br></pre></td></tr></table></figure></p>
+<h1 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h1><p>开启root远程访问<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; use mysql;</span><br><span class="line">&gt; update user <span class="built_in">set</span> host=<span class="string">'%'</span> <span class="keyword">where</span> user =<span class="string">'root'</span>;</span><br><span class="line">&gt; GRANT <span class="literal">ALL</span> PRIVILEGES <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">'root'</span>@<span class="string">'%'</span> <span class="keyword">WITH</span> GRANT OPTION;</span><br><span class="line">&gt; FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure></p>
+
       
     </div>
     
@@ -563,8 +578,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/p/1631c841/" rel="next" title="看破Jmeter 1.快速安装及使用">
-                <i class="fa fa-chevron-left"></i> 看破Jmeter 1.快速安装及使用
+              <a href="/p/7fde48ab/" rel="next" title="看破DevOps - Gradle常见问题">
+                <i class="fa fa-chevron-left"></i> 看破DevOps - Gradle常见问题
               </a>
             
           </div>
@@ -573,8 +588,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/p/24280e36/" rel="prev" title="看破IDEA 安装、使用、配置">
-                看破IDEA 安装、使用、配置 <i class="fa fa-chevron-right"></i>
+              <a href="/p/c9a4fbc9/" rel="prev" title="看破设计模式 2. 创建型模式 - 单例模式(Singleton)">
+                看破设计模式 2. 创建型模式 - 单例模式(Singleton) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -638,8 +653,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -656,7 +680,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -667,7 +691,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -678,7 +702,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -740,6 +764,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#授权"><span class="nav-number">2.</span> <span class="nav-text">授权</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -800,7 +840,7 @@
     
       <span class="post-meta-item-text">码字&#58;</span>
     
-    <span title="码字">65.1k</span>
+    <span title="码字">71k</span>
   
 
 </div>

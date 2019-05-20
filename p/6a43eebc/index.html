@@ -88,15 +88,18 @@
 
 
 
+<meta name="description" content="为什么用OpenJDK一句话：OracleJDK商用收费。 以下是转载： 作者：Aloys寒风链接：https://www.zhihu.com/question/19646618/answer/40621705来源：知乎著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。 历史上的原因是，OpenJDK是JDK的开放原始码版本，以GPL(General Public License">
 <meta name="keywords" content="看破Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="看破Java 5.IO、Socket">
+<meta property="og:title" content="看破Java 3.OpenJDK">
 <meta property="og:url" content="http://tech.nitaoge.com/p/6a43eebc/index.html">
 <meta property="og:site_name" content="NiTaogeTech">
+<meta property="og:description" content="为什么用OpenJDK一句话：OracleJDK商用收费。 以下是转载： 作者：Aloys寒风链接：https://www.zhihu.com/question/19646618/answer/40621705来源：知乎著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。 历史上的原因是，OpenJDK是JDK的开放原始码版本，以GPL(General Public License">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-16T02:36:42.025Z">
+<meta property="og:updated_time" content="2019-05-18T12:16:44.202Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="看破Java 5.IO、Socket">
+<meta name="twitter:title" content="看破Java 3.OpenJDK">
+<meta name="twitter:description" content="为什么用OpenJDK一句话：OracleJDK商用收费。 以下是转载： 作者：Aloys寒风链接：https://www.zhihu.com/question/19646618/answer/40621705来源：知乎著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。 历史上的原因是，OpenJDK是JDK的开放原始码版本，以GPL(General Public License">
 
 
 
@@ -132,7 +135,7 @@
 
 
 
-  <title>看破Java 5.IO、Socket | NiTaogeTech</title>
+  <title>看破Java 3.OpenJDK | NiTaogeTech</title>
   
 
 
@@ -339,7 +342,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">看破Java 5.IO、Socket</h1>
+          <h1 class="post-title" itemprop="name headline">看破Java 3.OpenJDK</h1>
         
 
         <div class="post-meta">
@@ -420,7 +423,7 @@
                   <span class="post-meta-item-text">字数&#58;</span>
                 
                 <span title="字数">
-                  0
+                  1.9k
                 </span>
               
 
@@ -436,7 +439,7 @@
                   <span class="post-meta-item-text">时长 &asymp;</span>
                 
                 <span title="时长">
-                  1
+                  8
                 </span>
               
             </div>
@@ -457,7 +460,37 @@
       
 
       
-        
+        <h1 id="为什么用OpenJDK"><a href="#为什么用OpenJDK" class="headerlink" title="为什么用OpenJDK"></a>为什么用OpenJDK</h1><p>一句话：OracleJDK商用收费。</p>
+<p>以下是转载：</p>
+<p>作者：Aloys寒风<br>链接：<a href="https://www.zhihu.com/question/19646618/answer/40621705" target="_blank" rel="noopener">https://www.zhihu.com/question/19646618/answer/40621705</a><br>来源：知乎<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<p>历史上的原因是，OpenJDK是JDK的开放原始码版本，以GPL(General Public License)协议的形式放出(题主提到的open就是指的开源)。在JDK7的时候，OpenJDK已经作为JDK7的主干开发，SUN JDK7是在OpenJDK7的基础上发布的，其大部分原始码都相同，只有少部分原始码被替换掉。使用JRL(JavaResearch License，Java研究授权协议)发布。至于OpenJDK6则更是有其复杂的一面，首先是OpenJDK6是JDK7的一个分支，并且尽量去除Java SE7的新特性，使其尽量的符合Java6的标准。关于JDK和OpenJDK的区别，可以归纳为以下几点：授权协议的不同：OpenJDK采用GPL V2协议放出，而SUN JDK则采用JRL放出。两者协议虽然都是开放源代码的，但是在使用上的不同在于GPL V2允许在商业上使用，而JRL只允许个人研究使用。OpenJDK不包含Deployment（部署）功能：部署的功能包括：Browser Plugin、Java Web Start、以及Java控制面板，这些功能在OpenJDK中是找不到的。OpenJDK源代码不完整：这个很容易想到，在采用GPL协议的OpenJDK中，SUN JDK的一部分源代码因为产权的问题无法开放给OpenJDK使用，其中最主要的部份就是JMX中的可选元件SNMP部份的代码。因此这些不能开放的源代码 将它作成plug，以供OpenJDK编译时使用，你也可以选择不要使用plug。而Icedtea则为这些不完整的部分开发了相同功能的源代码 (OpenJDK6)，促使OpenJDK更加完整。部分源代码用开源代码替换：由于产权的问题，很多产权不是SUN的源代码被替换成一些功能相同的开源代码，比如说字体栅格化引擎，使用Free Type代替。OpenIDK只包含最精简的JDK：OpenJDK不包含其他的软件包，比如Rhino Java DB JAXP……，并且可以分离的软件包也都是尽量的分离，但是这大多数都是自由软件，你可以自己下载加入。不能使用Java商标：这个很容易理解，在安装OpenJDK的机器上，输入“java<br>-version”显示的是OpenJDK，但是如果是使用Icedtea补丁的OpenJDK，显示的是java。总之，在Java体系中，还是有很多不自由的成分，源代码的开发不够彻底，希望Oracle能够让JCP更自由开放一些，这也是所有Java社区所希望的。</p>
+<h1 id="安装openjdk"><a href="#安装openjdk" class="headerlink" title="安装openjdk"></a>安装openjdk</h1><h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><p>如果是手动安装的jdk，删除oracle-jdk所在目录，删除path中jdk环境变量即可。</p>
+<p>yum安装openjdk<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel </span></span><br><span class="line"><span class="comment"># java -version</span></span><br><span class="line">openjdk version <span class="string">"1.8.0_212"</span></span><br><span class="line">OpenJDK Runtime Environment (build 1.8.0_212-b04)</span><br><span class="line">OpenJDK 64-Bit<span class="built_in"> Server </span>VM (build 25.212-b04, mixed mode)</span><br></pre></td></tr></table></figure></p>
+<p>yum卸载openjdk<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># yum -y remove java-*</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="Mac-OS"><a href="#Mac-OS" class="headerlink" title="Mac OS"></a>Mac OS</h2><p>删除oracle-jdk<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo <span class="keyword">rm</span> -fr /Library/Internet\ Plug-<span class="keyword">Ins</span>/JavaAppletPlugin.<span class="keyword">plugin</span></span><br><span class="line">$ sudo <span class="keyword">rm</span> -fr /Library/PreferencesPanes/JavaControlPanel.prefPane</span><br><span class="line">$ sudo <span class="keyword">rm</span> -fr ~/Library/Application\ Support/Java</span><br><span class="line">$ sudo <span class="keyword">rm</span> -rf /Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/</span><br></pre></td></tr></table></figure></p>
+<p>从<a href="http://jdk.java.net/" target="_blank" rel="noopener">openjdk官网</a>下载指定版本<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget https:<span class="regexp">//</span>download.java.net<span class="regexp">/java/</span>GA<span class="regexp">/jdk12.0.1/</span><span class="number">69</span>cfe15208a647278a19ef0990eea691<span class="regexp">/12/</span>GPL<span class="regexp">/openjdk-12.0.1_osx-x64_bin.tar.gz</span></span><br></pre></td></tr></table></figure></p>
+<p>将openjdk解压到macos预设目录下<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ tar -zxvf openjdk<span class="number">-12.0</span><span class="number">.1</span>_osx-x64_bin.tar.gz -C /Library/Java/JavaVirtualMachines/</span><br><span class="line">$ java -version</span><br><span class="line">openjdk version <span class="string">"12.0.1"</span> <span class="number">2019</span><span class="number">-04</span><span class="number">-16</span></span><br><span class="line">OpenJDK Runtime Environment (build <span class="number">12.0</span><span class="number">.1</span>+<span class="number">12</span>)</span><br><span class="line">OpenJDK <span class="number">64</span>-Bit Server VM (build <span class="number">12.0</span><span class="number">.1</span>+<span class="number">12</span>, mixed mode, sharing)</span><br></pre></td></tr></table></figure></p>
+<p>查看jdk安装目录<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="regexp">/usr/</span>libexec/java_home -V</span><br><span class="line">Matching Java Virtual Machines (<span class="number">2</span>):</span><br><span class="line">    <span class="number">12.0</span><span class="number">.1</span>, <span class="string">x86_64:</span>	<span class="string">"OpenJDK 12.0.1"</span>	<span class="regexp">/Library/</span>Java<span class="regexp">/JavaVirtualMachines/</span>jdk<span class="number">-12.0</span><span class="number">.1</span>.jdk<span class="regexp">/Contents/</span>Home</span><br><span class="line">    <span class="number">1.8</span><span class="number">.0</span>_201, <span class="string">x86_64:</span>	<span class="string">"Java SE 8"</span>	<span class="regexp">/Library/</span>Java<span class="regexp">/JavaVirtualMachines/</span>jdk1<span class="number">.8</span><span class="number">.0</span>_201.jdk<span class="regexp">/Contents/</span>Home</span><br><span class="line"></span><br><span class="line"><span class="regexp">/Library/</span>Java<span class="regexp">/JavaVirtualMachines/</span>jdk<span class="number">-12.0</span><span class="number">.1</span>.jdk<span class="regexp">/Contents/</span>Home</span><br></pre></td></tr></table></figure></p>
+<p>切换jdk版本，使用jenv<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> brew install jenv</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">'export PATH="$HOME/.jenv/bin:$PATH"'</span> &gt;&gt; ~/.bash_profile</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">'eval "$(jenv init -)"'</span> &gt;&gt; ~/.bash_profile</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">source</span> ~/.bash_profile</span></span><br></pre></td></tr></table></figure></p>
+<p>添加jdk目录到jenv<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ jenv add <span class="regexp">/Library/</span>Java<span class="regexp">/JavaVirtualMachines/</span>jdk-<span class="number">12.0</span>.<span class="number">1</span>.jdk<span class="regexp">/Contents/</span>Home</span><br><span class="line">$ jenv add <span class="regexp">/Library/</span>Java<span class="regexp">/JavaVirtualMachines/</span>jdk1.<span class="number">8.0</span>_201.jdk<span class="regexp">/Contents/</span>Home</span><br></pre></td></tr></table></figure></p>
+<p>查看所有版本<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ jenv versions</span><br><span class="line">* system (set by /Users/nitaoge/.jenv/version)</span><br><span class="line">  <span class="number">1.8</span></span><br><span class="line">  <span class="number">1.8</span><span class="number">.0</span><span class="number">.201</span></span><br><span class="line">  <span class="number">12.0</span></span><br><span class="line">  <span class="number">12.0</span><span class="number">.1</span></span><br><span class="line">  openjdk64<span class="number">-12.0</span><span class="number">.1</span></span><br><span class="line">  oracle64<span class="number">-1.8</span><span class="number">.0</span><span class="number">.201</span></span><br></pre></td></tr></table></figure></p>
+<p>切换版本<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ jenv local 1.8</span><br><span class="line">$ java -version</span><br><span class="line">java version <span class="string">"1.8.0_201"</span></span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_201-b09)</span><br><span class="line">Java HotSpot(TM) 64-Bit<span class="built_in"> Server </span>VM (build 25.201-b09, mixed mode)</span><br><span class="line"></span><br><span class="line">$ jenv local 12.0</span><br><span class="line">$ java -version</span><br><span class="line">openjdk version <span class="string">"12.0.1"</span> 2019-04-16</span><br><span class="line">OpenJDK Runtime Environment (build 12.0.1+12)</span><br><span class="line">OpenJDK 64-Bit<span class="built_in"> Server </span>VM (build 12.0.1+12, mixed mode, sharing)</span><br></pre></td></tr></table></figure></p>
+<p>也可以使用jenv global配置所有用户的jdk环境</p>
+<h1 id="自己编译openjdk"><a href="#自己编译openjdk" class="headerlink" title="自己编译openjdk"></a>自己编译openjdk</h1><h2 id="Mac-OS-1"><a href="#Mac-OS-1" class="headerlink" title="Mac OS"></a>Mac OS</h2><p>openjdk使用Mercurial管理代码，需要安装Mercurial。<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">brew </span><span class="keyword">install </span>mercurial</span><br></pre></td></tr></table></figure></p>
+<p>安装依赖<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">brew </span><span class="keyword">install </span>ccache</span><br><span class="line">$ <span class="keyword">brew </span><span class="keyword">install </span>freetype</span><br><span class="line">$ <span class="keyword">brew </span><span class="keyword">install </span>gcc</span><br></pre></td></tr></table></figure></p>
+<p>如果安装依赖过程中报错，按照提示安装xcode-select<br><figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">==&gt; Installing mercurial dependency: python@2</span><br><span class="line"><span class="keyword">Error: </span>Xcode alone is not sufficient on High Sierra.</span><br><span class="line">Install the Command Line Tools:</span><br><span class="line">  xcode-select --install</span><br><span class="line">  </span><br><span class="line">$ xcode-select --install</span><br></pre></td></tr></table></figure></p>
+<p>从<a href="http://hg.openjdk.java.net/" target="_blank" rel="noopener">官方项目地址</a>选择指定版本<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hg <span class="built_in">clone</span> http://hg.openjdk.java.net/jdk8u/jdk8u60/</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> jdk8u60</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> bash get_source.sh</span></span><br></pre></td></tr></table></figure></p>
+<p>设置环境变量<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">$ vim env-vars</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设定语言选项，必须设置</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">LANG</span>=C</span><br><span class="line"><span class="comment"># Mac平台，C编译器不再是GCC，是clang</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">CC</span>=clang</span><br><span class="line"><span class="comment"># 跳过clang的一些严格的语法检查，不然会将N多的警告作为Error</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">COMPILER_WARNINGS_FATAL</span>=<span class="literal">false</span></span><br><span class="line"><span class="comment"># 链接时使用的参数</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">LFLAGS</span>=<span class="string">'-Xlinker -lstdc++'</span></span><br><span class="line"><span class="comment"># 是否使用clang</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">USE_CLANG</span>=<span class="literal">true</span></span><br><span class="line"><span class="comment"># 使用64位数据模型</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">LP64</span>=1</span><br><span class="line"><span class="comment"># 告诉编译平台是64位，不然会按32位来编译</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">ARCH_DATA_MODEL</span>=64</span><br><span class="line"><span class="comment"># 允许自动下载依赖</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">ALLOW_DOWNLOADS</span>=<span class="literal">true</span></span><br><span class="line"><span class="comment"># 并行编译的线程数，编译时间长，为了不影响其他工作，我选择为2</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">HOTSPOT_BUILD_JOBS</span>=2</span><br><span class="line"><span class="comment"># 是否跳过与先前版本的比较</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">SKIP_COMPARE_IMAGES</span>=<span class="literal">true</span></span><br><span class="line"><span class="comment"># 是否使用预编译头文件，加快编译速度</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">USE_PRECOMPILED_HEADER</span>=<span class="literal">true</span></span><br><span class="line"><span class="comment"># 是否使用增量编译</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">INCREMENTAL_BUILD</span>=<span class="literal">true</span></span><br><span class="line"><span class="comment"># 编译内容</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">BUILD_LANGTOOLS</span>=<span class="literal">true</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">BUILD_JAXP</span>=<span class="literal">true</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">BUILD_JAXWS</span>=<span class="literal">true</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">BUILD_CORBA</span>=<span class="literal">true</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">BUILD_HOTSPOT</span>=<span class="literal">true</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">BUILD_JDK</span>=<span class="literal">true</span></span><br><span class="line"><span class="comment"># 编译版本</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">SKIP_DEBUG_BUILD</span>=<span class="literal">true</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">SKIP_FASTDEBUG_BUILD</span>=<span class="literal">false</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">DEBUG_NAME</span>=debug</span><br><span class="line"><span class="comment"># 避开javaws和浏览器Java插件之类的部分的build</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">BUILD_DEPLOY</span>=<span class="literal">false</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">BUILD_INSTALL</span>=<span class="literal">false</span></span><br><span class="line">unset JAVA_HOME</span><br></pre></td></tr></table></figure></p>
+<p>使环境变量生效<br><figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">source</span> <span class="keyword">env</span>-vars</span><br></pre></td></tr></table></figure></p>
+<p>配置编译环境<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>bash ./configure  --<span class="keyword">with</span>-freetype-<span class="keyword">include</span>=<span class="regexp">/usr/local</span><span class="regexp">/include/freetype</span>2 --<span class="keyword">with</span>-freetype-lib=<span class="regexp">/usr/local</span><span class="regexp">/lib/</span></span><br></pre></td></tr></table></figure></p>
+<p>如遇到xcode4问题，注释下面语句<br><figure class="highlight smalltalk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">$ </span>vim common/autoconf/generated-configure.sh</span><br><span class="line"></span><br><span class="line"><span class="symbol">#if</span> test ! <span class="comment">"$&#123;XC_VERSION_PARTS[0]&#125;"</span> = <span class="comment">"4"</span>; then</span><br><span class="line">      <span class="symbol">#as_fn_error</span> <span class="string">$?</span> <span class="comment">"Xcode 4 is required to build JDK 8, the version found was $XCODE_VERSION. Use --with-xcode-path to specify the location of Xcode 4 or make Xcode 4 active by using xcode-select."</span> <span class="comment">"$LINENO"</span> <span class="number">5</span></span><br><span class="line"><span class="symbol">#fi</span></span><br></pre></td></tr></table></figure></p>
+<p>如遇到gcc问题，注释下面两条语句20353行和21954行报错。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> vim common/autoconf/generated-configure.sh</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">as_fn_error $? <span class="string">"GCC compiler is required. Try setting --with-tools-dir."</span> <span class="string">"<span class="variable">$LINENO</span>"</span> 5</span></span><br></pre></td></tr></table></figure></p>
+<p>编译环境配置完毕<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">====================================================</span><br><span class="line">A new configuration has been successfully created in</span><br><span class="line">/Users/nitaoge/temp/jdk8u60/build/macosx-x86_64-normal-server-<span class="keyword">release</span></span><br><span class="line"><span class="keyword">using</span> configure arguments <span class="string">'--with-freetype-include=/usr/local/include/freetype2 --with-freetype-lib=/usr/local/lib/'</span>.</span><br><span class="line"></span><br><span class="line">Configuration summary:</span><br><span class="line">* Debug <span class="keyword">level</span>:    <span class="keyword">release</span></span><br><span class="line">* JDK variant:    <span class="keyword">normal</span></span><br><span class="line">* JVM variants:   <span class="keyword">server</span></span><br><span class="line">* OpenJDK target: OS: macosx, CPU architecture: x86, address <span class="keyword">length</span>: <span class="number">64</span></span><br><span class="line"></span><br><span class="line">Tools summary:</span><br><span class="line">* Boot JDK:       <span class="keyword">java</span> <span class="keyword">version</span> <span class="string">"1.8.0_201"</span> <span class="keyword">Java</span>(TM) SE Runtime Environment (<span class="keyword">build</span> <span class="number">1.8</span><span class="number">.0</span>_201-b09) <span class="keyword">Java</span> HotSpot(TM) <span class="number">64</span>-<span class="built_in">Bit</span> <span class="keyword">Server</span> VM (<span class="keyword">build</span> <span class="number">25.201</span>-b09, mixed <span class="keyword">mode</span>)  (<span class="keyword">at</span> /<span class="keyword">Library</span>/<span class="keyword">Java</span>/JavaVirtualMachines/jdk1<span class="number">.8</span><span class="number">.0</span>_201.jdk/<span class="keyword">Contents</span>/Home)</span><br><span class="line">* C Compiler:     Apple LLVM <span class="keyword">version</span> (clang<span class="number">-1000.11</span><span class="number">.45</span><span class="number">.5</span>) <span class="keyword">version</span> <span class="number">10.0</span><span class="number">.0</span> (clang<span class="number">-1000.11</span><span class="number">.45</span><span class="number">.5</span>) (<span class="keyword">at</span> /usr/<span class="keyword">bin</span>/clang)</span><br><span class="line">* C++ Compiler:    <span class="keyword">version</span>  (<span class="keyword">at</span> /usr/<span class="keyword">bin</span>/g++)</span><br><span class="line"></span><br><span class="line"><span class="keyword">Build</span> <span class="keyword">performance</span> summary:</span><br><span class="line">* Cores <span class="keyword">to</span> <span class="keyword">use</span>:   <span class="number">4</span></span><br><span class="line">* <span class="keyword">Memory</span> <span class="keyword">limit</span>:   <span class="number">16384</span> MB</span><br><span class="line">* ccache <span class="keyword">status</span>:  installed, but disabled (<span class="keyword">version</span> older <span class="keyword">than</span> <span class="number">3.1</span><span class="number">.4</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">Build</span> <span class="keyword">performance</span> tip: ccache gives a tremendous speedup <span class="keyword">for</span> C++ recompilations.</span><br><span class="line">You have ccache installed, but it <span class="keyword">is</span> a <span class="keyword">version</span> <span class="keyword">prior</span> <span class="keyword">to</span> <span class="number">3.1</span><span class="number">.4</span>. Try upgrading.</span><br></pre></td></tr></table></figure></p>
+<p>编译<br><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">$</span> make <span class="keyword">all</span></span><br></pre></td></tr></table></figure></p>
+<p>报错langtools找不到，因为执行bash get_source.sh获取存储库时，网络原因有可能获取文件失败，多试几次，我网不好，我放弃了。以后再试。</p>
+<p>编译成功之后会在build/linux-x64-normal-server-release下生成jdk包。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="http://openjdk.java.net/groups/build/" target="_blank" rel="noopener">Build Infrastructure Group</a></p>
+
       
     </div>
     
@@ -495,8 +528,8 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>作者/文章:</span><a href="/" title="访问 中华郑六 的技术博客">中华郑六</a> / <a href="/p/6a43eebc/">看破Java 5.IO、Socket</a></p>
-  <p><span>原始链接:</span><a href="/p/6a43eebc/" title="看破Java 5.IO、Socket">http://tech.nitaoge.com/p/6a43eebc/</a>
+  <p><span>作者/文章:</span><a href="/" title="访问 中华郑六 的技术博客">中华郑六</a> / <a href="/p/6a43eebc/">看破Java 3.OpenJDK</a></p>
+  <p><span>原始链接:</span><a href="/p/6a43eebc/" title="看破Java 3.OpenJDK">http://tech.nitaoge.com/p/6a43eebc/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://tech.nitaoge.com/p/6a43eebc/" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
@@ -563,8 +596,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/p/5191fb9a/" rel="next" title="看破调优 1.从java开发开始">
-                <i class="fa fa-chevron-left"></i> 看破调优 1.从java开发开始
+              <a href="/p/fa66359c/" rel="next" title="看破Guava 1.简介、集成和使用">
+                <i class="fa fa-chevron-left"></i> 看破Guava 1.简介、集成和使用
               </a>
             
           </div>
@@ -573,8 +606,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/p/baaf222c/" rel="prev" title="看破设计模式 4. 行为型模式 - 职责链模式(Chain of Responsibility)">
-                看破设计模式 4. 行为型模式 - 职责链模式(Chain of Responsibility) <i class="fa fa-chevron-right"></i>
+              <a href="/p/da68c872/" rel="prev" title="看破ApacheBench 1.快速安装及使用">
+                看破ApacheBench 1.快速安装及使用 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -638,8 +671,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -656,7 +698,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -667,7 +709,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -678,7 +720,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -740,6 +782,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么用OpenJDK"><span class="nav-number">1.</span> <span class="nav-text">为什么用OpenJDK</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装openjdk"><span class="nav-number">2.</span> <span class="nav-text">安装openjdk</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux"><span class="nav-number">2.1.</span> <span class="nav-text">Linux</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mac-OS"><span class="nav-number">2.2.</span> <span class="nav-text">Mac OS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自己编译openjdk"><span class="nav-number">3.</span> <span class="nav-text">自己编译openjdk</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Mac-OS-1"><span class="nav-number">3.1.</span> <span class="nav-text">Mac OS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -800,7 +858,7 @@
     
       <span class="post-meta-item-text">码字&#58;</span>
     
-    <span title="码字">65.1k</span>
+    <span title="码字">71k</span>
   
 
 </div>
@@ -959,7 +1017,7 @@
         var disqus_config = function () {
           this.page.url = 'http://tech.nitaoge.com/p/6a43eebc/';
           this.page.identifier = 'p/6a43eebc/';
-          this.page.title = '看破Java 5.IO、Socket';
+          this.page.title = '看破Java 3.OpenJDK';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://NiTaogeTech.disqus.com/embed.js';

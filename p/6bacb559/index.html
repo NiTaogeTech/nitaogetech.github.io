@@ -88,15 +88,18 @@
 
 
 
+<meta name="description" content="安装python3mac os从官方下载地址下安装包，跟随可视步骤安装。 linux安装依赖1# yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make libffi-devel 从官方下载地址选择版本下载。1# wget https:/">
 <meta name="keywords" content="看破Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="看破Python 1.从语法开始">
 <meta property="og:url" content="http://tech.nitaoge.com/p/6bacb559/index.html">
 <meta property="og:site_name" content="NiTaogeTech">
+<meta property="og:description" content="安装python3mac os从官方下载地址下安装包，跟随可视步骤安装。 linux安装依赖1# yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make libffi-devel 从官方下载地址选择版本下载。1# wget https:/">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-03T14:36:39.687Z">
+<meta property="og:updated_time" content="2019-05-20T07:18:20.659Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="看破Python 1.从语法开始">
+<meta name="twitter:description" content="安装python3mac os从官方下载地址下安装包，跟随可视步骤安装。 linux安装依赖1# yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make libffi-devel 从官方下载地址选择版本下载。1# wget https:/">
 
 
 
@@ -420,7 +423,7 @@
                   <span class="post-meta-item-text">字数&#58;</span>
                 
                 <span title="字数">
-                  0
+                  358
                 </span>
               
 
@@ -457,7 +460,24 @@
       
 
       
-        
+        <h1 id="安装python3"><a href="#安装python3" class="headerlink" title="安装python3"></a>安装python3</h1><h2 id="mac-os"><a href="#mac-os" class="headerlink" title="mac os"></a>mac os</h2><p>从<a href="https://www.python.org/downloads/mac-osx/" target="_blank" rel="noopener">官方下载地址</a>下安装包，跟随可视步骤安装。</p>
+<h2 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h2><p>安装依赖<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make libffi-devel</span></span><br></pre></td></tr></table></figure></p>
+<p>从<a href="https://www.python.org/downloads/source/" target="_blank" rel="noopener">官方下载地址</a>选择版本下载。<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># wget http<span class="variable">s:</span>//www.<span class="keyword">python</span>.org/ftp/<span class="keyword">python</span>/<span class="number">3.7</span>.<span class="number">3</span>/Python-<span class="number">3.7</span>.<span class="number">3</span>.tgz</span><br></pre></td></tr></table></figure></p>
+<p>解压<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># <span class="selector-tag">tar</span> <span class="selector-tag">-zxf</span> <span class="selector-tag">Python-3</span><span class="selector-class">.7</span><span class="selector-class">.3</span><span class="selector-class">.tgz</span></span><br></pre></td></tr></table></figure></p>
+<p>安装<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># ./configure prefix=/usr/local/python3 </span></span><br><span class="line"><span class="meta"># make &amp;&amp; make install</span></span><br></pre></td></tr></table></figure></p>
+<p>添加软链接<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># ln -s <span class="regexp">/usr/</span>local<span class="regexp">/python3/</span>bin<span class="regexp">/python3.7 /u</span>sr<span class="regexp">/bin/</span>python3.<span class="number">7</span> </span><br><span class="line"># ln -s <span class="regexp">/usr/</span>local<span class="regexp">/python3/</span>bin<span class="regexp">/pip3.7 /u</span>sr<span class="regexp">/bin/</span>pip3.<span class="number">7</span></span><br></pre></td></tr></table></figure></p>
+<p>测试安装是否成功<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># python3.7 -V</span></span><br><span class="line"><span class="meta"># pip3.7 -V</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="变量-amp-amp-运算符"><a href="#变量-amp-amp-运算符" class="headerlink" title="变量 &amp;&amp; 运算符"></a>变量 &amp;&amp; 运算符</h1><h1 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h1><h1 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h1><h1 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h1><h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><h1 id="类"><a href="#类" class="headerlink" title="类"></a>类</h1><h1 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h1><p>首先要明确包、模块、类、函数、变量的概念。<br>包就是一个包含__init__.py的文件夹，分包其实是为了工程化开发，易于管理代码。<br>模块是一个包含类、和函数等代码的.py文件。<br>类、函数、变量不用多说了，是面向对象语言的基础。</p>
+<p>如果是同一包下的模块，导入使用以下方式：<br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> 模块</span><br><span class="line"><span class="keyword">from</span> 模块 <span class="keyword">import</span> 类<span class="regexp">/函数/</span>变量</span><br></pre></td></tr></table></figure></p>
+<p>不同包下：<br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> 包.模块</span><br><span class="line"><span class="keyword">from</span> 包 <span class="keyword">import</span> 模块</span><br><span class="line"><span class="keyword">from</span> 包.模块 <span class="keyword">import</span> 类<span class="regexp">/函数/</span>变量</span><br></pre></td></tr></table></figure></p>
+<h2 id="引入别名"><a href="#引入别名" class="headerlink" title="引入别名"></a>引入别名</h2><p>导入后面加个as即可<br><figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> package.module <span class="keyword">as</span> m</span><br><span class="line">from math <span class="keyword">import</span> <span class="built_in">pi</span> <span class="keyword">as</span> p</span><br></pre></td></tr></table></figure></p>
+<h2 id="init-py"><a href="#init-py" class="headerlink" title="__init__.py"></a>__init__.py</h2><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://docs.python.org/zh-cn/3.7/" target="_blank" rel="noopener">官方文档</a></li>
+<li>《Python编程：从入门到实践》</li>
+<li>《Python基础教程（第3版）》</li>
+<li>《流畅的Python》</li>
+</ul>
+
       
     </div>
     
@@ -563,8 +583,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/p/bafefb6b/" rel="next" title="看破Java 2.知其所以然">
-                <i class="fa fa-chevron-left"></i> 看破Java 2.知其所以然
+              <a href="/p/a97da55f/" rel="next" title="看破Python 10.从语法开始">
+                <i class="fa fa-chevron-left"></i> 看破Python 10.从语法开始
               </a>
             
           </div>
@@ -573,8 +593,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/p/195fb869/" rel="prev" title="看破Java 1.核心语法">
-                看破Java 1.核心语法 <i class="fa fa-chevron-right"></i>
+              <a href="/p/698730d5/" rel="prev" title="看破Zookeeper 1.快速安装及使用">
+                看破Zookeeper 1.快速安装及使用 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -638,8 +658,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -656,7 +685,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -667,7 +696,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -678,7 +707,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -740,6 +769,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装python3"><span class="nav-number">1.</span> <span class="nav-text">安装python3</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#mac-os"><span class="nav-number">1.1.</span> <span class="nav-text">mac os</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux"><span class="nav-number">1.2.</span> <span class="nav-text">linux</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#变量-amp-amp-运算符"><span class="nav-number">2.</span> <span class="nav-text">变量 &amp;&amp; 运算符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#输入输出"><span class="nav-number">3.</span> <span class="nav-text">输入输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#容器"><span class="nav-number">4.</span> <span class="nav-text">容器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#流程控制"><span class="nav-number">5.</span> <span class="nav-text">流程控制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数"><span class="nav-number">6.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类"><span class="nav-number">7.</span> <span class="nav-text">类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#导入"><span class="nav-number">8.</span> <span class="nav-text">导入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#引入别名"><span class="nav-number">8.1.</span> <span class="nav-text">引入别名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#init-py"><span class="nav-number">8.2.</span> <span class="nav-text">__init__.py</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">9.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -800,7 +845,7 @@
     
       <span class="post-meta-item-text">码字&#58;</span>
     
-    <span title="码字">65.1k</span>
+    <span title="码字">71k</span>
   
 
 </div>

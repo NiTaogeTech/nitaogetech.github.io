@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="NiTaogeTech">
 <meta property="og:description" content="背景现在随便一台服务器都可以挂十几个盘，每个盘十几个T，然后做磁盘阵列，由于fdisk使用MBR分区标准，导致它不支持大于2T的磁盘分区，而且只能分4个物理分区，所以我仅总结下parted分区方式。 磁盘分区parted [OPTION]… [DEVICE [COMMAND [PARAMETERS]…]…]1234567891011121314151617181920212223242526272">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-09T03:10:33.720Z">
+<meta property="og:updated_time" content="2019-05-11T03:05:29.421Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="看破Linux 7.磁盘分区、格式化、挂载、磁盘阵列">
 <meta name="twitter:description" content="背景现在随便一台服务器都可以挂十几个盘，每个盘十几个T，然后做磁盘阵列，由于fdisk使用MBR分区标准，导致它不支持大于2T的磁盘分区，而且只能分4个物理分区，所以我仅总结下parted分区方式。 磁盘分区parted [OPTION]… [DEVICE [COMMAND [PARAMETERS]…]…]1234567891011121314151617181920212223242526272">
@@ -423,7 +423,7 @@
                   <span class="post-meta-item-text">字数&#58;</span>
                 
                 <span title="字数">
-                  1.4k
+                  1.6k
                 </span>
               
 
@@ -439,7 +439,7 @@
                   <span class="post-meta-item-text">时长 &asymp;</span>
                 
                 <span title="时长">
-                  6
+                  7
                 </span>
               
             </div>
@@ -473,6 +473,10 @@
 <h1 id="挂载"><a href="#挂载" class="headerlink" title="挂载"></a>挂载</h1><p>现在可以挂载分区到目录了<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># mkdir /disk1 /disk2</span><br><span class="line"># mount /dev/sdb1 /disk1</span><br><span class="line"># mount /dev/sdb2 /disk2</span><br><span class="line"># df -h</span><br><span class="line">文件系统        容量  已用  可用 已用% 挂载点</span><br><span class="line">/dev/sda1        <span class="number">40</span>G  <span class="number">2.4</span>G   <span class="number">38</span>G    <span class="number">6</span>% /</span><br><span class="line">devtmpfs        <span class="number">907</span>M     <span class="number">0</span>  <span class="number">907</span>M    <span class="number">0</span>% /dev</span><br><span class="line">tmpfs           <span class="number">917</span>M     <span class="number">0</span>  <span class="number">917</span>M    <span class="number">0</span>% /dev/shm</span><br><span class="line">tmpfs           <span class="number">917</span>M  <span class="number">8.9</span>M  <span class="number">908</span>M    <span class="number">1</span>% /run</span><br><span class="line">tmpfs           <span class="number">917</span>M     <span class="number">0</span>  <span class="number">917</span>M    <span class="number">0</span>% /sys/fs/cgroup</span><br><span class="line">tmpfs           <span class="number">184</span>M     <span class="number">0</span>  <span class="number">184</span>M    <span class="number">0</span>% /run/user/<span class="number">0</span></span><br><span class="line">/dev/sdb1        <span class="number">50</span>G   <span class="number">33</span>M   <span class="number">50</span>G    <span class="number">1</span>% /disk1</span><br><span class="line">/dev/sdb2        <span class="number">50</span>G   <span class="number">33</span>M   <span class="number">50</span>G    <span class="number">1</span>% /disk2</span><br></pre></td></tr></table></figure></p>
 <p>还得修改系统挂载表，再重启就会自动挂载指定分区了。<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># vim /etc/fstab</span><br><span class="line">UUID=<span class="number">94</span>b135cb-df54<span class="number">-4</span>f82<span class="number">-91</span>b8<span class="number">-026</span>f27444c2f /                       xfs     defaults        <span class="number">0</span> <span class="number">0</span></span><br><span class="line">/dev/sdb1 /disk1                       xfs     defaults        <span class="number">0</span> <span class="number">0</span></span><br><span class="line">/dev/sdb2 /disk2                       xfs     defaults        <span class="number">0</span> <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
 <p>每块设备、每个分区都有自己的UUID，如果以后磁盘坏了或者其他情况需要换盘，这时设备名就有可能更改，所以可以使用UUID固定分区挂载设置。<br>使用blkid查看磁盘分区UUID<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># blkid /dev/sdb1</span></span><br><span class="line">/dev/sdb1: <span class="attribute">UUID</span>=<span class="string">"12b5cbef-bd21-4977-8eca-c2b72f8e3b47"</span> <span class="attribute">TYPE</span>=<span class="string">"xfs"</span> <span class="attribute">PARTLABEL</span>=<span class="string">"p1"</span> <span class="attribute">PARTUUID</span>=<span class="string">"e82d1feb-214e-4b33-ae9d-67ed67c654fe"</span></span><br><span class="line"><span class="comment"># blkid /dev/sdb2</span></span><br><span class="line">/dev/sdb2: <span class="attribute">UUID</span>=<span class="string">"9ff79f5f-c53e-4b8e-af90-9fdb1bc6d6bf"</span> <span class="attribute">TYPE</span>=<span class="string">"xfs"</span> <span class="attribute">PARTLABEL</span>=<span class="string">"p2"</span> <span class="attribute">PARTUUID</span>=<span class="string">"e8a21d8c-7771-486b-a238-cfabf019aadf"</span></span><br><span class="line"></span><br><span class="line">然后系统挂载表可以改成</span><br><span class="line"><span class="attribute">UUID</span>=12b5cbef-bd21-4977-8eca-c2b72f8e3b47 /disk1                       xfs     defaults        0 0</span><br><span class="line"><span class="attribute">UUID</span>=9ff79f5f-c53e-4b8e-af90-9fdb1bc6d6bf /disk2                       xfs     defaults        0 0</span><br></pre></td></tr></table></figure></p>
+<h1 id="交换分区"><a href="#交换分区" class="headerlink" title="交换分区"></a>交换分区</h1><p>创建交换分区文件并启用<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># dd <span class="meta">if</span>=/dev/zero of=/disk1/<span class="meta">data</span>/swap <span class="keyword">bs=1024M </span>count<span class="number">=8</span></span><br><span class="line"># mkswap /disk1/<span class="meta">data</span>/swap &amp;&amp; chmod <span class="number">600</span> /disk1/<span class="meta">data</span>/swap</span><br><span class="line"># swapon /disk1/<span class="meta">data</span>/swap</span><br></pre></td></tr></table></figure></p>
+<p>添加到挂载表<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># vim /etc/fstab</span></span><br><span class="line"></span><br><span class="line">/disk1/data/<span class="keyword">swap</span>   <span class="keyword">swap</span>  <span class="keyword">swap</span>  defaults  <span class="number">0</span>  <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<p>禁用交换分区并删除<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># swapoff /disk1/data/swap</span></span><br><span class="line"><span class="meta"># rm -rf /disk1/data/swap</span></span><br></pre></td></tr></table></figure></p>
+<p>通过修改swappiness的数值，可以告诉内核如何使用swap分区。<br>swappiness=0时表示最大限度使用物理内存，内存不足才使用swap分区。<br>swappiness＝100的时候表示尽可能地使用swap分区。<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">查看系统的<span class="keyword">swappiness</span></span><br><span class="line"># cat /proc/sys/vm/swappiness</span><br><span class="line"><span class="number">30</span></span><br><span class="line"></span><br><span class="line">修改<span class="keyword">swappiness</span></span><br><span class="line"><span class="keyword"># </span>sysctl -w vm.<span class="keyword">swappiness=100</span></span><br><span class="line"># vim /usr/lib/sysctl.d/50-default.conf</span><br><span class="line">vm.<span class="keyword">swappiness </span>= <span class="number">100</span></span><br></pre></td></tr></table></figure></p>
 <h1 id="Raid磁盘阵列"><a href="#Raid磁盘阵列" class="headerlink" title="Raid磁盘阵列"></a>Raid磁盘阵列</h1><p>我公司用的raid10，镜像加条带化，足以保证IO效率和数据安全。</p>
 <p>先转一篇文章，以后用到再深究。</p>
 <ul>
@@ -594,8 +598,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/p/79cca877/" rel="prev" title="看破Linux 8.lvs+nginx+keepalive">
-                看破Linux 8.lvs+nginx+keepalive <i class="fa fa-chevron-right"></i>
+              <a href="/p/79cca877/" rel="prev" title="看破Linux 8.监控工具">
+                看破Linux 8.监控工具 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -686,7 +690,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -697,7 +701,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -708,7 +712,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -779,7 +783,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#磁盘分区"><span class="nav-number">2.</span> <span class="nav-text">磁盘分区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建文件系统"><span class="nav-number">3.</span> <span class="nav-text">创建文件系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#挂载"><span class="nav-number">4.</span> <span class="nav-text">挂载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Raid磁盘阵列"><span class="nav-number">5.</span> <span class="nav-text">Raid磁盘阵列</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#磁盘分区"><span class="nav-number">2.</span> <span class="nav-text">磁盘分区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建文件系统"><span class="nav-number">3.</span> <span class="nav-text">创建文件系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#挂载"><span class="nav-number">4.</span> <span class="nav-text">挂载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交换分区"><span class="nav-number">5.</span> <span class="nav-text">交换分区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Raid磁盘阵列"><span class="nav-number">6.</span> <span class="nav-text">Raid磁盘阵列</span></a></li></ol></div>
             
 
           </div>
@@ -846,7 +850,7 @@
     
       <span class="post-meta-item-text">码字&#58;</span>
     
-    <span title="码字">65.1k</span>
+    <span title="码字">71k</span>
   
 
 </div>

@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="NiTaogeTech">
 <meta property="og:description" content="防火墙关闭防火墙12systemctl stop firewalldsystemctl disable firewalld SELINUX关闭selinux123vi /etc/selinux/configSELINUX=disabled 网卡查看网卡属性12$ ifconfig$ ifconfig 网卡名 网卡文件路径1$ vi /etc/sysconfig/network-scripts/if">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-03T14:15:05.409Z">
+<meta property="og:updated_time" content="2019-05-10T13:55:12.662Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="看破CentOS 1.系统配置">
 <meta name="twitter:description" content="防火墙关闭防火墙12systemctl stop firewalldsystemctl disable firewalld SELINUX关闭selinux123vi /etc/selinux/configSELINUX=disabled 网卡查看网卡属性12$ ifconfig$ ifconfig 网卡名 网卡文件路径1$ vi /etc/sysconfig/network-scripts/if">
@@ -423,7 +423,7 @@
                   <span class="post-meta-item-text">字数&#58;</span>
                 
                 <span title="字数">
-                  339
+                  356
                 </span>
               
 
@@ -469,7 +469,7 @@
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">TYPE</span>=<span class="string">"Ethernet"</span></span><br><span class="line"><span class="attr">PROXY_METHOD</span>=<span class="string">"none"</span></span><br><span class="line"><span class="attr">BROWSER_ONLY</span>=<span class="string">"no"</span></span><br><span class="line"><span class="attr">BOOTPROTO</span>=<span class="string">"none"</span></span><br><span class="line"><span class="attr">DEFROUTE</span>=<span class="string">"yes"</span></span><br><span class="line"><span class="attr">IPV4_FAILURE_FATAL</span>=<span class="string">"no"</span></span><br><span class="line"><span class="attr">IPV6INIT</span>=<span class="string">"yes"</span></span><br><span class="line"><span class="attr">IPV6_AUTOCONF</span>=<span class="string">"yes"</span></span><br><span class="line"><span class="attr">IPV6_DEFROUTE</span>=<span class="string">"yes"</span></span><br><span class="line"><span class="attr">IPV6_FAILURE_FATAL</span>=<span class="string">"no"</span></span><br><span class="line"><span class="attr">IPV6_ADDR_GEN_MODE</span>=<span class="string">"stable-privacy"</span></span><br><span class="line"><span class="attr">NAME</span>=<span class="string">"ens33"</span></span><br><span class="line"><span class="attr">UUID</span>=<span class="string">"1db89cb7-a94b-43b5-94ef-3bc7b2dd2f4d"</span></span><br><span class="line"><span class="attr">DEVICE</span>=<span class="string">"ens33"</span></span><br><span class="line"><span class="attr">ONBOOT</span>=<span class="string">"yes"</span></span><br><span class="line"><span class="attr">IPADDR</span>=<span class="string">"192.168.2.61"</span></span><br><span class="line"><span class="attr">PREFIX</span>=<span class="string">"24"</span></span><br><span class="line"><span class="attr">GATEWAY</span>=<span class="string">"192.168.2.2"</span> </span><br><span class="line"><span class="attr">DNS1</span>=<span class="string">"192.168.2.2"</span></span><br><span class="line"><span class="attr">IPV6_PRIVACY</span>=<span class="string">"no"</span></span><br></pre></td></tr></table></figure>
 <h2 id="重启网络服务"><a href="#重启网络服务" class="headerlink" title="重启网络服务"></a>重启网络服务</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>systemctl restart network</span><br></pre></td></tr></table></figure>
 <h1 id="修改主机名"><a href="#修改主机名" class="headerlink" title="修改主机名"></a>修改主机名</h1><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">vi</span> /etc/<span class="built_in">hostname</span></span><br><span class="line">$ <span class="built_in">hostname</span> 主机名</span><br></pre></td></tr></table></figure>
-
+<h1 id="免密登录"><a href="#免密登录" class="headerlink" title="免密登录"></a>免密登录</h1><figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># ssh-copy-id -i .ssh/id_rsa.pub  root<span class="title">@192</span>.<span class="number">168</span>.<span class="keyword">x</span>.xxx</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -677,7 +677,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -688,7 +688,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -699,7 +699,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -770,7 +770,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#防火墙"><span class="nav-number">1.</span> <span class="nav-text">防火墙</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关闭防火墙"><span class="nav-number">1.1.</span> <span class="nav-text">关闭防火墙</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SELINUX"><span class="nav-number">2.</span> <span class="nav-text">SELINUX</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关闭selinux"><span class="nav-number">2.1.</span> <span class="nav-text">关闭selinux</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网卡"><span class="nav-number">3.</span> <span class="nav-text">网卡</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看网卡属性"><span class="nav-number">3.1.</span> <span class="nav-text">查看网卡属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网卡文件路径"><span class="nav-number">3.2.</span> <span class="nav-text">网卡文件路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置属性说明"><span class="nav-number">3.3.</span> <span class="nav-text">配置属性说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重启网络服务"><span class="nav-number">3.4.</span> <span class="nav-text">重启网络服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改主机名"><span class="nav-number">4.</span> <span class="nav-text">修改主机名</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#防火墙"><span class="nav-number">1.</span> <span class="nav-text">防火墙</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关闭防火墙"><span class="nav-number">1.1.</span> <span class="nav-text">关闭防火墙</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SELINUX"><span class="nav-number">2.</span> <span class="nav-text">SELINUX</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关闭selinux"><span class="nav-number">2.1.</span> <span class="nav-text">关闭selinux</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网卡"><span class="nav-number">3.</span> <span class="nav-text">网卡</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看网卡属性"><span class="nav-number">3.1.</span> <span class="nav-text">查看网卡属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网卡文件路径"><span class="nav-number">3.2.</span> <span class="nav-text">网卡文件路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置属性说明"><span class="nav-number">3.3.</span> <span class="nav-text">配置属性说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重启网络服务"><span class="nav-number">3.4.</span> <span class="nav-text">重启网络服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改主机名"><span class="nav-number">4.</span> <span class="nav-text">修改主机名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#免密登录"><span class="nav-number">5.</span> <span class="nav-text">免密登录</span></a></li></ol></div>
             
 
           </div>
@@ -837,7 +837,7 @@
     
       <span class="post-meta-item-text">码字&#58;</span>
     
-    <span title="码字">65.1k</span>
+    <span title="码字">71k</span>
   
 
 </div>

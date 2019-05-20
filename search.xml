@@ -34,9 +34,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[看破Docker 4.镜像]]></title>
-    <url>%2Fp%2Ff6ac48d9%2F</url>
-    <content type="text"><![CDATA[镜像结构 镜像是分层结构，目的是为了共享资源。 构建容器运行时镜像属于容器层，可读写；仓库中镜像属于镜像层，只读。 FROM scratch是从零开始构建，属于基础镜像。 docker运行的linux镜像都是独立用户空间，共享宿主机内核。 镜像构建docker commit（官方不推荐）详细参考3.命令详解。 Dockfile（推荐）]]></content>
+    <title><![CDATA[看破Docker 6.网络]]></title>
+    <url>%2Fp%2F1dfdbb87%2F</url>
+    <content type="text"><![CDATA[启动方式]]></content>
       <categories>
         <category>docker</category>
       </categories>
@@ -48,17 +48,6 @@
     <title><![CDATA[看破Docker 2.玩转配置]]></title>
     <url>%2Fp%2F24f59f15%2F</url>
     <content type="text"><![CDATA[服务配置查看服务状态123456789101112$ sudo systemctl status docker● docker.service - Docker Application Container Engine Loaded: loaded (/usr/lib/systemd/system/docker.service; disabled; vendor preset: disabled) Active: active (running) since 日 2019-04-21 17:23:07 CST; 34min ago Docs: https://docs.docker.com Main PID: 20760 (dockerd) Tasks: 22 Memory: 251.7M CGroup: /system.slice/docker.service ├─20760 /usr/bin/dockerd -H fd:// -H tcp://192.168.1.60 └─20958 /usr/bin/docker-proxy -proto tcp -host-ip 0.0.0.0 -host-port 80 -container-ip 172.17.0.2 -container-port 80 我的docker服务启动脚本位置为/usr/lib/systemd/system/docker.service。 添加外网访问编辑服务脚本，添加允许外网访问（非安全的）：12345$ sudo vim /usr/lib/systemd/system/docker.service#ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sockExecStart=/usr/bin/dockerdExecReload=/bin/kill -s HUP $MAINPID 编辑daemon.json，添加一条配置：123$ sudo vim /etc/docker/daemon.json"hosts": ["unix:///var/run/docker.sock", "tcp://127.0.0.1:2375"] 重启12$ sudo systemctl daemon-reload$ sudo systemctl restart docker 查看连接12$ sudo netstat -lntp | grep dockerdtcp 0 0 192.168.1.60:2375 0.0.0.0:* LISTEN 6918/dockerd 修改镜像保存目录迁移原docker到新目录1$ mkdir -p /disk1/data &amp;&amp; mv /var/lib/docker /disk1/data 编辑daemon.json，添加一条配置：123$ sudo vim /etc/docker/daemon.json"data-root": "/disk1/data/docker" ##]]></content>
-      <categories>
-        <category>docker</category>
-      </categories>
-      <tags>
-        <tag>看破Docker</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Docker 7.数据存储]]></title>
-    <url>%2Fp%2F8c86c83d%2F</url>
-    <content type="text"><![CDATA[启动方式]]></content>
       <categories>
         <category>docker</category>
       </categories>
@@ -89,19 +78,8 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[看破Docker 3.命令详解]]></title>
-    <url>%2Fp%2F8491e96f%2F</url>
-    <content type="text"><![CDATA[查看命令帮助查看docker所有子命令123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778$ docker --helpUsage: docker [OPTIONS] COMMANDA self-sufficient runtime for containersOptions: --config string Location of client config files (default "/home/nitaoge/.docker") -D, --debug Enable debug mode -H, --host list Daemon socket(s) to connect to -l, --log-level string Set the logging level ("debug"|"info"|"warn"|"error"|"fatal") (default "info") --tls Use TLS; implied by --tlsverify --tlscacert string Trust certs signed only by this CA (default "/home/nitaoge/.docker/ca.pem") --tlscert string Path to TLS certificate file (default "/home/nitaoge/.docker/cert.pem") --tlskey string Path to TLS key file (default "/home/nitaoge/.docker/key.pem") --tlsverify Use TLS and verify the remote -v, --version Print version information and quitManagement Commands: builder Manage builds config Manage Docker configs container Manage containers engine Manage the docker engine image Manage images network Manage networks node Manage Swarm nodes plugin Manage plugins secret Manage Docker secrets service Manage services stack Manage Docker stacks swarm Manage Swarm system Manage Docker trust Manage trust on Docker images volume Manage volumesCommands: attach Attach local standard input, output, and error streams to a running container build Build an image from a Dockerfile commit Create a new image from a container's changes cp Copy files/folders between a container and the local filesystem create Create a new container diff Inspect changes to files or directories on a container's filesystem events Get real time events from the server exec Run a command in a running container export Export a container's filesystem as a tar archive history Show the history of an image images List images import Import the contents from a tarball to create a filesystem image info Display system-wide information inspect Return low-level information on Docker objects kill Kill one or more running containers load Load an image from a tar archive or STDIN login Log in to a Docker registry logout Log out from a Docker registry logs Fetch the logs of a container pause Pause all processes within one or more containers port List port mappings or a specific mapping for the container ps List containers pull Pull an image or a repository from a registry push Push an image or a repository to a registry rename Rename a container restart Restart one or more containers rm Remove one or more containers rmi Remove one or more images run Run a command in a new container save Save one or more images to a tar archive (streamed to STDOUT by default) search Search the Docker Hub for images start Start one or more stopped containers stats Display a live stream of container(s) resource usage statistics stop Stop one or more running containers tag Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE top Display the running processes of a container unpause Unpause all processes within one or more containers update Update configuration of one or more containers version Show the Docker version information wait Block until one or more containers stop, then print their exit codesRun 'docker COMMAND --help' for more information on a command. 查看docker container所有子命令12345678910111213141516171819202122232425262728293031323334$ docker container --helpUsage: docker container COMMANDManage containersCommands: attach Attach local standard input, output, and error streams to a running container commit Create a new image from a container's changes cp Copy files/folders between a container and the local filesystem create Create a new container diff Inspect changes to files or directories on a container's filesystem exec Run a command in a running container export Export a container's filesystem as a tar archive inspect Display detailed information on one or more containers kill Kill one or more running containers logs Fetch the logs of a container ls List containers pause Pause all processes within one or more containers port List port mappings or a specific mapping for the container prune Remove all stopped containers rename Rename a container restart Restart one or more containers rm Remove one or more containers run Run a command in a new container start Start one or more stopped containers stats Display a live stream of container(s) resource usage statistics stop Stop one or more running containers top Display the running processes of a container unpause Unpause all processes within one or more containers update Update configuration of one or more containers wait Block until one or more containers stop, then print their exit codesRun 'docker container COMMAND --help' for more information on a command. 查看子命令12345678910$ docker start --helpUsage: docker start [OPTIONS] CONTAINER [CONTAINER...]Start one or more stopped containersOptions: -a, --attach Attach STDOUT/STDERR and forward signals --detach-keys string Override the key sequence for detaching a container -i, --interactive Attach container's STDIN 子命令分类 容器、镜像、仓库的操作关系 使用docker命令容器管理docker run（创建容器）1$ docker run [OPTIONS] IMAGE [COMMAND] [ARG...] Options: –add-host list Add a custom host-to-IP mapping (host:ip) -a, –attach list Attach to STDIN, STDOUT or STDERR –blkio-weight uint16 Block IO (relative weight), between 10 and 1000, or 0 to disable (default 0) –blkio-weight-device list Block IO weight (relative device weight) (default []) –cap-add list Add Linux capabilities –cap-drop list Drop Linux capabilities –cgroup-parent string Optional parent cgroup for the container –cidfile string Write the container ID to the file –cpu-period int Limit CPU CFS (Completely Fair Scheduler) period –cpu-quota int Limit CPU CFS (Completely Fair Scheduler) quota –cpu-rt-period int Limit CPU real-time period in microseconds –cpu-rt-runtime int Limit CPU real-time runtime in microseconds -c, –cpu-shares int CPU shares (relative weight) –cpus decimal Number of CPUs –cpuset-cpus string CPUs in which to allow execution (0-3, 0,1) –cpuset-mems string MEMs in which to allow execution (0-3, 0,1) -d, –detach Run container in background and print container ID –detach-keys string Override the key sequence for detaching a container –device list Add a host device to the container –device-cgroup-rule list Add a rule to the cgroup allowed devices list –device-read-bps list Limit read rate (bytes per second) from a device (default []) –device-read-iops list Limit read rate (IO per second) from a device (default []) –device-write-bps list Limit write rate (bytes per second) to a device (default []) –device-write-iops list Limit write rate (IO per second) to a device (default []) –disable-content-trust Skip image verification (default true) –dns list Set custom DNS servers –dns-option list Set DNS options –dns-search list Set custom DNS search domains –entrypoint string Overwrite the default ENTRYPOINT of the image -e, –env list Set environment variables –env-file list Read in a file of environment variables –expose list Expose a port or a range of ports –group-add list Add additional groups to join –health-cmd string Command to run to check health –health-interval duration Time between running the check (ms|s|m|h) (default 0s) –health-retries int Consecutive failures needed to report unhealthy –health-start-period duration Start period for the container to initialize before starting health-retries countdown (ms|s|m|h) (default 0s) –health-timeout duration Maximum time to allow one check to run (ms|s|m|h) (default 0s) –help Print usage -h, –hostname string Container host name –init Run an init inside the container that forwards signals and reaps processes -i, –interactive Keep STDIN open even if not attached –ip string IPv4 address (e.g., 172.30.100.104) –ip6 string IPv6 address (e.g., 2001:db8::33) –ipc string IPC mode to use –isolation string Container isolation technology –kernel-memory bytes Kernel memory limit -l, –label list Set meta data on a container –label-file list Read in a line delimited file of labels –link list Add link to another container –link-local-ip list Container IPv4/IPv6 link-local addresses –log-driver string Logging driver for the container –log-opt list Log driver options –mac-address string Container MAC address (e.g., 92:d0:c6:0a:29:33) -m, –memory bytes Memory limit –memory-reservation bytes Memory soft limit –memory-swap bytes Swap limit equal to memory plus swap: ‘-1’ to enable unlimited swap –memory-swappiness int Tune container memory swappiness (0 to 100) (default -1) –mount mount Attach a filesystem mount to the container –name string Assign a name to the container –network string Connect a container to a network (default “default”) –network-alias list Add network-scoped alias for the container –no-healthcheck Disable any container-specified HEALTHCHECK –oom-kill-disable Disable OOM Killer –oom-score-adj int Tune host’s OOM preferences (-1000 to 1000) –pid string PID namespace to use –pids-limit int Tune container pids limit (set -1 for unlimited) –privileged Give extended privileges to this container -p, –publish list Publish a container’s port(s) to the host -P, –publish-all Publish all exposed ports to random ports –read-only Mount the container’s root filesystem as read only –restart string Restart policy to apply when a container exits (default “no”) –rm Automatically remove the container when it exits –runtime string Runtime to use for this container –security-opt list Security Options –shm-size bytes Size of /dev/shm –sig-proxy Proxy received signals to the process (default true) –stop-signal string Signal to stop a container (default “SIGTERM”) –stop-timeout int Timeout (in seconds) to stop a container –storage-opt list Storage driver options for the container –sysctl map Sysctl options (default map[]) –tmpfs list Mount a tmpfs directory -t, –tty Allocate a pseudo-TTY –ulimit ulimit Ulimit options (default []) -u, –user string Username or UID (format: &lt;name|uid&gt;[:&lt;group|gid&gt;]) –userns string User namespace to use –uts string UTS namespace to use -v, –volume list Bind mount a volume –volume-driver string Optional volume driver for the container –volumes-from list Mount volumes from the specified container(s) -w, –workdir string Working directory inside the container 比如： 12$ docker run -it -d --name testubt ubuntu /bin/bash$ docker run -d -p 80:80 --name ng1 nginx -i 进行交互模式-t 以伪终端模式-d 容器后台运行-p 端口映射 docker ps（查看容器进程状态）1$ docker ps [OPTIONS] Options: -a, –all Show all containers (default shows just running) -f, –filter filter Filter output based on conditions provided –format string Pretty-print containers using a Go template -n, –last int Show n last created containers (includes all states) (default -1) -l, –latest Show the latest created container (includes all states) –no-trunc Don’t truncate output -q, –quiet Only display numeric IDs -s, –size Display total file sizes docker start/stop/restart/kill（容器启停）1$ docker start [OPTIONS] CONTAINER [CONTAINER...] Options: -a, –attach Attach STDOUT/STDERR and forward signals –detach-keys string Override the key sequence for detaching a container -i, –interactive Attach container’s STDIN 1$ docker stop [OPTIONS] CONTAINER [CONTAINER...] Options: -t, –time int Seconds to wait for stop before killing it (default 10) 1$ docker restart [OPTIONS] CONTAINER [CONTAINER...] Options: -t, –time int Seconds to wait for stop before killing the container (default 10) 1$ docker kill [OPTIONS] CONTAINER [CONTAINER...] Options: -s, –signal string Signal to send to the container (default “KILL”) stop是优雅关闭，kill是发送kill信号。 docker logs（查看容器日志）1$ docker logs [OPTIONS] CONTAINER Options: –details Show extra details provided to logs -f, –follow Follow log output –since string Show logs since timestamp (e.g. 2013-01-02T13:23:37) or relative (e.g. 42m for 42 minutes) –tail string Number of lines to show from the end of the logs (default “all”) -t, –timestamps Show timestamps –until string Show logs before a timestamp (e.g. 2013-01-02T13:23:37) or relative (e.g. 42m for 42 minutes) docker exec（在容器中执行命令）1$ docker exec [OPTIONS] CONTAINER COMMAND [ARG...] Options: -d, –detach Detached mode: run command in the background –detach-keys string Override the key sequence for detaching a container -e, –env list Set environment variables -i, –interactive Keep STDIN open even if not attached –privileged Give extended privileges to the command -t, –tty Allocate a pseudo-TTY -u, –user string Username or UID (format: &lt;name|uid&gt;[:&lt;group|gid&gt;]) -w, –workdir string Working directory inside the container 比如： 1$ docker exec -it ng1 /bin/bash 在容器中安装应用 12$ apt update$ apt install vim -y docker rm（删除容器）1$ docker rm [OPTIONS] CONTAINER [CONTAINER...] Options: -f, –force Force the removal of a running container (uses SIGKILL) -l, –link Remove the specified link -v, –volumes Remove the volumes associated with the container docker commit（将容器制作为新镜像）1$ docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]] Options: -a, –author string Author (e.g., “John Hannibal Smith &#104;&#97;&#x6e;&#110;&#105;&#x62;&#97;&#108;&#64;&#97;&#45;&#116;&#101;&#97;&#109;&#46;&#99;&#x6f;&#109;“) -c, –change list Apply Dockerfile instruction to the created image -m, –message string Commit message -p, –pause Pause container during commit (default true) 比如： 1$ docker commit ng1 new-nginx 镜像管理docker pull/push（镜像推拉）1$ docker pull [OPTIONS] NAME[:TAG|@DIGEST] Options: -a, –all-tags Download all tagged images in the repository –disable-content-trust Skip image verification (default true) 1$ docker push [OPTIONS] NAME[:TAG] Options: –disable-content-trust Skip image signing (default true) docker search（查找镜像）1$ docker search [OPTIONS] TERM Options: -f, –filter filter Filter output based on conditions provided –format string Pretty-print search using a Go template –limit int Max number of search results (default 25) –no-trunc Don’t truncate output docker tag（制作版本标签）1$ docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG] docker build（根据Dockerfile制作镜像）1$ docker build [OPTIONS] PATH | URL | - Options: –add-host list Add a custom host-to-IP mapping (host:ip) –build-arg list Set build-time variables –cache-from strings Images to consider as cache sources –cgroup-parent string Optional parent cgroup for the container –compress Compress the build context using gzip –cpu-period int Limit the CPU CFS (Completely Fair Scheduler) period –cpu-quota int Limit the CPU CFS (Completely Fair Scheduler) quota -c, –cpu-shares int CPU shares (relative weight) –cpuset-cpus string CPUs in which to allow execution (0-3, 0,1) –cpuset-mems string MEMs in which to allow execution (0-3, 0,1) –disable-content-trust Skip image verification (default true) -f, –file string Name of the Dockerfile (Default is ‘PATH/Dockerfile’) –force-rm Always remove intermediate containers –iidfile string Write the image ID to the file –isolation string Container isolation technology –label list Set metadata for an image -m, –memory bytes Memory limit –memory-swap bytes Swap limit equal to memory plus swap: ‘-1’ to enable unlimited swap –network string Set the networking mode for the RUN instructions during build (default “default”) –no-cache Do not use cache when building the image –pull Always attempt to pull a newer version of the image -q, –quiet Suppress the build output and print image ID on success –rm Remove intermediate containers after a successful build (default true) –security-opt strings Security options –shm-size bytes Size of /dev/shm -t, –tag list Name and optionally a tag in the ‘name:tag’ format –target string Set the target build stage to build. –ulimit ulimit Ulimit options (default []) docker rmi（删除镜像）1$ docker rmi [OPTIONS] IMAGE [IMAGE...] Options: -f, –force Force removal of the image –no-prune Do not delete untagged parents]]></content>
-      <categories>
-        <category>docker</category>
-      </categories>
-      <tags>
-        <tag>看破Docker</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Docker 6.网络]]></title>
-    <url>%2Fp%2F1dfdbb87%2F</url>
+    <title><![CDATA[看破Docker 7.数据存储]]></title>
+    <url>%2Fp%2F8c86c83d%2F</url>
     <content type="text"><![CDATA[启动方式]]></content>
       <categories>
         <category>docker</category>
@@ -122,6 +100,28 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[看破Docker 4.镜像]]></title>
+    <url>%2Fp%2Ff6ac48d9%2F</url>
+    <content type="text"><![CDATA[镜像结构 镜像是分层结构，目的是为了共享资源。 构建容器运行时镜像属于容器层，可读写；仓库中镜像属于镜像层，只读。 FROM scratch是从零开始构建，属于基础镜像。 docker运行的linux镜像都是独立用户空间，共享宿主机内核。 镜像构建docker commit（官方不推荐）详细参考3.命令详解。 Dockfile（推荐）]]></content>
+      <categories>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>看破Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Docker 3.命令详解]]></title>
+    <url>%2Fp%2F8491e96f%2F</url>
+    <content type="text"><![CDATA[查看命令帮助查看docker所有子命令123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778$ docker --helpUsage: docker [OPTIONS] COMMANDA self-sufficient runtime for containersOptions: --config string Location of client config files (default "/home/nitaoge/.docker") -D, --debug Enable debug mode -H, --host list Daemon socket(s) to connect to -l, --log-level string Set the logging level ("debug"|"info"|"warn"|"error"|"fatal") (default "info") --tls Use TLS; implied by --tlsverify --tlscacert string Trust certs signed only by this CA (default "/home/nitaoge/.docker/ca.pem") --tlscert string Path to TLS certificate file (default "/home/nitaoge/.docker/cert.pem") --tlskey string Path to TLS key file (default "/home/nitaoge/.docker/key.pem") --tlsverify Use TLS and verify the remote -v, --version Print version information and quitManagement Commands: builder Manage builds config Manage Docker configs container Manage containers engine Manage the docker engine image Manage images network Manage networks node Manage Swarm nodes plugin Manage plugins secret Manage Docker secrets service Manage services stack Manage Docker stacks swarm Manage Swarm system Manage Docker trust Manage trust on Docker images volume Manage volumesCommands: attach Attach local standard input, output, and error streams to a running container build Build an image from a Dockerfile commit Create a new image from a container's changes cp Copy files/folders between a container and the local filesystem create Create a new container diff Inspect changes to files or directories on a container's filesystem events Get real time events from the server exec Run a command in a running container export Export a container's filesystem as a tar archive history Show the history of an image images List images import Import the contents from a tarball to create a filesystem image info Display system-wide information inspect Return low-level information on Docker objects kill Kill one or more running containers load Load an image from a tar archive or STDIN login Log in to a Docker registry logout Log out from a Docker registry logs Fetch the logs of a container pause Pause all processes within one or more containers port List port mappings or a specific mapping for the container ps List containers pull Pull an image or a repository from a registry push Push an image or a repository to a registry rename Rename a container restart Restart one or more containers rm Remove one or more containers rmi Remove one or more images run Run a command in a new container save Save one or more images to a tar archive (streamed to STDOUT by default) search Search the Docker Hub for images start Start one or more stopped containers stats Display a live stream of container(s) resource usage statistics stop Stop one or more running containers tag Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE top Display the running processes of a container unpause Unpause all processes within one or more containers update Update configuration of one or more containers version Show the Docker version information wait Block until one or more containers stop, then print their exit codesRun 'docker COMMAND --help' for more information on a command. 查看docker container所有子命令12345678910111213141516171819202122232425262728293031323334$ docker container --helpUsage: docker container COMMANDManage containersCommands: attach Attach local standard input, output, and error streams to a running container commit Create a new image from a container's changes cp Copy files/folders between a container and the local filesystem create Create a new container diff Inspect changes to files or directories on a container's filesystem exec Run a command in a running container export Export a container's filesystem as a tar archive inspect Display detailed information on one or more containers kill Kill one or more running containers logs Fetch the logs of a container ls List containers pause Pause all processes within one or more containers port List port mappings or a specific mapping for the container prune Remove all stopped containers rename Rename a container restart Restart one or more containers rm Remove one or more containers run Run a command in a new container start Start one or more stopped containers stats Display a live stream of container(s) resource usage statistics stop Stop one or more running containers top Display the running processes of a container unpause Unpause all processes within one or more containers update Update configuration of one or more containers wait Block until one or more containers stop, then print their exit codesRun 'docker container COMMAND --help' for more information on a command. 查看子命令12345678910$ docker start --helpUsage: docker start [OPTIONS] CONTAINER [CONTAINER...]Start one or more stopped containersOptions: -a, --attach Attach STDOUT/STDERR and forward signals --detach-keys string Override the key sequence for detaching a container -i, --interactive Attach container's STDIN 子命令分类 容器、镜像、仓库的操作关系 使用docker命令容器管理docker run（创建容器）1$ docker run [OPTIONS] IMAGE [COMMAND] [ARG...] Options: –add-host list Add a custom host-to-IP mapping (host:ip) -a, –attach list Attach to STDIN, STDOUT or STDERR –blkio-weight uint16 Block IO (relative weight), between 10 and 1000, or 0 to disable (default 0) –blkio-weight-device list Block IO weight (relative device weight) (default []) –cap-add list Add Linux capabilities –cap-drop list Drop Linux capabilities –cgroup-parent string Optional parent cgroup for the container –cidfile string Write the container ID to the file –cpu-period int Limit CPU CFS (Completely Fair Scheduler) period –cpu-quota int Limit CPU CFS (Completely Fair Scheduler) quota –cpu-rt-period int Limit CPU real-time period in microseconds –cpu-rt-runtime int Limit CPU real-time runtime in microseconds -c, –cpu-shares int CPU shares (relative weight) –cpus decimal Number of CPUs –cpuset-cpus string CPUs in which to allow execution (0-3, 0,1) –cpuset-mems string MEMs in which to allow execution (0-3, 0,1) -d, –detach Run container in background and print container ID –detach-keys string Override the key sequence for detaching a container –device list Add a host device to the container –device-cgroup-rule list Add a rule to the cgroup allowed devices list –device-read-bps list Limit read rate (bytes per second) from a device (default []) –device-read-iops list Limit read rate (IO per second) from a device (default []) –device-write-bps list Limit write rate (bytes per second) to a device (default []) –device-write-iops list Limit write rate (IO per second) to a device (default []) –disable-content-trust Skip image verification (default true) –dns list Set custom DNS servers –dns-option list Set DNS options –dns-search list Set custom DNS search domains –entrypoint string Overwrite the default ENTRYPOINT of the image -e, –env list Set environment variables –env-file list Read in a file of environment variables –expose list Expose a port or a range of ports –group-add list Add additional groups to join –health-cmd string Command to run to check health –health-interval duration Time between running the check (ms|s|m|h) (default 0s) –health-retries int Consecutive failures needed to report unhealthy –health-start-period duration Start period for the container to initialize before starting health-retries countdown (ms|s|m|h) (default 0s) –health-timeout duration Maximum time to allow one check to run (ms|s|m|h) (default 0s) –help Print usage -h, –hostname string Container host name –init Run an init inside the container that forwards signals and reaps processes -i, –interactive Keep STDIN open even if not attached –ip string IPv4 address (e.g., 172.30.100.104) –ip6 string IPv6 address (e.g., 2001:db8::33) –ipc string IPC mode to use –isolation string Container isolation technology –kernel-memory bytes Kernel memory limit -l, –label list Set meta data on a container –label-file list Read in a line delimited file of labels –link list Add link to another container –link-local-ip list Container IPv4/IPv6 link-local addresses –log-driver string Logging driver for the container –log-opt list Log driver options –mac-address string Container MAC address (e.g., 92:d0:c6:0a:29:33) -m, –memory bytes Memory limit –memory-reservation bytes Memory soft limit –memory-swap bytes Swap limit equal to memory plus swap: ‘-1’ to enable unlimited swap –memory-swappiness int Tune container memory swappiness (0 to 100) (default -1) –mount mount Attach a filesystem mount to the container –name string Assign a name to the container –network string Connect a container to a network (default “default”) –network-alias list Add network-scoped alias for the container –no-healthcheck Disable any container-specified HEALTHCHECK –oom-kill-disable Disable OOM Killer –oom-score-adj int Tune host’s OOM preferences (-1000 to 1000) –pid string PID namespace to use –pids-limit int Tune container pids limit (set -1 for unlimited) –privileged Give extended privileges to this container -p, –publish list Publish a container’s port(s) to the host -P, –publish-all Publish all exposed ports to random ports –read-only Mount the container’s root filesystem as read only –restart string Restart policy to apply when a container exits (default “no”) –rm Automatically remove the container when it exits –runtime string Runtime to use for this container –security-opt list Security Options –shm-size bytes Size of /dev/shm –sig-proxy Proxy received signals to the process (default true) –stop-signal string Signal to stop a container (default “SIGTERM”) –stop-timeout int Timeout (in seconds) to stop a container –storage-opt list Storage driver options for the container –sysctl map Sysctl options (default map[]) –tmpfs list Mount a tmpfs directory -t, –tty Allocate a pseudo-TTY –ulimit ulimit Ulimit options (default []) -u, –user string Username or UID (format: &lt;name|uid&gt;[:&lt;group|gid&gt;]) –userns string User namespace to use –uts string UTS namespace to use -v, –volume list Bind mount a volume –volume-driver string Optional volume driver for the container –volumes-from list Mount volumes from the specified container(s) -w, –workdir string Working directory inside the container 比如： 12$ docker run -it -d --name testubt ubuntu /bin/bash$ docker run -d -p 80:80 --name ng1 nginx -i 进行交互模式-t 以伪终端模式-d 容器后台运行-p 端口映射 docker ps（查看容器进程状态）1$ docker ps [OPTIONS] Options: -a, –all Show all containers (default shows just running) -f, –filter filter Filter output based on conditions provided –format string Pretty-print containers using a Go template -n, –last int Show n last created containers (includes all states) (default -1) -l, –latest Show the latest created container (includes all states) –no-trunc Don’t truncate output -q, –quiet Only display numeric IDs -s, –size Display total file sizes docker start/stop/restart/kill（容器启停）1$ docker start [OPTIONS] CONTAINER [CONTAINER...] Options: -a, –attach Attach STDOUT/STDERR and forward signals –detach-keys string Override the key sequence for detaching a container -i, –interactive Attach container’s STDIN 1$ docker stop [OPTIONS] CONTAINER [CONTAINER...] Options: -t, –time int Seconds to wait for stop before killing it (default 10) 1$ docker restart [OPTIONS] CONTAINER [CONTAINER...] Options: -t, –time int Seconds to wait for stop before killing the container (default 10) 1$ docker kill [OPTIONS] CONTAINER [CONTAINER...] Options: -s, –signal string Signal to send to the container (default “KILL”) stop是优雅关闭，kill是发送kill信号。 docker logs（查看容器日志）1$ docker logs [OPTIONS] CONTAINER Options: –details Show extra details provided to logs -f, –follow Follow log output –since string Show logs since timestamp (e.g. 2013-01-02T13:23:37) or relative (e.g. 42m for 42 minutes) –tail string Number of lines to show from the end of the logs (default “all”) -t, –timestamps Show timestamps –until string Show logs before a timestamp (e.g. 2013-01-02T13:23:37) or relative (e.g. 42m for 42 minutes) docker exec（在容器中执行命令）1$ docker exec [OPTIONS] CONTAINER COMMAND [ARG...] Options: -d, –detach Detached mode: run command in the background –detach-keys string Override the key sequence for detaching a container -e, –env list Set environment variables -i, –interactive Keep STDIN open even if not attached –privileged Give extended privileges to the command -t, –tty Allocate a pseudo-TTY -u, –user string Username or UID (format: &lt;name|uid&gt;[:&lt;group|gid&gt;]) -w, –workdir string Working directory inside the container 比如： 1$ docker exec -it ng1 /bin/bash 在容器中安装应用 12$ apt update$ apt install vim -y docker rm（删除容器）1$ docker rm [OPTIONS] CONTAINER [CONTAINER...] Options: -f, –force Force the removal of a running container (uses SIGKILL) -l, –link Remove the specified link -v, –volumes Remove the volumes associated with the container docker commit（将容器制作为新镜像）1$ docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]] Options: -a, –author string Author (e.g., “John Hannibal Smith &#104;&#x61;&#x6e;&#110;&#105;&#98;&#x61;&#x6c;&#64;&#97;&#x2d;&#116;&#101;&#97;&#109;&#46;&#x63;&#111;&#x6d;“) -c, –change list Apply Dockerfile instruction to the created image -m, –message string Commit message -p, –pause Pause container during commit (default true) 比如： 1$ docker commit ng1 new-nginx 镜像管理docker pull/push（镜像推拉）1$ docker pull [OPTIONS] NAME[:TAG|@DIGEST] Options: -a, –all-tags Download all tagged images in the repository –disable-content-trust Skip image verification (default true) 1$ docker push [OPTIONS] NAME[:TAG] Options: –disable-content-trust Skip image signing (default true) docker search（查找镜像）1$ docker search [OPTIONS] TERM Options: -f, –filter filter Filter output based on conditions provided –format string Pretty-print search using a Go template –limit int Max number of search results (default 25) –no-trunc Don’t truncate output docker tag（制作版本标签）1$ docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG] docker build（根据Dockerfile制作镜像）1$ docker build [OPTIONS] PATH | URL | - Options: –add-host list Add a custom host-to-IP mapping (host:ip) –build-arg list Set build-time variables –cache-from strings Images to consider as cache sources –cgroup-parent string Optional parent cgroup for the container –compress Compress the build context using gzip –cpu-period int Limit the CPU CFS (Completely Fair Scheduler) period –cpu-quota int Limit the CPU CFS (Completely Fair Scheduler) quota -c, –cpu-shares int CPU shares (relative weight) –cpuset-cpus string CPUs in which to allow execution (0-3, 0,1) –cpuset-mems string MEMs in which to allow execution (0-3, 0,1) –disable-content-trust Skip image verification (default true) -f, –file string Name of the Dockerfile (Default is ‘PATH/Dockerfile’) –force-rm Always remove intermediate containers –iidfile string Write the image ID to the file –isolation string Container isolation technology –label list Set metadata for an image -m, –memory bytes Memory limit –memory-swap bytes Swap limit equal to memory plus swap: ‘-1’ to enable unlimited swap –network string Set the networking mode for the RUN instructions during build (default “default”) –no-cache Do not use cache when building the image –pull Always attempt to pull a newer version of the image -q, –quiet Suppress the build output and print image ID on success –rm Remove intermediate containers after a successful build (default true) –security-opt strings Security options –shm-size bytes Size of /dev/shm -t, –tag list Name and optionally a tag in the ‘name:tag’ format –target string Set the target build stage to build. –ulimit ulimit Ulimit options (default []) docker rmi（删除镜像）1$ docker rmi [OPTIONS] IMAGE [IMAGE...] Options: -f, –force Force removal of the image –no-prune Do not delete untagged parents]]></content>
+      <categories>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>看破Docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[看破Redis 1.快速安装及使用]]></title>
     <url>%2Fp%2F906310c9%2F</url>
     <content type="text"><![CDATA[背景公司要用Redis做数据库缓存双写，虽然不是我搞，但我不会多没有牌面啊……正所谓不积跬步无以至千里，不会原理下一个坑的就是你。 准备我这里装了三个虚拟机，并做了域名映射。 Centos7.6_1810vhost1、vhost2、vhost3每个都是1核2G 40G(系统盘)+60G(数据盘-挂到/disk1)为以后搭集群做准备。 不多哔哔，直接在虚拟机上开干，注意每次搞虚拟机前先拍快照。 快速开始下载Redis官网下载地址我本次下载最新版为redis-5.0.4.tar.gz 安装把包传到虚拟机scp redis-5.0.4.tar.gz root@vhost1:/disk1/pack 解压tar xzf redis-5.0.4.tar.gzcd redis-5.0.4 编译make clean &amp;&amp; make 配置备份原配置文件cp redis.conf redis.conf.bk 编辑配置文件vi redis.conf123456# 绑定地址（开外部访问）bind vhost1# 解除保护模式protected-mode no# 绑定端口port 6379 启动（守护进程）123src/redis-server或指定配置文件位置nohup src/redis-server redis.conf &amp; 这里可以把服务作为系统服务启动，后面再讲。 关闭每个服务启动都是作为一个系统进程并且有进程号(pid)的。1ps -ef | grep -v 'grep' | grep redis 其中2991就是进程号。1kill 2991 命令行客户端连接12345src/redis-cliredis&gt; set foo barOKredis&gt; get foo"bar" java连接集成jedis// TODO等有时间写个jedis客户端工具 集成spring-boot-starter-data-redis引包1compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.1.3.RELEASE' 加配置12345678910redis: # redis host: vhost1 port: 6379 password: jedis: pool: max-active: 10 max-wait: -1 max-idle: 10 min-idle: 1 注入RedisTemplate或StringRedisTemplate直接使用，后续会仔细剖析二者区别12@Autowiredprivate StringRedisTemplate redisTemplate; 封装工具可参考whvcse/RedisUtil 总结 确定你刚装的虚拟机上有gcc，没有就装yum install -y gcc]]></content>
@@ -130,17 +130,6 @@
       </categories>
       <tags>
         <tag>看破Redis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Apollo 1.快速安装及使用]]></title>
-    <url>%2Fp%2F21135a2b%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>apollo</category>
-      </categories>
-      <tags>
-        <tag>看破Apollo</tag>
       </tags>
   </entry>
   <entry>
@@ -155,25 +144,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[看破MySQL 10.]]></title>
-    <url>%2Fp%2Fd0b4f2a0%2F</url>
+    <title><![CDATA[看破Apollo 1.快速安装及使用]]></title>
+    <url>%2Fp%2F21135a2b%2F</url>
     <content type="text"><![CDATA[]]></content>
       <categories>
-        <category>mysql</category>
+        <category>apollo</category>
       </categories>
       <tags>
-        <tag>看破MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破MySQL 2.基本概念、存储引擎]]></title>
-    <url>%2Fp%2Fda0fe888%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>mysql</category>
-      </categories>
-      <tags>
-        <tag>看破MySQL</tag>
+        <tag>看破Apollo</tag>
       </tags>
   </entry>
   <entry>
@@ -199,19 +177,8 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[看破MySQL 5.事务]]></title>
-    <url>%2Fp%2F756621b4%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>mysql</category>
-      </categories>
-      <tags>
-        <tag>看破MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破MySQL 6.binlog、分库分表、读写分离、数据安全]]></title>
-    <url>%2Fp%2F7f1d7c1e%2F</url>
+    <title><![CDATA[看破MySQL 8.调优]]></title>
+    <url>%2Fp%2Fc17eb71a%2F</url>
     <content type="text"><![CDATA[]]></content>
       <categories>
         <category>mysql</category>
@@ -232,8 +199,19 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[看破MySQL 8.调优]]></title>
-    <url>%2Fp%2Fc17eb71a%2F</url>
+    <title><![CDATA[看破MySQL 6.binlog、分库分表、读写分离、数据安全]]></title>
+    <url>%2Fp%2F7f1d7c1e%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>mysql</category>
+      </categories>
+      <tags>
+        <tag>看破MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破MySQL 5.事务]]></title>
+    <url>%2Fp%2F756621b4%2F</url>
     <content type="text"><![CDATA[]]></content>
       <categories>
         <category>mysql</category>
@@ -254,9 +232,53 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[看破Java 4.Java Development Kit]]></title>
-    <url>%2Fp%2Fc46700a5%2F</url>
+    <title><![CDATA[看破MySQL 2.基本概念、存储引擎]]></title>
+    <url>%2Fp%2Fda0fe888%2F</url>
     <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>mysql</category>
+      </categories>
+      <tags>
+        <tag>看破MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破MySQL 10.]]></title>
+    <url>%2Fp%2Fd0b4f2a0%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>mysql</category>
+      </categories>
+      <tags>
+        <tag>看破MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破DevOps - Gradle常见问题]]></title>
+    <url>%2Fp%2F7fde48ab%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>devops</category>
+      </categories>
+      <tags>
+        <tag>看破Gradle</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破JVM 1.]]></title>
+    <url>%2Fp%2Ff838026c%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>jvm</category>
+      </categories>
+      <tags>
+        <tag>看破JVM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Java 5.数据容器]]></title>
+    <url>%2Fp%2Fff55f559%2F</url>
+    <content type="text"><![CDATA[下面对jdk8的数据容器做一次深入，所有传统集合都在rt.jar的java.util包中，1.5后开发的并发集合都在java.util.concurrent包中。 java.util.CollectionCollection接口继承Iterable接口，用于继承迭代遍历集合元素的方法。 List、Set、Queue这三个接口都继承自Collection接口、用于规范所有集合的共性方法。AbstractCollection抽象集合类又实现了Collection的部分方法，AbstractList、AbstractSet、AbstractQueue这三个抽象类也都继承了AbstractCollection。 List 列表列表接口，提供一些方法标准，诸如add()、addAll()、get()、remove()、clear()等，供其子类具体实现。 这里还要提到AbstractList和AbstractSequentialList这两个抽象类，AbstractSequentialList继承自AbstractList，这两个类的作用，其实就是在实现List接口的基础上，又增加了一层抽象，添加和实现了一些个性化方法。 AbstractList支持随机访问，而AbstractSequentialList只支持迭代访问。这也是ArrayList和LinkedList，线性表和链表的区别之一。 ArrayList 线性表基于数组实现，继承AbstractList类，默认长度是10。12345678910public class ArrayList&lt;E&gt; extends AbstractList&lt;E&gt; implements List&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializable /** * Default initial capacity. */ private static final int DEFAULT_CAPACITY = 10; transient Object[] elementData; // non-private to simplify nested class access private int size; 每次固定扩容size+1 + (size+1) &gt;&gt; 1这个数量长度。1234567891011121314151617181920212223242526272829 public boolean add(E e) &#123; ensureCapacityInternal(size + 1); // Increments modCount!! elementData[size++] = e; return true; &#125;private void ensureCapacityInternal(int minCapacity) &#123; ensureExplicitCapacity(calculateCapacity(elementData, minCapacity)); &#125; private void ensureExplicitCapacity(int minCapacity) &#123; modCount++; // overflow-conscious code if (minCapacity - elementData.length &gt; 0) grow(minCapacity); &#125;private void grow(int minCapacity) &#123; // overflow-conscious code int oldCapacity = elementData.length; int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1); if (newCapacity - minCapacity &lt; 0) newCapacity = minCapacity; if (newCapacity - MAX_ARRAY_SIZE &gt; 0) newCapacity = hugeCapacity(minCapacity); // minCapacity is usually close to size, so this is a win: elementData = Arrays.copyOf(elementData, newCapacity); &#125; 方法内没有同步锁修饰，所以非线程安全。 它的增删操作是按照线性表的规则，如果增删都在末尾，则直接操作；否则需要元素移位，所以增删效率很低。123456789101112131415161718192021222324public void add(int index, E element) &#123; rangeCheckForAdd(index); ensureCapacityInternal(size + 1); // Increments modCount!! System.arraycopy(elementData, index, elementData, index + 1, size - index); elementData[index] = element; size++; &#125;public E remove(int index) &#123; rangeCheck(index); modCount++; E oldValue = elementData(index); int numMoved = size - index - 1; if (numMoved &gt; 0) System.arraycopy(elementData, index+1, elementData, index, numMoved); elementData[--size] = null; // clear to let GC do its work return oldValue; &#125; 但获取、设置元素是根据索引直接定位的，所以效率高。123456789public E get(int index) &#123; rangeCheck(index); return elementData(index); &#125; E elementData(int index) &#123; return (E) elementData[index]; &#125; LinkedList 双链表继承AbstractSequentialList类，实现了List和Deque，说明也可以充当栈和队列。123public class LinkedList&lt;E&gt; extends AbstractSequentialList&lt;E&gt; implements List&lt;E&gt;, Deque&lt;E&gt;, Cloneable, java.io.Serializable 节点属性1234567891011private static class Node&lt;E&gt; &#123; E item; Node&lt;E&gt; next; Node&lt;E&gt; prev; Node(Node&lt;E&gt; prev, E element, Node&lt;E&gt; next) &#123; this.item = element; this.next = next; this.prev = prev; &#125;&#125; 方法内没有同步锁修饰，所以非线程安全。 它的增删操作是按照链表的规则，修改前后节点的索引即可，所以效率高。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384 public boolean add(E e) &#123; linkLast(e); return true; &#125;void linkLast(E e) &#123; final Node&lt;E&gt; l = last; final Node&lt;E&gt; newNode = new Node&lt;&gt;(l, e, null); last = newNode; if (l == null) first = newNode; else l.next = newNode; size++; modCount++; &#125;public void add(int index, E element) &#123; checkPositionIndex(index); if (index == size) linkLast(element); else linkBefore(element, node(index)); &#125; void linkBefore(E e, Node&lt;E&gt; succ) &#123; // assert succ != null; final Node&lt;E&gt; pred = succ.prev; final Node&lt;E&gt; newNode = new Node&lt;&gt;(pred, e, succ); succ.prev = newNode; if (pred == null) first = newNode; else pred.next = newNode; size++; modCount++; &#125;public boolean remove(Object o) &#123; if (o == null) &#123; for (Node&lt;E&gt; x = first; x != null; x = x.next) &#123; if (x.item == null) &#123; unlink(x); return true; &#125; &#125; &#125; else &#123; for (Node&lt;E&gt; x = first; x != null; x = x.next) &#123; if (o.equals(x.item)) &#123; unlink(x); return true; &#125; &#125; &#125; return false; &#125;public E remove(int index) &#123; checkElementIndex(index); return unlink(node(index)); &#125; E unlink(Node&lt;E&gt; x) &#123; // assert x != null; final E element = x.item; final Node&lt;E&gt; next = x.next; final Node&lt;E&gt; prev = x.prev; if (prev == null) &#123; first = next; &#125; else &#123; prev.next = next; x.prev = null; &#125; if (next == null) &#123; last = prev; &#125; else &#123; next.prev = prev; x.next = null; &#125; x.item = null; size--; modCount++; return element; &#125; 但获取、设置元素是需要遍历定位的，所以效率低。12345678910111213141516171819public E get(int index) &#123; checkElementIndex(index); return node(index).item;&#125;Node&lt;E&gt; node(int index) &#123; // assert isElementIndex(index); if (index &lt; (size &gt;&gt; 1)) &#123; Node&lt;E&gt; x = first; for (int i = 0; i &lt; index; i++) x = x.next; return x; &#125; else &#123; Node&lt;E&gt; x = last; for (int i = size - 1; i &gt; index; i--) x = x.prev; return x; &#125;&#125; Vector 向量基于数组实现，继承AbstractList类，默认长度是10。1234567891011public class Vector&lt;E&gt; extends AbstractList&lt;E&gt; implements List&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializableprotected Object[] elementData;protected int elementCount; protected int capacityIncrement;public Vector() &#123; this(10);&#125; 所有方法都带同步锁修饰，所以是线程安全的，但效率极低……123456public synchronized boolean add(E e) &#123; modCount++; ensureCapacityHelper(elementCount + 1); elementData[elementCount++] = e; return true; &#125; 默认每次扩容1倍，如果在初始化时指定capacityIncrement，则每次扩容capacityIncrement，最大长度为Integer.MAX_VALUE，超长报OutOfMemoryError错误。12345678910111213141516171819202122232425262728293031323334353637383940 public synchronized boolean add(E e) &#123; modCount++; ensureCapacityHelper(elementCount + 1); elementData[elementCount++] = e; return true; &#125;private void grow(int minCapacity) &#123; // overflow-conscious code int oldCapacity = elementData.length; int newCapacity = oldCapacity + ((capacityIncrement &gt; 0) ? capacityIncrement : oldCapacity); if (newCapacity - minCapacity &lt; 0) newCapacity = minCapacity; if (newCapacity - MAX_ARRAY_SIZE &gt; 0) newCapacity = hugeCapacity(minCapacity); elementData = Arrays.copyOf(elementData, newCapacity); &#125;private static int hugeCapacity(int minCapacity) &#123; if (minCapacity &lt; 0) // overflow throw new OutOfMemoryError(); return (minCapacity &gt; MAX_ARRAY_SIZE) ? Integer.MAX_VALUE : MAX_ARRAY_SIZE; &#125;public synchronized void removeElementAt(int index) &#123; modCount++; if (index &gt;= elementCount) &#123; throw new ArrayIndexOutOfBoundsException(index + " &gt;= " + elementCount); &#125; else if (index &lt; 0) &#123; throw new ArrayIndexOutOfBoundsException(index); &#125; int j = elementCount - index - 1; if (j &gt; 0) &#123; System.arraycopy(elementData, index + 1, elementData, index, j); &#125; elementCount--; elementData[elementCount] = null; /* to let gc do its work */ &#125; Stack 栈是一个栈（后进先出）数据结构的实现，入栈出栈，继承Vector向量。1public class Stack&lt;E&gt; extends Vector&lt;E&gt; &#123; 也是基于Vector向量的数组实现，也是线程安全、效率低。1234567891011121314151617181920212223242526272829 public E push(E item) &#123; addElement(item); return item; &#125;public synchronized void addElement(E obj) &#123; modCount++; ensureCapacityHelper(elementCount + 1); elementData[elementCount++] = obj; &#125;public synchronized E pop() &#123; E obj; int len = size(); obj = peek(); removeElementAt(len - 1); return obj; &#125;public synchronized E peek() &#123; int len = size(); if (len == 0) throw new EmptyStackException(); return elementAt(len - 1); &#125; 这个栈的实现已经没人用了，可以通过ArrayDeque双端队列实现栈的需求。 Set 集合主要特性为集合中不能存在重复元素（复合类型实例需要重写equals()和hashCode()实现去重），其实现类分为无序集合、排序集合、枚举集合三种。 HashSet 哈希集合基于HashMap实现，继承AbstractSet抽象集合。1234567891011public class HashSet&lt;E&gt; extends AbstractSet&lt;E&gt; implements Set&lt;E&gt;, Cloneable, java.io.Serializableprivate transient HashMap&lt;E,Object&gt; map;public HashSet() &#123; map = new HashMap&lt;&gt;(); &#125; HashSet(int initialCapacity, float loadFactor, boolean dummy) &#123; map = new LinkedHashMap&lt;&gt;(initialCapacity, loadFactor); &#125; 实际上就是将HashMap中的key作为容器，实现无序集合。所以这里的无序是由HashMap的key自然排序导致的。123456789// Dummy value to associate with an Object in the backing Mapprivate static final Object PRESENT = new Object(); public boolean add(E e) &#123; return map.put(e, PRESENT)==null;&#125;public boolean remove(Object o) &#123; return map.remove(o)==PRESENT;&#125; LinkedHashSet 链式哈希集合基于LinkedHashMap实现，继承HashSet类。1234567891011121314public class LinkedHashSet&lt;E&gt; extends HashSet&lt;E&gt; implements Set&lt;E&gt;, Cloneable, java.io.Serializable &#123; public LinkedHashSet() &#123; super(16, .75f, true); &#125; public LinkedHashSet(int initialCapacity) &#123; super(initialCapacity, .75f, true); &#125;HashSet(int initialCapacity, float loadFactor, boolean dummy) &#123; map = new LinkedHashMap&lt;&gt;(initialCapacity, loadFactor); &#125; 增删操作与HashSet相同，对LinkedHashMap的key操作，但它是有序的。 TreeSet 树集合基于TreeMap实现，继承AbstractSet类。123456789public class TreeSet&lt;E&gt; extends AbstractSet&lt;E&gt; implements NavigableSet&lt;E&gt;, Cloneable, java.io.Serializable public TreeSet() &#123; this(new TreeMap&lt;E,Object&gt;()); &#125;public TreeSet(Comparator&lt;? super E&gt; comparator) &#123; this(new TreeMap&lt;&gt;(comparator)); &#125; 增删操作与HashSet相同，对TreeMap的key操作，可以指定比较器进行排序控制，默认是自然排序。123456Set&lt;String&gt; treeSet = new TreeSet&lt;&gt;((a, b) -&gt; -a.compareTo(b)); treeSet.add("b"); treeSet.add("a"); treeSet.add("d"); treeSet.add("c"); treeSet.forEach(System.out::println); 结果：1234dcba EnumSet 枚举集合EnumSet是一个枚举抽象类继承AbstractSet类。12public abstract class EnumSet&lt;E extends Enum&lt;E&gt;&gt; extends AbstractSet&lt;E&gt; implements Cloneable, java.io.Serializable 分别记录枚举类型和枚举成员。123456789/** * The class of all the elements of this set. */final Class&lt;E&gt; elementType;/** * All of the values comprising T. (Cached for performance.) */final Enum&lt;?&gt;[] universe; 可通过内部提供的静态方法实例化。1Set&lt;MyEnum&gt; enumSet = EnumSet.allOf(MyEnum.class); 当枚举集合长度不大于64时，实例化RegularEnumSet类，否则实例化JumboEnumSet类。123456789101112131415public static &lt;E extends Enum&lt;E&gt;&gt; EnumSet&lt;E&gt; allOf(Class&lt;E&gt; elementType) &#123; EnumSet&lt;E&gt; result = noneOf(elementType); result.addAll(); return result;&#125;public static &lt;E extends Enum&lt;E&gt;&gt; EnumSet&lt;E&gt; noneOf(Class&lt;E&gt; elementType) &#123; Enum&lt;?&gt;[] universe = getUniverse(elementType); if (universe == null) throw new ClassCastException(elementType + " not an enum"); if (universe.length &lt;= 64) return new RegularEnumSet&lt;&gt;(elementType, universe); else return new JumboEnumSet&lt;&gt;(elementType, universe);&#125; Enum类中ordinal成员变量用于记录枚举常量声明位置，枚举集合的增删操作也是基于这个成员变量进行位运算的。12345678910/** * The ordinal of this enumeration constant (its position * in the enum declaration, where the initial constant is assigned * an ordinal of zero). * * Most programmers will have no use for this field. It is designed * for use by sophisticated enum-based data structures, such as * &#123;@link java.util.EnumSet&#125; and &#123;@link java.util.EnumMap&#125;. */ private final int ordinal; RegularEnumSet 固定尺寸枚举集合实例化直接调用EnumSet的构造器，将类型和成员赋给枚举集合实例。123RegularEnumSet(Class&lt;E&gt;elementType, Enum&lt;?&gt;[] universe) &#123; super(elementType, universe);&#125; RegularEnumSet的增删操作是使用long型elements与枚举的ordinal进行位运算。 add就是将1L左移ordinal位后，与elements进行位或运算，这位变1，从而实现将某类型枚举成员不重复地加到其枚举集合中。 remove就是将1L左移ordinal位后取反，与elements进行位与运算，这位变0，从而实现将其从枚举集合中删除。 这也是为什么RegularEnumSet长度必须不大于64，因为long型就64位能给你玩…… 非线程安全。123456789101112131415161718192021222324 /** * Bit vector representation of this set. The 2^k bit indicates the * presence of universe[k] in this set. */ private long elements = 0L;public boolean add(E e) &#123; typeCheck(e); long oldElements = elements; elements |= (1L &lt;&lt; ((Enum&lt;?&gt;)e).ordinal()); return elements != oldElements; &#125; public boolean remove(Object e) &#123; if (e == null) return false; Class&lt;?&gt; eClass = e.getClass(); if (eClass != elementType &amp;&amp; eClass.getSuperclass() != elementType) return false; long oldElements = elements; elements &amp;= ~(1L &lt;&lt; ((Enum&lt;?&gt;)e).ordinal()); return elements != oldElements; &#125; JumboEnumSet 大尺寸枚举集合实例化直接调用EnumSet的构造器，将类型和成员赋给枚举集合实例，并初始化elements枚举数组，枚举成员个数+63再右移6位相当于除以2^6=64，也就是创建一个包含N个long型的64位的数组给你玩……1234JumboEnumSet(Class&lt;E&gt;elementType, Enum&lt;?&gt;[] universe) &#123; super(elementType, universe); elements = new long[(universe.length + 63) &gt;&gt;&gt; 6];&#125; 增删操作和RegularEnumSet类似，只不过多个除以64的操作。非线程安全。123456789101112131415161718192021222324252627282930313233343536373839 /** * Bit vector representation of this set. The ith bit of the jth * element of this array represents the presence of universe[64*j +i] * in this set. */ private long elements[]; // Redundant - maintained for performance private int size = 0; public boolean add(E e) &#123; typeCheck(e); int eOrdinal = e.ordinal(); int eWordNum = eOrdinal &gt;&gt;&gt; 6; long oldElements = elements[eWordNum]; elements[eWordNum] |= (1L &lt;&lt; eOrdinal); boolean result = (elements[eWordNum] != oldElements); if (result) size++; return result; &#125;public boolean remove(Object e) &#123; if (e == null) return false; Class&lt;?&gt; eClass = e.getClass(); if (eClass != elementType &amp;&amp; eClass.getSuperclass() != elementType) return false; int eOrdinal = ((Enum&lt;?&gt;)e).ordinal(); int eWordNum = eOrdinal &gt;&gt;&gt; 6; long oldElements = elements[eWordNum]; elements[eWordNum] &amp;= ~(1L &lt;&lt; eOrdinal); boolean result = (elements[eWordNum] != oldElements); if (result) size--; return result; &#125; Queue 队列队列的特点就是先进先出，尾进头出。 PriorityQueue 优先级队列这是一个特殊队列。有时间详细分析一下算法// TODO 基于数组实现，继承AbstractCollection类， 默认长度是11。1234567public abstract class AbstractQueue&lt;E&gt; extends AbstractCollection&lt;E&gt; implements Queue&lt;E&gt; &#123;private static final int DEFAULT_INITIAL_CAPACITY = 11;transient Object[] queue; // non-private to simplify nested class access 每次扩容，如果队列长度小于64就扩1倍+2，否则扩50%。12345678910111213141516171819private void grow(int minCapacity) &#123; int oldCapacity = queue.length; // Double size if small; else grow by 50% int newCapacity = oldCapacity + ((oldCapacity &lt; 64) ? (oldCapacity + 2) : (oldCapacity &gt;&gt; 1)); // overflow-conscious code if (newCapacity - MAX_ARRAY_SIZE &gt; 0) newCapacity = hugeCapacity(minCapacity); queue = Arrays.copyOf(queue, newCapacity);&#125;private static int hugeCapacity(int minCapacity) &#123; if (minCapacity &lt; 0) // overflow throw new OutOfMemoryError(); return (minCapacity &gt; MAX_ARRAY_SIZE) ? Integer.MAX_VALUE : MAX_ARRAY_SIZE;&#125; 进出操作，非线程安全。1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495 public boolean offer(E e) &#123; if (e == null) throw new NullPointerException(); modCount++; int i = size; if (i &gt;= queue.length) grow(i + 1); size = i + 1; if (i == 0) queue[0] = e; else siftUp(i, e); return true; &#125;private void siftUp(int k, E x) &#123; if (comparator != null) siftUpUsingComparator(k, x); else siftUpComparable(k, x); &#125; private void siftUpComparable(int k, E x) &#123; Comparable&lt;? super E&gt; key = (Comparable&lt;? super E&gt;) x; while (k &gt; 0) &#123; int parent = (k - 1) &gt;&gt;&gt; 1; Object e = queue[parent]; if (key.compareTo((E) e) &gt;= 0) break; queue[k] = e; k = parent; &#125; queue[k] = key; &#125; private void siftUpUsingComparator(int k, E x) &#123; while (k &gt; 0) &#123; int parent = (k - 1) &gt;&gt;&gt; 1; Object e = queue[parent]; if (comparator.compare(x, (E) e) &gt;= 0) break; queue[k] = e; k = parent; &#125; queue[k] = x; &#125; public E poll() &#123; if (size == 0) return null; int s = --size; modCount++; E result = (E) queue[0]; E x = (E) queue[s]; queue[s] = null; if (s != 0) siftDown(0, x); return result; &#125;private void siftDown(int k, E x) &#123; if (comparator != null) siftDownUsingComparator(k, x); else siftDownComparable(k, x); &#125;private void siftDownComparable(int k, E x) &#123; Comparable&lt;? super E&gt; key = (Comparable&lt;? super E&gt;)x; int half = size &gt;&gt;&gt; 1; // loop while a non-leaf while (k &lt; half) &#123; int child = (k &lt;&lt; 1) + 1; // assume left child is least Object c = queue[child]; int right = child + 1; if (right &lt; size &amp;&amp; ((Comparable&lt;? super E&gt;) c).compareTo((E) queue[right]) &gt; 0) c = queue[child = right]; if (key.compareTo((E) c) &lt;= 0) break; queue[k] = c; k = child; &#125; queue[k] = key; &#125; private void siftDownUsingComparator(int k, E x) &#123; int half = size &gt;&gt;&gt; 1; while (k &lt; half) &#123; int child = (k &lt;&lt; 1) + 1; Object c = queue[child]; int right = child + 1; if (right &lt; size &amp;&amp; comparator.compare((E) c, (E) queue[right]) &gt; 0) c = queue[child = right]; if (comparator.compare(x, (E) c) &lt;= 0) break; queue[k] = c; k = child; &#125; queue[k] = x; &#125; Deque 双端队列双端队列的特点就是两边都能进，两边都能出，所以就有对应的offerFirst、offerLast、pollFirst、pollLast等操作。 ArrayDeque 数组双端队列基于数组实现，继承AbstractCollection类，实现了Deque接口。默认长度为16。最小长度为8。1234567891011121314public class ArrayDeque&lt;E&gt; extends AbstractCollection&lt;E&gt; implements Deque&lt;E&gt;, Cloneable, Serializable transient Object[] elements; // non-private to simplify nested class access transient int head; transient int tail; private static final int MIN_INITIAL_CAPACITY = 8;public ArrayDeque() &#123; elements = new Object[16]; &#125; 头尾进出操作，非线程安全，元素不能为null，每次扩容加1倍。1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950public void addFirst(E e) &#123; if (e == null) throw new NullPointerException(); elements[head = (head - 1) &amp; (elements.length - 1)] = e; if (head == tail) doubleCapacity(); &#125;public void addLast(E e) &#123; if (e == null) throw new NullPointerException(); elements[tail] = e; if ( (tail = (tail + 1) &amp; (elements.length - 1)) == head) doubleCapacity(); &#125;public E pollFirst() &#123; int h = head; @SuppressWarnings("unchecked") E result = (E) elements[h]; // Element is null if deque empty if (result == null) return null; elements[h] = null; // Must null out slot head = (h + 1) &amp; (elements.length - 1); return result; &#125; public E pollLast() &#123; int t = (tail - 1) &amp; (elements.length - 1); @SuppressWarnings("unchecked") E result = (E) elements[t]; if (result == null) return null; elements[t] = null; tail = t; return result; &#125;private void doubleCapacity() &#123; assert head == tail; int p = head; int n = elements.length; int r = n - p; // number of elements to the right of p int newCapacity = n &lt;&lt; 1; if (newCapacity &lt; 0) throw new IllegalStateException("Sorry, deque too big"); Object[] a = new Object[newCapacity]; System.arraycopy(elements, p, a, 0, r); System.arraycopy(elements, 0, a, r, p); elements = a; head = 0; tail = n; &#125; java.util.MapHashMap 哈希表是基于数组加链表的数据结构，默认长度选16,加载因子选0.75，是为了减少哈希碰撞的几率。123456789101112131415161718public class HashMap&lt;K,V&gt; extends AbstractMap&lt;K,V&gt; implements Map&lt;K,V&gt;, Cloneable, Serializable &#123; static final int DEFAULT_INITIAL_CAPACITY = 1 &lt;&lt; 4; // aka 16 static final float DEFAULT_LOAD_FACTOR = 0.75f; transient Node&lt;K,V&gt;[] table; transient Set&lt;Map.Entry&lt;K,V&gt;&gt; entrySet; transient int size; static class Node&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; &#123; final int hash; final K key; V value; Node&lt;K,V&gt; next; 因为索引是通过hash计算的，所以是无序的，而且非线程安全。当发生哈希碰撞时，将元素添加到元素后形成链表，当链表长度大于8并且数组总长度大于64，则将链表改为红黑树。123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155156157158159160161162163164 public V put(K key, V value) &#123; return putVal(hash(key), key, value, false, true); &#125;final V putVal(int hash, K key, V value, boolean onlyIfAbsent, boolean evict) &#123; Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; int n, i; if ((tab = table) == null || (n = tab.length) == 0) n = (tab = resize()).length; if ((p = tab[i = (n - 1) &amp; hash]) == null) tab[i] = newNode(hash, key, value, null); else &#123; Node&lt;K,V&gt; e; K k; if (p.hash == hash &amp;&amp; ((k = p.key) == key || (key != null &amp;&amp; key.equals(k)))) e = p; else if (p instanceof TreeNode) e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, tab, hash, key, value); else &#123; for (int binCount = 0; ; ++binCount) &#123; if ((e = p.next) == null) &#123; p.next = newNode(hash, key, value, null); if (binCount &gt;= TREEIFY_THRESHOLD - 1) // -1 for 1st treeifyBin(tab, hash); break; &#125; if (e.hash == hash &amp;&amp; ((k = e.key) == key || (key != null &amp;&amp; key.equals(k)))) break; p = e; &#125; &#125; if (e != null) &#123; // existing mapping for key V oldValue = e.value; if (!onlyIfAbsent || oldValue == null) e.value = value; afterNodeAccess(e); return oldValue; &#125; &#125; ++modCount; if (++size &gt; threshold) resize(); afterNodeInsertion(evict); return null; &#125;public V get(Object key) &#123; Node&lt;K,V&gt; e; return (e = getNode(hash(key), key)) == null ? null : e.value; &#125;final Node&lt;K,V&gt; getNode(int hash, Object key) &#123; Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; first, e; int n; K k; if ((tab = table) != null &amp;&amp; (n = tab.length) &gt; 0 &amp;&amp; (first = tab[(n - 1) &amp; hash]) != null) &#123; if (first.hash == hash &amp;&amp; // always check first node ((k = first.key) == key || (key != null &amp;&amp; key.equals(k)))) return first; if ((e = first.next) != null) &#123; if (first instanceof TreeNode) return ((TreeNode&lt;K,V&gt;)first).getTreeNode(hash, key); do &#123; if (e.hash == hash &amp;&amp; ((k = e.key) == key || (key != null &amp;&amp; key.equals(k)))) return e; &#125; while ((e = e.next) != null); &#125; &#125; return null; &#125;final Node&lt;K,V&gt;[] resize() &#123; Node&lt;K,V&gt;[] oldTab = table; int oldCap = (oldTab == null) ? 0 : oldTab.length; int oldThr = threshold; int newCap, newThr = 0; if (oldCap &gt; 0) &#123; if (oldCap &gt;= MAXIMUM_CAPACITY) &#123; threshold = Integer.MAX_VALUE; return oldTab; &#125; else if ((newCap = oldCap &lt;&lt; 1) &lt; MAXIMUM_CAPACITY &amp;&amp; oldCap &gt;= DEFAULT_INITIAL_CAPACITY) newThr = oldThr &lt;&lt; 1; // double threshold &#125; else if (oldThr &gt; 0) // initial capacity was placed in threshold newCap = oldThr; else &#123; // zero initial threshold signifies using defaults newCap = DEFAULT_INITIAL_CAPACITY; newThr = (int)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY); &#125; if (newThr == 0) &#123; float ft = (float)newCap * loadFactor; newThr = (newCap &lt; MAXIMUM_CAPACITY &amp;&amp; ft &lt; (float)MAXIMUM_CAPACITY ? (int)ft : Integer.MAX_VALUE); &#125; threshold = newThr; @SuppressWarnings(&#123;"rawtypes","unchecked"&#125;) Node&lt;K,V&gt;[] newTab = (Node&lt;K,V&gt;[])new Node[newCap]; table = newTab; if (oldTab != null) &#123; for (int j = 0; j &lt; oldCap; ++j) &#123; Node&lt;K,V&gt; e; if ((e = oldTab[j]) != null) &#123; oldTab[j] = null; if (e.next == null) newTab[e.hash &amp; (newCap - 1)] = e; else if (e instanceof TreeNode) ((TreeNode&lt;K,V&gt;)e).split(this, newTab, j, oldCap); else &#123; // preserve order Node&lt;K,V&gt; loHead = null, loTail = null; Node&lt;K,V&gt; hiHead = null, hiTail = null; Node&lt;K,V&gt; next; do &#123; next = e.next; if ((e.hash &amp; oldCap) == 0) &#123; if (loTail == null) loHead = e; else loTail.next = e; loTail = e; &#125; else &#123; if (hiTail == null) hiHead = e; else hiTail.next = e; hiTail = e; &#125; &#125; while ((e = next) != null); if (loTail != null) &#123; loTail.next = null; newTab[j] = loHead; &#125; if (hiTail != null) &#123; hiTail.next = null; newTab[j + oldCap] = hiHead; &#125; &#125; &#125; &#125; &#125; return newTab; &#125;final void treeifyBin(Node&lt;K,V&gt;[] tab, int hash) &#123; int n, index; Node&lt;K,V&gt; e; if (tab == null || (n = tab.length) &lt; MIN_TREEIFY_CAPACITY) resize(); else if ((e = tab[index = (n - 1) &amp; hash]) != null) &#123; TreeNode&lt;K,V&gt; hd = null, tl = null; do &#123; TreeNode&lt;K,V&gt; p = replacementTreeNode(e, null); if (tl == null) hd = p; else &#123; p.prev = tl; tl.next = p; &#125; tl = p; &#125; while ((e = e.next) != null); if ((tab[index] = hd) != null) hd.treeify(tab); &#125; &#125; LinkedHashMap 链式哈希表继承HashMap类，是在HashMap基础上实现的双链表数据结构，所以有序，而且非线程安全，但效率与HashMap相比偏低。1234567891011121314public class LinkedHashMap&lt;K,V&gt; extends HashMap&lt;K,V&gt; implements Map&lt;K,V&gt; static class Entry&lt;K,V&gt; extends HashMap.Node&lt;K,V&gt; &#123; Entry&lt;K,V&gt; before, after; Entry(int hash, K key, V value, Node&lt;K,V&gt; next) &#123; super(hash, key, value, next); &#125; &#125; transient LinkedHashMap.Entry&lt;K,V&gt; head; transient LinkedHashMap.Entry&lt;K,V&gt; tail; TreeMap 红黑树表TreeMap能够把它保存的记录根据key排序，默认是自然排序。也可以指定排序的比较器。当用Iteraor遍历TreeMap时，得到的记录是排过序的。TreeMap的键和值都不能为空。 EnumMap 枚举表以Enum为key的Map。不常用不深抠…… WeakHashMap 弱引用哈希表与HashMap的区别是HashMap的key保留了对实际对象的强引用，只要HashMap实例不被销毁，其中的所有value都不会被垃圾回收。而WeakHashMap的key只保留了对实际对象的弱引用，在满足垃圾回收条件下，会被回收删除。 IdentityHashMap 身份证哈希表与HashMap的区别：HashMap中的key只要通过equals和hashCode两个方法就可以判断是否相同，决定保存其中一个还是两个都保存。而IdentityHashMap中的key必须是引用相同。 Hashtable 哈希表看这命名就知道这东西都淘汰多少年了，不想说它了。不过Properties继承了Hashtable。 fail-fast机制集合在增删操作中经常出现 modCount++;或++modCount; 那我很好奇它是什么东西。 它是什么？12345678/** * The number of times this HashMap has been structurally modified * Structural modifications are those that change the number of mappings in * the HashMap or otherwise modify its internal structure (e.g., * rehash). This field is used to make iterators on Collection-views of * the HashMap fail-fast. (See ConcurrentModificationException). */transient int modCount; 翻译： 是HashMap结构改变的次数。结构改变是指更改哈希表的长度或其他改变内部结构的行为。比如再哈希。这个变量是用于使HashMap的迭代器快速失败。参考ConcurrentModificationException异常。 原来fail-fast是Java集合在并发修改场景中的一种错误检测机制。 什么时候会出现ConcurrentModificationException异常？当多个线程同时操作非线程安全的集合时，线程A可能正在使用Iterator或ForEach遍历集合，线程B可能更改了集合结构，那么原来的mc和++后的modCount就不一致了，这时就会进入123456789101112131415@Override public void forEach(BiConsumer&lt;? super K, ? super V&gt; action) &#123; Node&lt;K,V&gt;[] tab; if (action == null) throw new NullPointerException(); if (size &gt; 0 &amp;&amp; (tab = table) != null) &#123; int mc = modCount; for (int i = 0; i &lt; tab.length; ++i) &#123; for (Node&lt;K,V&gt; e = tab[i]; e != null; e = e.next) action.accept(e.key, e.value); &#125; if (modCount != mc) throw new ConcurrentModificationException(); &#125; &#125; 抛出ConcurrentModificationException异常。 java.util.concurrent.*// TODO]]></content>
       <categories>
         <category>java</category>
       </categories>
@@ -265,113 +287,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[看破Java 6.IO、Socket、NIO]]></title>
-    <url>%2Fp%2Fe269c416%2F</url>
-    <content type="text"><![CDATA[]]></content>
+    <title><![CDATA[看破设计模式 3. 结构型模式 - 适配器模式(Adapter)]]></title>
+    <url>%2Fp%2Fa718df1a%2F</url>
+    <content type="text"><![CDATA[定义示例疑问]]></content>
       <categories>
-        <category>java</category>
+        <category>design</category>
       </categories>
       <tags>
-        <tag>看破Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Java 7.]]></title>
-    <url>%2Fp%2Fd455aa9b%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>看破Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破JVM 1.]]></title>
-    <url>%2Fp%2Ff838026c%2F</url>
-    <content type="text"><![CDATA[内存垃圾回收参考资料]]></content>
-      <categories>
-        <category>jvm</category>
-      </categories>
-      <tags>
-        <tag>看破JVM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破JVM 1.]]></title>
-    <url>%2Fp%2Ff838026c%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>jvm</category>
-      </categories>
-      <tags>
-        <tag>看破JVM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破JVM 1.]]></title>
-    <url>%2Fp%2Ff838026c%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>jvm</category>
-      </categories>
-      <tags>
-        <tag>看破JVM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破JVM 1.]]></title>
-    <url>%2Fp%2Ff838026c%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>jvm</category>
-      </categories>
-      <tags>
-        <tag>看破JVM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破JVM 1.]]></title>
-    <url>%2Fp%2Ff838026c%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>jvm</category>
-      </categories>
-      <tags>
-        <tag>看破JVM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破JVM 1.]]></title>
-    <url>%2Fp%2Ff838026c%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>jvm</category>
-      </categories>
-      <tags>
-        <tag>看破JVM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Tcpcopy 1.快速安装及使用]]></title>
-    <url>%2Fp%2Ff9d0a7b1%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>testtool</category>
-      </categories>
-      <tags>
-        <tag>看破Tcpcopy</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Java 1.核心语法]]></title>
-    <url>%2Fp%2F195fb869%2F</url>
-    <content type="text"><![CDATA[封装将变量和方法封装成一个类，通过实例化的方式赋予其为对象。 可以看下八大基本数据类型的包装类加深理解： 怎么包装成类的？ 怎么继承Number实现obj.xxxValue()的？ 怎么实现自动拆箱装箱的？ 继承子类继承超类允许的属性和方法。 内部类在类的内部声明类，就是内部类。特性： 可以通过声明多个内部类，实现多继承。 内部类可直接访问外部类成员变量和方法，但外部类访问内部类的成员需要实例化内部类。 提供更好的封装。 构造代码块{}在类中跟构造方法类似，都是在实例化对象时执行。 实例化内部类没什么好说的，直接上代码……拥有内部类的类：1234567891011121314151617public class MySelf &#123; private String id; public MySelf() &#123;&#125; public class Info &#123; public Info() &#123;&#125; public Info(int age) &#123; this.age = age; &#125; private int age; public int getAge() &#123; return age; &#125; public void setAge(int age) &#123; this.age = age; &#125; &#125;&#125; 实例化：123MySelf mySelf = new MySelf();MySelf.Info myInfo = mySelf.new Info(12);LogUtils.info(myInfo.getAge()); 为MySelf.Info加上static修饰，实例化：12MySelf.Info myInfo = new MySelf.Info(12);LogUtils.info(myInfo.getAge()); 继承内部类需要通过外部类实例引用外部类构造器，才能继承内部类，没这么玩的。太反人类……父类：1234567891011121314151617181920212223public class MySelf &#123; private String id; public MySelf() &#123;&#125; public String getId() &#123; return id; &#125; public void setId(String id) &#123; this.id = id; &#125; public class Info &#123; public Info() &#123;&#125; public Info(int age) &#123; this.age = age; &#125; private int age; public int getAge() &#123; return age; &#125; public void setAge(int age) &#123; this.age = age; &#125; &#125;&#125; 子类：12345public class MySon extends MySelf.Info &#123; public MySon(MySelf mySelf) &#123; mySelf.super(); &#125;&#125; 匿名内部类在实例化前内部继承抽象类并实现抽象方法，或内部实现接口并实现接口所有方法。类似这样：123456MySelf son = new MySon() &#123;public void set(String id) &#123;this.setId(id);&#125;&#125;;LogUtils.info(((MySon) son).get()); this 和 superthis指当前对象本身super指当前对象最近超（父）类 在构造方法中使用super()和this()应该注意： super()调用父类的构造方法，this()调用当前类的其它构造方法。 每个子类构造方法的第一条语句，都隐式调用super()，如果父类没有这种形式的构造函数，会编译报错。 super()和this()均需放在构造方法内第一行，一个构造方法内只能调用其中一个。 this()和super()都指向对象，所以不能在static方法，static语句块中使用。 多态静态绑定在编译阶段就能确定调用哪个方法的方式，叫静态绑定机制。 动态绑定根据实际创建的对象类型来确定方法所在位置，通过动态创建的对象方法表来定位方法的方式，叫动态绑定机制。 修饰符访问控制修饰符Java修饰符中用来控制访问权限的，分为以下四种： 类内可访问（private） 包内可访问 (缺省。有人说是default，但在jdk8中default用于修饰接口默认方法，写在代码里尝试过确实不是) 子类可访问 (protected) 均可访问 (public) 以下用表格说明各修饰符区别： 修饰符 当前类 包内 子孙类（包内） 子孙类（不同包） 其他包 public Y Y Y Y Y protected Y Y Y Y/N N 缺省 Y Y Y N N private Y N N N N 这里要特别说明protected作用，也就是上面那个Y/N： 允许同一包内的类任意调用。 不在同一包内的类，只允许子孙类调用，不在家谱上的类不能调用 默认缺省值： 类中的变量和方法都是public，构造函数为缺省。 接口中的变量为public static final，方法为public。 访问控制的继承： 父类声明为public的变量和方法，子类也必须声明为public。 父类声明为protected的变量和方法，子类可以声明为protected或public。 父类声明为private的方法，不能被继承。 非访问控制修饰符静态修饰符static用于修饰静态方法和静态变量。 一个类无论实例化了多少个对象，类的静态变量和静态方法都指向一块固定的内存区，修改任意实例中的静态变量都为最终修改值。 静态方法中只能使用静态变量。 二者可以通过Class.member，Class.method()的方式直接调用。 可以修饰静态内部类 static{} 代码块在JVM的生命周期中只被加载一次，是伴随类加载执行的。不管怎么实例化这个类，都只执行一次。 最终修饰符final修饰常量、修饰不可继承类，修饰可继承但不能重写的方法。 抽象类修饰符abstract抽象类不能被final修饰，可以包含抽象方法和非抽象方法。抽象方法不能被final和static修饰，不能有方法体，继承抽象类的子类必须实现父类的所有抽象方法，除非子类也是抽象类。 注意：抽象类是不能被实例化的！！！除非你使用匿名内部类的方式实现它的抽象方法，然后实例化这个匿名内部类，比如：123456MySelf son = new MySon() &#123;public void set(String id) &#123;this.setId(id);&#125;&#125;;LogUtils.info(((MySon) son).get()); 但是！这么写属于反人类设计模式，不推荐这样写。 接口默认实现方法default (jdk8)在interface中实现默认方法需要加default修饰，必须为public公有这和抽象类中可以有protected抽象方法和private成员变量有区别 transient实现了Serilizable接口的POJO，在不需要对类中某个成员变量进行序列化时，可以使用transient修饰该成员变量。反序列化时该成员变量无法获得访问，值为null。 在实际开发过程中，有些属性需要序列化，有些不需要，比如一些敏感信息（如身份证，密码，银行卡号等）不希望在网络操作（主要涉及到序列化操作，本地序列化缓存也适用）中被传输，这些信息对应的变量就可以加上transient关键字。换句话说，这个字段的生命周期仅存于调用者的内存中而不会写到磁盘里持久化。 只能修饰成员变量，类、方法、本地变量均不能修饰。 静态变量不能被序列化。 synchronized和volatilesynchronized修饰多线程中的同步锁volatile修饰多线程中的共享变量 异常 Error Error一般表示编译时或者系统错误，例如：虚拟机相关的错误，系统崩溃（例如：OutOfMemoryError）等。这种错误无法恢复或不可捕获,将导致应用程序中断,通常应用程序无法处理这些错误,因此也不应该试图用catch来进行捕获。 Exception Exception分为受检查异常和运行时异常（不受检查异常）。 编译器在编译时，对于受检查异常必须进行try…catch或throws处理,否则无法通过编译。常见的受检查异常包括：IO操作、ClassNotFoundException、线程操作等。 RuntimeException及其子类都统称为非受检查异常，例如：NullPointExecrption、NumberFormatException（字符串转换为数字）、ArrayIndexOutOfBoundsException（数组越界）、ClassCastException（类型转换错误）、ArithmeticException（算术错误）等。 try-with-resources(jdk7)在try()括号中打开的资源会在语句执行结束时关闭。123456try( BufferedReader br = new BufferedReader(new FileReader(path)); BufferedWriter bw = new BufferedWriter(new FileWriter(path));)&#123;&#125;catch()&#123;&#125; try catch finally首先看这段代码123456789101112public int test() &#123; int x = 1; try &#123; return ++x; &#125; catch (Exception e) &#123; &#125; finally &#123; ++x; &#125; return x;&#125; 结果是2而不是3，finally到底执行了吗？经打断点运行确认，finally执行后x为3，又执行到return，返回结果为2。 查阅官方finally语句说明，对这个特殊情况有说明： The finally block always executes when the try block exits. This ensures that the finally block is executed even if an unexpected exception occurs. But finally is useful for more than just exception handling — it allows the programmer to avoid having cleanup code accidentally bypassed by a return, continue, or break. Putting cleanup code in a finally block is always a good practice, even when no exceptions are anticipated. Note: If the JVM exits while the try or catch code is being executed, then the finally block may not execute. Likewise, if the thread executing the try or catch code is interrupted or killed, the finally block may not execute even though the application as a whole continues. 翻译： 当try语句退出时肯定会执行finally语句。这确保了即使发了一个意想不到的异常也会执行finally语句块。但是finally的用处不仅是用来处理异常——它可以让程序员不会因为return、continue、或者break语句而忽略了清理代码。把清理代码放在finally语句块里是一个很好的做法，即便可能不会有异常发生也要这样做。 注意，当try或者catch的代码在运行的时候，JVM退出了。那么finally语句块就不会执行。同样，如果线程在运行try或者catch的代码时被中断了或者被杀死了(killed)，那么finally语句可能也不会执行了，即使整个运用还会继续执行。 这说明只要进程(jvm)不死,线程(thread)不被中断，finally就必须执行。 那么为什么返回结果为2呢？ 查阅官方jvm文档， If the try clause executes a return, the compiled code does the following: 1.Saves the return value (if any) in a local variable.2.Executes a jsr to the code for the finally clause.3.Upon return from the finally clause, returns the value saved in the local variable. 翻译： 如果try语句里有return，那么代码的行为如下： 1.如果有返回值，就把返回值保存到局部变量中2.执行jsr指令跳到finally语句里执行3.执行完finally语句后，返回之前保存在局部变量表里的值 根据上面的说明就可以明白为什么是2了。当执行到return ++x;时，jvm在执行完++x后会在局部变量表里另外分配一个空间来保存当前x的值。注意，现在还没把值返回，而是继续执行finally语句里的语句。等执行完后再把之前保存的值（是2不是x）返回。所以就有了返回结果是2不是3的情况。 泛型类型参数化，可以看下集合的实现。 未知泛型参数方法需要在返回值类型前声明泛型。 注解修饰构造器、成员变量类型、成员方法、方法参数等，用于反射拿值逻辑处理。 自定义注解 @Target （作用域） 12345678910111213141516171819202122232425262728293031323334353637/** Class, interface (including annotation type), or enum declaration */ TYPE, /** Field declaration (includes enum constants) */ FIELD, /** Method declaration */ METHOD, /** Formal parameter declaration */ PARAMETER, /** Constructor declaration */ CONSTRUCTOR, /** Local variable declaration */ LOCAL_VARIABLE, /** Annotation type declaration */ ANNOTATION_TYPE, /** Package declaration */ PACKAGE, /** * Type parameter declaration * * @since 1.8 */ TYPE_PARAMETER, /** * Use of a type * * @since 1.8 */ TYPE_USE @Retention （保留策略） 12345678910111213141516171819/** * Annotations are to be discarded by the compiler. */ SOURCE, /** * Annotations are to be recorded in the class file by the compiler * but need not be retained by the VM at run time. This is the default * behavior. */ CLASS, /** * Annotations are to be recorded in the class file by the compiler and * retained by the VM at run time, so they may be read reflectively. * * @see java.lang.reflect.AnnotatedElement */ RUNTIME 比如Lombok的所有注解都是保留在源码阶段的， 123@Target(ElementType.TYPE)@Retention(RetentionPolicy.SOURCE)public @interface Data &#123; @Repeatable （重复注解） 123456/** * Indicates the &lt;em&gt;containing annotation type&lt;/em&gt; for the * repeatable annotation type. * @return the containing annotation type */Class&lt;? extends Annotation&gt; value(); 重复注解(jdk8)注解容器： 12345@Target(&#123;ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.ANNOTATION_TYPE&#125;)@Retention(RetentionPolicy.RUNTIME)public @interface MyAnnotations &#123; MyAnnotation[] value();&#125; 注解： 123456@Target(&#123;ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.ANNOTATION_TYPE&#125;)@Retention(RetentionPolicy.RUNTIME)@Repeatable(MyAnnotations.class)public @interface MyAnnotation &#123; String value() default "aaa";&#125; 使用： 1234@MyAnnotation("bbb") @MyAnnotation("ccc") public void callback() &#123; &#125; 提取注解属性123456Class&lt;AnnotationTest&gt; clazz = AnnotationTest.class; Method m1 = clazz.getMethod("callback"); MyAnnotation[] ans = m1.getAnnotationsByType(MyAnnotation.class); Arrays.asList(ans).forEach((a) -&gt; &#123; System.out.println(a.value()); &#125;); 输出结果： 12bbbccc 引用类型强引用（StrongReference）如果一个对象具有强引用，那垃圾回收器绝不会回收它。当内存空间不足，Java虚拟机宁愿抛出OutOfMemoryError错误，使程序异常终止，也不会靠随意回收具有强引用的对象来解决内存不足的问题。 1String[] arr = new String[]&#123;"a", "b", "c"&#125;; 软引用（SoftReference）如果一个对象只具有软引用，则内存空间足够，垃圾回收器就不会回收它；如果内存空间不足了，就会回收这些对象的内存。只要垃圾回收器没有回收它，该对象就可以被程序使用。软引用可用来实现内存敏感的高速缓存。 软引用可以和一个引用队列（ReferenceQueue）联合使用，如果软引用所引用的对象被垃圾回收器回收，Java虚拟机就会把这个软引用加入到与之关联的引用队列中。 12ReferenceQueue&lt;String[]&gt; referenceQueue = new ReferenceQueue&lt;String[]&gt;();SoftReference&lt;String[]&gt; softBean = new SoftReference&lt;String[]&gt;(new String[]&#123;"a", "b", "c"&#125;, referenceQueue); 弱引用（WeakReference）在垃圾回收器线程扫描它所管辖的内存区域的过程中，一旦发现了只具有弱引用的对象，不管当前内存空间足够与否，都会回收它的内存。不过，由于垃圾回收器是一个优先级很低的线程，因此不一定会很快发现那些只具有弱引用的对象。 弱引用可以和一个引用队列（ReferenceQueue）联合使用，如果弱引用所引用的对象被垃圾回收，Java虚拟机就会把这个弱引用加入到与之关联的引用队列中。 12ReferenceQueue&lt;String[]&gt; referenceQueue = new ReferenceQueue&lt;String[]&gt;();WeakReference&lt;String[]&gt; softBean = new WeakReference&lt;String[]&gt;(new String[]&#123;"a", "b", "c"&#125;, referenceQueue); 虚引用（PhantomReference）与其他几种引用都不同，虚引用并不会决定对象的生命周期。如果一个对象仅持有虚引用，那么它就和没有任何引用一样，在任何时候都可能被垃圾回收器回收。虚引用主要用来跟踪对象被垃圾回收器回收的活动。 虚引用必须和引用队列 （ReferenceQueue）联合使用，当垃圾回收器准备回收一个对象时，如果发现它还有虚引用，就会在回收对象的内存之前，把这个虚引用加入到与之关联的引用队列中。 12ReferenceQueue&lt;String[]&gt; referenceQueue = new ReferenceQueue&lt;String[]&gt;();PhantomReference&lt;String[]&gt; referent = new PhantomReference&lt;String&gt;(new String[]&#123;"a", "b", "c"&#125;, referenceQueue); 参考资料 《Java核心技术卷I基础知识》 《Java核心技术卷II高级特性》 《Effective Java中文版》 《Java编程思想》]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>看破Java</tag>
+        <tag>看破设计模式</tag>
       </tags>
   </entry>
   <entry>
@@ -397,20 +320,31 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[看破设计模式 2. 创建型模式 - 单例模式(Singleton)]]></title>
-    <url>%2Fp%2Fc9a4fbc9%2F</url>
-    <content type="text"><![CDATA[定义 Ensure a class has only one instance, and provide a global point of access to it. 确保某一个类只有一个实例， 而且自行实例化并向整个系统提供这个实例。 示例饿汉式123456789101112131415public class HungrySingleton &#123; private static final HungrySingleton instance = new HungrySingleton(); private HungrySingleton() &#123; &#125; public static HungrySingleton instance() &#123; return instance; &#125; public void say() &#123; System.out.println("hello"); &#125;&#125; 懒汉式（加锁禁止重排序保证线程安全）12345678910111213141516171819202122public class LazySingleton &#123; private static volatile LazySingleton instance = null; private LazySingleton() &#123; &#125; public static LazySingleton instance() &#123; if (instance == null) &#123; synchronized (LazySingleton.class) &#123; if (instance == null) &#123; instance = new LazySingleton(); &#125; &#125; &#125; return instance; &#125; public void say() &#123; System.out.println("hello"); &#125;&#125; 当然Effective java推荐枚举式12345678910111213141516171819202122232425262728public class EnumSingleton &#123; private EnumSingleton() &#123; &#125; private enum Singleton &#123; INSTANCE; private final EnumSingleton instance; Singleton() &#123; instance = new EnumSingleton(); &#125; public EnumSingleton getInstance() &#123; return instance; &#125; &#125; public static EnumSingleton instance() &#123; return Singleton.INSTANCE.getInstance(); &#125; public void say() &#123; System.out.println("hello"); &#125;&#125; 我选择静态内部类式123456789101112131415161718public class NiceSingleton &#123; private NiceSingleton() &#123; &#125; private static class InstanceHolder &#123; private final static NiceSingleton instance = new NiceSingleton(); &#125; public static NiceSingleton instance() &#123; return InstanceHolder.instance; &#125; public void say() &#123; System.out.println("hello"); &#125;&#125; 疑问 为什么懒汉式单例要双重校验？ 当两个线程同时调用instance()方法时，由于singleton==null，两个线程都可以通过第一个校验，然后线程A持有锁，线程B等待。当线程A执行完实例化、释放锁，线程B进入代码块。 如果不加第二个校验，线程B又会实例化一个对象。就会违反单例模式设计原则。 如果不加第一个校验，也能实现单例，但多个线程反复竞争锁会增加系统开销，严重影响性能。]]></content>
+    <title><![CDATA[看破Java 1.核心语法]]></title>
+    <url>%2Fp%2F195fb869%2F</url>
+    <content type="text"><![CDATA[封装将变量和方法封装成一个类，通过实例化的方式赋予其为对象。 可以看下八大基本数据类型的包装类加深理解： 怎么包装成类的？ 怎么继承Number实现obj.xxxValue()的？ 怎么实现自动拆箱装箱的？ 继承子类继承超类允许的属性和方法。 内部类在类的内部声明类，就是内部类。特性： 可以通过声明多个内部类，实现多继承。 内部类可直接访问外部类成员变量和方法，但外部类访问内部类的成员需要实例化内部类。 提供更好的封装。 构造代码块{}在类中跟构造方法类似，都是在实例化对象时执行。 实例化内部类没什么好说的，直接上代码……拥有内部类的类：1234567891011121314151617public class MySelf &#123; private String id; public MySelf() &#123;&#125; public class Info &#123; public Info() &#123;&#125; public Info(int age) &#123; this.age = age; &#125; private int age; public int getAge() &#123; return age; &#125; public void setAge(int age) &#123; this.age = age; &#125; &#125;&#125; 实例化：123MySelf mySelf = new MySelf();MySelf.Info myInfo = mySelf.new Info(12);LogUtils.info(myInfo.getAge()); 为MySelf.Info加上static修饰，实例化：12MySelf.Info myInfo = new MySelf.Info(12);LogUtils.info(myInfo.getAge()); 继承内部类需要通过外部类实例引用外部类构造器，才能继承内部类，没这么玩的。太反人类……父类：1234567891011121314151617181920212223public class MySelf &#123; private String id; public MySelf() &#123;&#125; public String getId() &#123; return id; &#125; public void setId(String id) &#123; this.id = id; &#125; public class Info &#123; public Info() &#123;&#125; public Info(int age) &#123; this.age = age; &#125; private int age; public int getAge() &#123; return age; &#125; public void setAge(int age) &#123; this.age = age; &#125; &#125;&#125; 子类：12345public class MySon extends MySelf.Info &#123; public MySon(MySelf mySelf) &#123; mySelf.super(); &#125;&#125; 匿名内部类在实例化前内部继承抽象类并实现抽象方法，或内部实现接口并实现接口所有方法。类似这样：123456MySelf son = new MySon() &#123;public void set(String id) &#123;this.setId(id);&#125;&#125;;LogUtils.info(((MySon) son).get()); this 和 superthis指当前对象本身super指当前对象最近超（父）类 在构造方法中使用super()和this()应该注意： super()调用父类的构造方法，this()调用当前类的其它构造方法。 每个子类构造方法的第一条语句，都隐式调用super()，如果父类没有这种形式的构造函数，会编译报错。 super()和this()均需放在构造方法内第一行，一个构造方法内只能调用其中一个。 this()和super()都指向对象，所以不能在static方法，static语句块中使用。 多态静态绑定在编译阶段就能确定调用哪个方法的方式，叫静态绑定机制。 动态绑定根据实际创建的对象类型来确定方法所在位置，通过动态创建的对象方法表来定位方法的方式，叫动态绑定机制。 修饰符访问控制修饰符Java修饰符中用来控制访问权限的，分为以下四种： 类内可访问（private） 包内可访问 (缺省。有人说是default，但在jdk8中default用于修饰接口默认方法，写在代码里尝试过确实不是) 子类可访问 (protected) 均可访问 (public) 以下用表格说明各修饰符区别： 修饰符 当前类 包内 子孙类（包内） 子孙类（不同包） 其他包 public Y Y Y Y Y protected Y Y Y Y/N N 缺省 Y Y Y N N private Y N N N N 这里要特别说明protected作用，也就是上面那个Y/N： 允许同一包内的类任意调用。 不在同一包内的类，只允许子孙类调用，不在家谱上的类不能调用 默认缺省值： 类中的变量和方法都是public，构造函数为缺省。 接口中的变量为public static final，方法为public。 访问控制的继承： 父类声明为public的变量和方法，子类也必须声明为public。 父类声明为protected的变量和方法，子类可以声明为protected或public。 父类声明为private的方法，不能被继承。 非访问控制修饰符静态修饰符static用于修饰静态方法和静态变量。 一个类无论实例化了多少个对象，类的静态变量和静态方法都指向一块固定的内存区，修改任意实例中的静态变量都为最终修改值。 静态方法中只能使用静态变量。 二者可以通过Class.member，Class.method()的方式直接调用。 可以修饰静态内部类 static{} 代码块在JVM的生命周期中只被加载一次，是伴随类加载执行的。不管怎么实例化这个类，都只执行一次。 最终修饰符final修饰常量、修饰不可继承类，修饰可继承但不能重写的方法。 抽象类修饰符abstract抽象类不能被final修饰，可以包含抽象方法和非抽象方法。抽象方法不能被final和static修饰，不能有方法体，继承抽象类的子类必须实现父类的所有抽象方法，除非子类也是抽象类。 注意：抽象类是不能被实例化的！！！除非你使用匿名内部类的方式实现它的抽象方法，然后实例化这个匿名内部类，比如：123456MySelf son = new MySon() &#123;public void set(String id) &#123;this.setId(id);&#125;&#125;;LogUtils.info(((MySon) son).get()); 但是！这么写属于反人类设计模式，不推荐这样写。 接口默认实现方法default (jdk8)在interface中实现默认方法需要加default修饰，必须为public公有这和抽象类中可以有protected抽象方法和private成员变量有区别 transient实现了Serilizable接口的POJO，在不需要对类中某个成员变量进行序列化时，可以使用transient修饰该成员变量。反序列化时该成员变量无法获得访问，值为null。 在实际开发过程中，有些属性需要序列化，有些不需要，比如一些敏感信息（如身份证，密码，银行卡号等）不希望在网络操作（主要涉及到序列化操作，本地序列化缓存也适用）中被传输，这些信息对应的变量就可以加上transient关键字。换句话说，这个字段的生命周期仅存于调用者的内存中而不会写到磁盘里持久化。 只能修饰成员变量，类、方法、本地变量均不能修饰。 静态变量不能被序列化。 synchronized和volatilesynchronized修饰多线程中的同步锁volatile修饰多线程中的共享变量 异常 Error Error一般表示编译时或者系统错误，例如：虚拟机相关的错误，系统崩溃（例如：OutOfMemoryError）等。这种错误无法恢复或不可捕获,将导致应用程序中断,通常应用程序无法处理这些错误,因此也不应该试图用catch来进行捕获。 Exception Exception分为受检查异常和运行时异常（不受检查异常）。 编译器在编译时，对于受检查异常必须进行try…catch或throws处理,否则无法通过编译。常见的受检查异常包括：IO操作、ClassNotFoundException、线程操作等。 RuntimeException及其子类都统称为非受检查异常，例如：NullPointExecrption、NumberFormatException（字符串转换为数字）、ArrayIndexOutOfBoundsException（数组越界）、ClassCastException（类型转换错误）、ArithmeticException（算术错误）等。 try-with-resources(jdk7)在try()括号中打开的资源会在语句执行结束时关闭。123456try( BufferedReader br = new BufferedReader(new FileReader(path)); BufferedWriter bw = new BufferedWriter(new FileWriter(path));)&#123;&#125;catch()&#123;&#125; try catch finally首先看这段代码123456789101112public int test() &#123; int x = 1; try &#123; return ++x; &#125; catch (Exception e) &#123; &#125; finally &#123; ++x; &#125; return x;&#125; 结果是2而不是3，finally到底执行了吗？经打断点运行确认，finally执行后x为3，又执行到return，返回结果为2。 查阅官方finally语句说明，对这个特殊情况有说明： The finally block always executes when the try block exits. This ensures that the finally block is executed even if an unexpected exception occurs. But finally is useful for more than just exception handling — it allows the programmer to avoid having cleanup code accidentally bypassed by a return, continue, or break. Putting cleanup code in a finally block is always a good practice, even when no exceptions are anticipated. Note: If the JVM exits while the try or catch code is being executed, then the finally block may not execute. Likewise, if the thread executing the try or catch code is interrupted or killed, the finally block may not execute even though the application as a whole continues. 翻译： 当try语句退出时肯定会执行finally语句。这确保了即使发了一个意想不到的异常也会执行finally语句块。但是finally的用处不仅是用来处理异常——它可以让程序员不会因为return、continue、或者break语句而忽略了清理代码。把清理代码放在finally语句块里是一个很好的做法，即便可能不会有异常发生也要这样做。 注意，当try或者catch的代码在运行的时候，JVM退出了。那么finally语句块就不会执行。同样，如果线程在运行try或者catch的代码时被中断了或者被杀死了(killed)，那么finally语句可能也不会执行了，即使整个运用还会继续执行。 这说明只要进程(jvm)不死,线程(thread)不被中断，finally就必须执行。 那么为什么返回结果为2呢？ 查阅官方jvm文档， If the try clause executes a return, the compiled code does the following: 1.Saves the return value (if any) in a local variable.2.Executes a jsr to the code for the finally clause.3.Upon return from the finally clause, returns the value saved in the local variable. 翻译： 如果try语句里有return，那么代码的行为如下： 1.如果有返回值，就把返回值保存到局部变量中2.执行jsr指令跳到finally语句里执行3.执行完finally语句后，返回之前保存在局部变量表里的值 根据上面的说明就可以明白为什么是2了。当执行到return ++x;时，jvm在执行完++x后会在局部变量表里另外分配一个空间来保存当前x的值。注意，现在还没把值返回，而是继续执行finally语句里的语句。等执行完后再把之前保存的值（是2不是x）返回。所以就有了返回结果是2不是3的情况。 泛型类型参数化，可以看下集合的实现。 未知泛型参数方法需要在返回值类型前声明泛型。 注解修饰构造器、成员变量类型、成员方法、方法参数等，用于反射拿值逻辑处理。 自定义注解 @Target （作用域） 12345678910111213141516171819202122232425262728293031323334353637/** Class, interface (including annotation type), or enum declaration */ TYPE, /** Field declaration (includes enum constants) */ FIELD, /** Method declaration */ METHOD, /** Formal parameter declaration */ PARAMETER, /** Constructor declaration */ CONSTRUCTOR, /** Local variable declaration */ LOCAL_VARIABLE, /** Annotation type declaration */ ANNOTATION_TYPE, /** Package declaration */ PACKAGE, /** * Type parameter declaration * * @since 1.8 */ TYPE_PARAMETER, /** * Use of a type * * @since 1.8 */ TYPE_USE @Retention （保留策略） 12345678910111213141516171819/** * Annotations are to be discarded by the compiler. */ SOURCE, /** * Annotations are to be recorded in the class file by the compiler * but need not be retained by the VM at run time. This is the default * behavior. */ CLASS, /** * Annotations are to be recorded in the class file by the compiler and * retained by the VM at run time, so they may be read reflectively. * * @see java.lang.reflect.AnnotatedElement */ RUNTIME 比如Lombok的所有注解都是保留在源码阶段的， 123@Target(ElementType.TYPE)@Retention(RetentionPolicy.SOURCE)public @interface Data &#123; @Repeatable （重复注解） 123456/** * Indicates the &lt;em&gt;containing annotation type&lt;/em&gt; for the * repeatable annotation type. * @return the containing annotation type */Class&lt;? extends Annotation&gt; value(); 重复注解(jdk8)注解容器： 12345@Target(&#123;ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.ANNOTATION_TYPE&#125;)@Retention(RetentionPolicy.RUNTIME)public @interface MyAnnotations &#123; MyAnnotation[] value();&#125; 注解： 123456@Target(&#123;ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.ANNOTATION_TYPE&#125;)@Retention(RetentionPolicy.RUNTIME)@Repeatable(MyAnnotations.class)public @interface MyAnnotation &#123; String value() default "aaa";&#125; 使用： 1234@MyAnnotation("bbb") @MyAnnotation("ccc") public void callback() &#123; &#125; 提取注解属性123456Class&lt;AnnotationTest&gt; clazz = AnnotationTest.class; Method m1 = clazz.getMethod("callback"); MyAnnotation[] ans = m1.getAnnotationsByType(MyAnnotation.class); Arrays.asList(ans).forEach((a) -&gt; &#123; System.out.println(a.value()); &#125;); 输出结果： 12bbbccc 引用类型强引用（StrongReference）如果一个对象具有强引用，那垃圾回收器绝不会回收它。当内存空间不足，Java虚拟机宁愿抛出OutOfMemoryError错误，使程序异常终止，也不会靠随意回收具有强引用的对象来解决内存不足的问题。 1String[] arr = new String[]&#123;"a", "b", "c"&#125;; 软引用（SoftReference）如果一个对象只具有软引用，则内存空间足够，垃圾回收器就不会回收它；如果内存空间不足了，就会回收这些对象的内存。只要垃圾回收器没有回收它，该对象就可以被程序使用。软引用可用来实现内存敏感的高速缓存。 软引用可以和一个引用队列（ReferenceQueue）联合使用，如果软引用所引用的对象被垃圾回收器回收，Java虚拟机就会把这个软引用加入到与之关联的引用队列中。 12ReferenceQueue&lt;String[]&gt; referenceQueue = new ReferenceQueue&lt;String[]&gt;();SoftReference&lt;String[]&gt; softBean = new SoftReference&lt;String[]&gt;(new String[]&#123;"a", "b", "c"&#125;, referenceQueue); 弱引用（WeakReference）在垃圾回收器线程扫描它所管辖的内存区域的过程中，一旦发现了只具有弱引用的对象，不管当前内存空间足够与否，都会回收它的内存。不过，由于垃圾回收器是一个优先级很低的线程，因此不一定会很快发现那些只具有弱引用的对象。 弱引用可以和一个引用队列（ReferenceQueue）联合使用，如果弱引用所引用的对象被垃圾回收，Java虚拟机就会把这个弱引用加入到与之关联的引用队列中。 12ReferenceQueue&lt;String[]&gt; referenceQueue = new ReferenceQueue&lt;String[]&gt;();WeakReference&lt;String[]&gt; softBean = new WeakReference&lt;String[]&gt;(new String[]&#123;"a", "b", "c"&#125;, referenceQueue); 虚引用（PhantomReference）与其他几种引用都不同，虚引用并不会决定对象的生命周期。如果一个对象仅持有虚引用，那么它就和没有任何引用一样，在任何时候都可能被垃圾回收器回收。虚引用主要用来跟踪对象被垃圾回收器回收的活动。 虚引用必须和引用队列 （ReferenceQueue）联合使用，当垃圾回收器准备回收一个对象时，如果发现它还有虚引用，就会在回收对象的内存之前，把这个虚引用加入到与之关联的引用队列中。 12ReferenceQueue&lt;String[]&gt; referenceQueue = new ReferenceQueue&lt;String[]&gt;();PhantomReference&lt;String[]&gt; referent = new PhantomReference&lt;String&gt;(new String[]&#123;"a", "b", "c"&#125;, referenceQueue); 参考资料 《Java核心技术卷I基础知识》 《Java核心技术卷II高级特性》 《Effective Java中文版》 《Java编程思想》]]></content>
       <categories>
-        <category>design</category>
+        <category>java</category>
       </categories>
       <tags>
-        <tag>看破设计模式</tag>
+        <tag>看破Java</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[看破Java 2.知其所以然]]></title>
     <url>%2Fp%2Fbafefb6b%2F</url>
     <content type="text"><![CDATA[== 和 equals()的区别== 基本数据类型比较的是：值是否相等。 复合数据类型比较的是：引用实例是否相同，即实例在堆内存中存放地址是否相同。 equals() Object基类中比较的是：存放地址是否相同（是否为同一对象实例）。 Object.equals()方法中是这么写的： return (this == obj); 其他类重写了equals()方法，就看具体怎么写了。 由以下方法实现，可以看出基本数据类型的包装类都是通过内置基本数据类型的成员变量value做==比较的， 而字符串的比较可以看成是字符数组的比较。 Byte的equals()1234if (obj instanceof Byte) &#123; return value == ((Byte)obj).byteValue();&#125;return false; Short的equals()1234if (obj instanceof Short) &#123; return value == ((Short)obj).shortValue();&#125;return false; Integer的equals()1234if (obj instanceof Integer) &#123; return value == ((Integer)obj).intValue(); &#125; return false; Long的equals()1234if (obj instanceof Long) &#123; return value == ((Long)obj).longValue(); &#125; return false; Float的equals()12return (obj instanceof Float) &amp;&amp; (floatToIntBits(((Float)obj).value) == floatToIntBits(value)); Double的equals()123return (obj instanceof Double) &amp;&amp; (doubleToLongBits(((Double)obj).value) == doubleToLongBits(value)); 注意Float和Double的计算值是通过native方法调用系统本地接口实现的，这里先不用管它，以后学了JNI再说。 Boolean的equals()1234if (obj instanceof Boolean) &#123; return value == ((Boolean)obj).booleanValue();&#125;return false; Character的equals()1234if (obj instanceof Character) &#123; return value == ((Character)obj).charValue();&#125;return false; String的equals()12345678910111213141516171819if (this == anObject) &#123; return true; &#125; if (anObject instanceof String) &#123; String anotherString = (String)anObject; int n = value.length; if (n == anotherString.value.length) &#123; char v1[] = value; char v2[] = anotherString.value; int i = 0; while (n-- != 0) &#123; if (v1[i] != v2[i]) return false; i++; &#125; return true; &#125; &#125; return false; 先比较引用变量指向的内存地址，然后判断类型，再比较字符串长度，再转成字符数组挨个字符比较。 hashCode()的计算Object提供的hashCode()方法的计算依赖于本地接口，暂且理解为实例对象的内存地址。1public native int hashCode(); 所有类都可以重写Object的hashCode()方法，但重写hashCode()方法的基本规则： 两个对象通过equals()方法比较返回true时，那么两个对象的hashCode必须相等。 hashCode相等的两个对象，不必保证它们必须相同。（因为再优的哈希算法也避免不了哈希冲突） 看下基础数据类型包装类是怎么计算hashCode的： Boolean 1return value ? 1231 : 1237; Character 1return super.hashCode(); Byte 1return (int)value; Short 1return (int)value; Integer 1return value; Long 1return (int)(value ^ (value &gt;&gt;&gt; 32)); Float 1return floatToIntBits(value); Double 12long bits = doubleToLongBits(value);return (int)(bits ^ (bits &gt;&gt;&gt; 32));L 再看看String，池里有就直接拿，池里没有才计算累加 123456789101112131415/** Cache the hash code for the string */private int hash; // Default to 0public int hashCode() &#123; int h = hash; if (h == 0 &amp;&amp; value.length &gt; 0) &#123; char val[] = value; for (int i = 0; i &lt; value.length; i++) &#123; h = 31 * h + val[i]; &#125; hash = h; &#125; return h;&#125; 由equals和==引出的问题 - A pool of strings（字符串池）123456789101112131415161718System.out.println("引用同一实例：");String a = "abcd";String b = "abcd";System.out.println(a == b);System.out.println(a.equals(b));System.out.println("创建新实例：");String a1 = new String("abcd");String b1 = new String("abcd");System.out.println(a1 == b1);System.out.println(a1.equals(b1));System.out.println("从字符串池中拿对象：");String a2 = "abcd";String b2 = new String("abcd");b2 = b2.intern();System.out.println(a2 == b2);System.out.println(a2.equals(b2)); 运行结果 123456789引用同一实例：truetrue创建新实例：falsetrue从字符串池中拿对象：truetrue 这说明非创建新实例的操作，会从字符串池中拿对象。 看一下intern()方法的注释， Returns a canonical representation for the string object. * &lt;p&gt; * A pool of strings, initially empty, is maintained privately by the * class {@code String}. * &lt;p&gt; * When the intern method is invoked, if the pool already contains a * string equal to this {@code String} object as determined by * the {@link #equals(Object)} method, then the string from the pool is * returned. Otherwise, this {@code String} object is added to the * pool and a reference to this {@code String} object is returned. * &lt;p&gt; * It follows that for any two strings {@code s} and {@code t}, * {@code s.intern() == t.intern()} is {@code true} * if and only if {@code s.equals(t)} is {@code true}. * &lt;p&gt; * All literal strings and string-valued constant expressions are * interned. String literals are defined in section 3.10.5 of the * &lt;cite&gt;The Java&amp;trade; Language Specification&lt;/cite&gt;. * * @return a string that has the same contents as this string, but is * guaranteed to be from a pool of unique strings. 翻译大致如下： String类自己维护了一个字符串池，在初始化时是空的。 当intern方法被调用时，如果池中包含一个与传入字符串相等的字符串，那么直接返回该字符串。 对于任意两个相等(equals)的字符串，他们的intern()都相等(==)。 所有的字面声明（双引号声明）字符串和常量字符串都会维护在字符串池中。 字面声明字符串在Java语言规范的第3.10.5节中声明。 保证从唯一的字符串池中返回一个与该字符串内容相同的字符串。 String，StringBuffer和StringBuilder的区别 String是不可变的，char[] value是被final修饰，所以是线程安全的。 他们都实现了CharSequence接口，而StringBuffer和StringBuilder继承了AbstractStringBuilder类并实现了Appendable接口。 StringBuffer和StringBuilder的append()方法都是调父类AbstractStringBuilder中的append()方法，StringBuffer的append()方法加了synchronized同步锁，所以线程安全，效率低。 StringBuffer:123456@Override public synchronized StringBuffer append(String str) &#123; toStringCache = null; super.append(str); return this; &#125; StringBuilder:12345@Overridepublic StringBuilder append(String str) &#123; super.append(str); return this;&#125; 那么为什么String的 + 这种运算效率非常低呢？ 1.常量相加 - 虚拟机是会优化成常量返回的。 2.变量相加 - 虚拟机是会优化成创建StringBuilder对象的append()方法操作的，一般所说的 String 采用连接运算符（+）效率低下主要产生在以下的情况中： 1234String s = "";for(int i = 0; i &lt; 100; i++) &#123; s += "a";&#125; 每做一次 + 就产生个 StringBuilder 对象，然后 append 后就扔掉。下次循环再到达时重新产生个 StringBuilder 对象，然后 append 字符串，如此循环直至结束。如果我们直接采用 StringBuilder 对象进行 append 的话，我们可以节省 N - 1 次创建和销毁对象的时间。]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>看破Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Java 3.OpenJDK]]></title>
+    <url>%2Fp%2F6a43eebc%2F</url>
+    <content type="text"><![CDATA[为什么用OpenJDK一句话：OracleJDK商用收费。 以下是转载： 作者：Aloys寒风链接：https://www.zhihu.com/question/19646618/answer/40621705来源：知乎著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。 历史上的原因是，OpenJDK是JDK的开放原始码版本，以GPL(General Public License)协议的形式放出(题主提到的open就是指的开源)。在JDK7的时候，OpenJDK已经作为JDK7的主干开发，SUN JDK7是在OpenJDK7的基础上发布的，其大部分原始码都相同，只有少部分原始码被替换掉。使用JRL(JavaResearch License，Java研究授权协议)发布。至于OpenJDK6则更是有其复杂的一面，首先是OpenJDK6是JDK7的一个分支，并且尽量去除Java SE7的新特性，使其尽量的符合Java6的标准。关于JDK和OpenJDK的区别，可以归纳为以下几点：授权协议的不同：OpenJDK采用GPL V2协议放出，而SUN JDK则采用JRL放出。两者协议虽然都是开放源代码的，但是在使用上的不同在于GPL V2允许在商业上使用，而JRL只允许个人研究使用。OpenJDK不包含Deployment（部署）功能：部署的功能包括：Browser Plugin、Java Web Start、以及Java控制面板，这些功能在OpenJDK中是找不到的。OpenJDK源代码不完整：这个很容易想到，在采用GPL协议的OpenJDK中，SUN JDK的一部分源代码因为产权的问题无法开放给OpenJDK使用，其中最主要的部份就是JMX中的可选元件SNMP部份的代码。因此这些不能开放的源代码 将它作成plug，以供OpenJDK编译时使用，你也可以选择不要使用plug。而Icedtea则为这些不完整的部分开发了相同功能的源代码 (OpenJDK6)，促使OpenJDK更加完整。部分源代码用开源代码替换：由于产权的问题，很多产权不是SUN的源代码被替换成一些功能相同的开源代码，比如说字体栅格化引擎，使用Free Type代替。OpenIDK只包含最精简的JDK：OpenJDK不包含其他的软件包，比如Rhino Java DB JAXP……，并且可以分离的软件包也都是尽量的分离，但是这大多数都是自由软件，你可以自己下载加入。不能使用Java商标：这个很容易理解，在安装OpenJDK的机器上，输入“java-version”显示的是OpenJDK，但是如果是使用Icedtea补丁的OpenJDK，显示的是java。总之，在Java体系中，还是有很多不自由的成分，源代码的开发不够彻底，希望Oracle能够让JCP更自由开放一些，这也是所有Java社区所希望的。 安装openjdkLinux如果是手动安装的jdk，删除oracle-jdk所在目录，删除path中jdk环境变量即可。 yum安装openjdk12345# yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel # java -versionopenjdk version "1.8.0_212"OpenJDK Runtime Environment (build 1.8.0_212-b04)OpenJDK 64-Bit Server VM (build 25.212-b04, mixed mode) yum卸载openjdk1# yum -y remove java-* Mac OS删除oracle-jdk1234$ sudo rm -fr /Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin$ sudo rm -fr /Library/PreferencesPanes/JavaControlPanel.prefPane$ sudo rm -fr ~/Library/Application\ Support/Java$ sudo rm -rf /Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/ 从openjdk官网下载指定版本1$ wget https://download.java.net/java/GA/jdk12.0.1/69cfe15208a647278a19ef0990eea691/12/GPL/openjdk-12.0.1_osx-x64_bin.tar.gz 将openjdk解压到macos预设目录下12345$ tar -zxvf openjdk-12.0.1_osx-x64_bin.tar.gz -C /Library/Java/JavaVirtualMachines/$ java -versionopenjdk version "12.0.1" 2019-04-16OpenJDK Runtime Environment (build 12.0.1+12)OpenJDK 64-Bit Server VM (build 12.0.1+12, mixed mode, sharing) 查看jdk安装目录123456$ /usr/libexec/java_home -VMatching Java Virtual Machines (2): 12.0.1, x86_64: "OpenJDK 12.0.1" /Library/Java/JavaVirtualMachines/jdk-12.0.1.jdk/Contents/Home 1.8.0_201, x86_64: "Java SE 8" /Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/Library/Java/JavaVirtualMachines/jdk-12.0.1.jdk/Contents/Home 切换jdk版本，使用jenv1234$ brew install jenv$ echo 'export PATH="$HOME/.jenv/bin:$PATH"' &gt;&gt; ~/.bash_profile$ echo 'eval "$(jenv init -)"' &gt;&gt; ~/.bash_profile$ source ~/.bash_profile 添加jdk目录到jenv12$ jenv add /Library/Java/JavaVirtualMachines/jdk-12.0.1.jdk/Contents/Home$ jenv add /Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home 查看所有版本12345678$ jenv versions* system (set by /Users/nitaoge/.jenv/version) 1.8 1.8.0.201 12.0 12.0.1 openjdk64-12.0.1 oracle64-1.8.0.201 切换版本1234567891011$ jenv local 1.8$ java -versionjava version "1.8.0_201"Java(TM) SE Runtime Environment (build 1.8.0_201-b09)Java HotSpot(TM) 64-Bit Server VM (build 25.201-b09, mixed mode)$ jenv local 12.0$ java -versionopenjdk version "12.0.1" 2019-04-16OpenJDK Runtime Environment (build 12.0.1+12)OpenJDK 64-Bit Server VM (build 12.0.1+12, mixed mode, sharing) 也可以使用jenv global配置所有用户的jdk环境 自己编译openjdkMac OSopenjdk使用Mercurial管理代码，需要安装Mercurial。1$ brew install mercurial 安装依赖123$ brew install ccache$ brew install freetype$ brew install gcc 如果安装依赖过程中报错，按照提示安装xcode-select123456==&gt; Installing mercurial dependency: python@2Error: Xcode alone is not sufficient on High Sierra.Install the Command Line Tools: xcode-select --install $ xcode-select --install 从官方项目地址选择指定版本123$ hg clone http://hg.openjdk.java.net/jdk8u/jdk8u60/$ cd jdk8u60$ bash get_source.sh 设置环境变量1234567891011121314151617181920212223242526272829303132333435363738394041$ vim env-vars# 设定语言选项，必须设置export LANG=C# Mac平台，C编译器不再是GCC，是clangexport CC=clang# 跳过clang的一些严格的语法检查，不然会将N多的警告作为Errorexport COMPILER_WARNINGS_FATAL=false# 链接时使用的参数export LFLAGS='-Xlinker -lstdc++'# 是否使用clangexport USE_CLANG=true# 使用64位数据模型export LP64=1# 告诉编译平台是64位，不然会按32位来编译export ARCH_DATA_MODEL=64# 允许自动下载依赖export ALLOW_DOWNLOADS=true# 并行编译的线程数，编译时间长，为了不影响其他工作，我选择为2export HOTSPOT_BUILD_JOBS=2# 是否跳过与先前版本的比较export SKIP_COMPARE_IMAGES=true# 是否使用预编译头文件，加快编译速度export USE_PRECOMPILED_HEADER=true# 是否使用增量编译export INCREMENTAL_BUILD=true# 编译内容export BUILD_LANGTOOLS=trueexport BUILD_JAXP=trueexport BUILD_JAXWS=trueexport BUILD_CORBA=trueexport BUILD_HOTSPOT=trueexport BUILD_JDK=true# 编译版本export SKIP_DEBUG_BUILD=trueexport SKIP_FASTDEBUG_BUILD=falseexport DEBUG_NAME=debug# 避开javaws和浏览器Java插件之类的部分的buildexport BUILD_DEPLOY=falseexport BUILD_INSTALL=falseunset JAVA_HOME 使环境变量生效1$ source env-vars 配置编译环境1$ bash ./configure --with-freetype-include=/usr/local/include/freetype2 --with-freetype-lib=/usr/local/lib/ 如遇到xcode4问题，注释下面语句12345$ vim common/autoconf/generated-configure.sh#if test ! "$&#123;XC_VERSION_PARTS[0]&#125;" = "4"; then #as_fn_error $? "Xcode 4 is required to build JDK 8, the version found was $XCODE_VERSION. Use --with-xcode-path to specify the location of Xcode 4 or make Xcode 4 active by using xcode-select." "$LINENO" 5#fi 如遇到gcc问题，注释下面两条语句20353行和21954行报错。123$ vim common/autoconf/generated-configure.sh#as_fn_error $? "GCC compiler is required. Try setting --with-tools-dir." "$LINENO" 5 编译环境配置完毕1234567891011121314151617181920212223====================================================A new configuration has been successfully created in/Users/nitaoge/temp/jdk8u60/build/macosx-x86_64-normal-server-releaseusing configure arguments '--with-freetype-include=/usr/local/include/freetype2 --with-freetype-lib=/usr/local/lib/'.Configuration summary:* Debug level: release* JDK variant: normal* JVM variants: server* OpenJDK target: OS: macosx, CPU architecture: x86, address length: 64Tools summary:* Boot JDK: java version "1.8.0_201" Java(TM) SE Runtime Environment (build 1.8.0_201-b09) Java HotSpot(TM) 64-Bit Server VM (build 25.201-b09, mixed mode) (at /Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home)* C Compiler: Apple LLVM version (clang-1000.11.45.5) version 10.0.0 (clang-1000.11.45.5) (at /usr/bin/clang)* C++ Compiler: version (at /usr/bin/g++)Build performance summary:* Cores to use: 4* Memory limit: 16384 MB* ccache status: installed, but disabled (version older than 3.1.4)Build performance tip: ccache gives a tremendous speedup for C++ recompilations.You have ccache installed, but it is a version prior to 3.1.4. Try upgrading. 编译1$ make all 报错langtools找不到，因为执行bash get_source.sh获取存储库时，网络原因有可能获取文件失败，多试几次，我网不好，我放弃了。以后再试。 编译成功之后会在build/linux-x64-normal-server-release下生成jdk包。 参考资料Build Infrastructure Group]]></content>
       <categories>
         <category>java</category>
       </categories>
@@ -430,14 +364,168 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[看破设计模式 3. 结构型模式 - 适配器模式(Adapter)]]></title>
-    <url>%2Fp%2Fa718df1a%2F</url>
-    <content type="text"><![CDATA[定义示例疑问]]></content>
+    <title><![CDATA[看破Python 9.从语法开始]]></title>
+    <url>%2Fp%2F8dbcfac7%2F</url>
+    <content type="text"><![CDATA[]]></content>
       <categories>
-        <category>design</category>
+        <category>python</category>
       </categories>
       <tags>
-        <tag>看破设计模式</tag>
+        <tag>看破Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Python 8.从语法开始]]></title>
+    <url>%2Fp%2Fa1a3184%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>看破Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Python 7.从语法开始]]></title>
+    <url>%2Fp%2Fcc980251%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>看破Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Python 6.从语法开始]]></title>
+    <url>%2Fp%2F4b3ec912%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>看破Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Python 5.从语法开始]]></title>
+    <url>%2Fp%2F18a49296%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>看破Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Python 4.从语法开始]]></title>
+    <url>%2Fp%2F9f0259d5%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>看破Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Python 3.从语法开始]]></title>
+    <url>%2Fp%2Fbf90259e%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>看破Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Python 2.构建项目]]></title>
+    <url>%2Fp%2F85d29f5d%2F</url>
+    <content type="text"><![CDATA[安装依赖包pipenvpipfile 打包setuptoolssetup.py wheel]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>看破Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Python 10.从语法开始]]></title>
+    <url>%2Fp%2Fa97da55f%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>看破Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Python 1.从语法开始]]></title>
+    <url>%2Fp%2F6bacb559%2F</url>
+    <content type="text"><![CDATA[安装python3mac os从官方下载地址下安装包，跟随可视步骤安装。 linux安装依赖1# yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make libffi-devel 从官方下载地址选择版本下载。1# wget https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tgz 解压1# tar -zxf Python-3.7.3.tgz 安装12# ./configure prefix=/usr/local/python3 # make &amp;&amp; make install 添加软链接12# ln -s /usr/local/python3/bin/python3.7 /usr/bin/python3.7 # ln -s /usr/local/python3/bin/pip3.7 /usr/bin/pip3.7 测试安装是否成功12# python3.7 -V# pip3.7 -V 变量 &amp;&amp; 运算符输入输出容器流程控制函数类导入首先要明确包、模块、类、函数、变量的概念。包就是一个包含__init__.py的文件夹，分包其实是为了工程化开发，易于管理代码。模块是一个包含类、和函数等代码的.py文件。类、函数、变量不用多说了，是面向对象语言的基础。 如果是同一包下的模块，导入使用以下方式：12import 模块from 模块 import 类/函数/变量 不同包下：123import 包.模块from 包 import 模块from 包.模块 import 类/函数/变量 引入别名导入后面加个as即可12import package.module as mfrom math import pi as p __init__.py参考资料 官方文档 《Python编程：从入门到实践》 《Python基础教程（第3版）》 《流畅的Python》]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>看破Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Zookeeper 1.快速安装及使用]]></title>
+    <url>%2Fp%2F698730d5%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>zookeeper</category>
+      </categories>
+      <tags>
+        <tag>看破Zookeeper</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破SpringSecurity 1.快速安装及使用]]></title>
+    <url>%2Fp%2F25f2dbaa%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>springsecurity</category>
+      </categories>
+      <tags>
+        <tag>看破SpringSecurity</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破SpringCloud 1.快速安装及使用]]></title>
+    <url>%2Fp%2F95e812ed%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>springcloud</category>
+      </categories>
+      <tags>
+        <tag>看破SpringCloud</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破SpringBoot 1.快速安装及使用]]></title>
+    <url>%2Fp%2Fc40289d2%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>springboot</category>
+      </categories>
+      <tags>
+        <tag>看破SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Spring 1.快速安装及使用]]></title>
+    <url>%2Fp%2F5384e89f%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>spring</category>
+      </categories>
+      <tags>
+        <tag>看破Spring</tag>
       </tags>
   </entry>
   <entry>
@@ -452,14 +540,135 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[看破DevOps - Gradle常见问题]]></title>
-    <url>%2Fp%2F7fde48ab%2F</url>
+    <title><![CDATA[看破JVM 1.]]></title>
+    <url>%2Fp%2Ff838026c%2F</url>
     <content type="text"><![CDATA[]]></content>
       <categories>
-        <category>devops</category>
+        <category>jvm</category>
       </categories>
       <tags>
-        <tag>看破Gradle</tag>
+        <tag>看破JVM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破JVM 1.]]></title>
+    <url>%2Fp%2Ff838026c%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>jvm</category>
+      </categories>
+      <tags>
+        <tag>看破JVM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破设计模式 2. 创建型模式 - 单例模式(Singleton)]]></title>
+    <url>%2Fp%2Fc9a4fbc9%2F</url>
+    <content type="text"><![CDATA[定义 Ensure a class has only one instance, and provide a global point of access to it. 确保某一个类只有一个实例， 而且自行实例化并向整个系统提供这个实例。 示例饿汉式123456789101112131415public class HungrySingleton &#123; private static final HungrySingleton instance = new HungrySingleton(); private HungrySingleton() &#123; &#125; public static HungrySingleton instance() &#123; return instance; &#125; public void say() &#123; System.out.println("hello"); &#125;&#125; 懒汉式（加锁禁止重排序保证线程安全）12345678910111213141516171819202122public class LazySingleton &#123; private static volatile LazySingleton instance = null; private LazySingleton() &#123; &#125; public static LazySingleton instance() &#123; if (instance == null) &#123; synchronized (LazySingleton.class) &#123; if (instance == null) &#123; instance = new LazySingleton(); &#125; &#125; &#125; return instance; &#125; public void say() &#123; System.out.println("hello"); &#125;&#125; 当然Effective java推荐枚举式12345678910111213141516171819202122232425262728public class EnumSingleton &#123; private EnumSingleton() &#123; &#125; private enum Singleton &#123; INSTANCE; private final EnumSingleton instance; Singleton() &#123; instance = new EnumSingleton(); &#125; public EnumSingleton getInstance() &#123; return instance; &#125; &#125; public static EnumSingleton instance() &#123; return Singleton.INSTANCE.getInstance(); &#125; public void say() &#123; System.out.println("hello"); &#125;&#125; 我选择静态内部类式123456789101112131415161718public class NiceSingleton &#123; private NiceSingleton() &#123; &#125; private static class InstanceHolder &#123; private final static NiceSingleton instance = new NiceSingleton(); &#125; public static NiceSingleton instance() &#123; return InstanceHolder.instance; &#125; public void say() &#123; System.out.println("hello"); &#125;&#125; 疑问 为什么懒汉式单例要双重校验？ 当两个线程同时调用instance()方法时，由于singleton==null，两个线程都可以通过第一个校验，然后线程A持有锁，线程B等待。当线程A执行完实例化、释放锁，线程B进入代码块。 如果不加第二个校验，线程B又会实例化一个对象。就会违反单例模式设计原则。 如果不加第一个校验，也能实现单例，但多个线程反复竞争锁会增加系统开销，严重影响性能。]]></content>
+      <categories>
+        <category>design</category>
+      </categories>
+      <tags>
+        <tag>看破设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破JVM 1.]]></title>
+    <url>%2Fp%2Ff838026c%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>jvm</category>
+      </categories>
+      <tags>
+        <tag>看破JVM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破JVM 1.]]></title>
+    <url>%2Fp%2Ff838026c%2F</url>
+    <content type="text"><![CDATA[内存垃圾回收参考资料]]></content>
+      <categories>
+        <category>jvm</category>
+      </categories>
+      <tags>
+        <tag>看破JVM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Java 7.]]></title>
+    <url>%2Fp%2Fd455aa9b%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>看破Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Java 6.IO、Socket、NIO]]></title>
+    <url>%2Fp%2Fe269c416%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>看破Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Java 4.Java Development Kit]]></title>
+    <url>%2Fp%2Fc46700a5%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>看破Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Spider 3.]]></title>
+    <url>%2Fp%2F68410cb2%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>spider</category>
+      </categories>
+      <tags>
+        <tag>看破Spider</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Elastic-Job 1.快速安装及使用]]></title>
+    <url>%2Fp%2F75509985%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>elasticjob</category>
+      </categories>
+      <tags>
+        <tag>看破Elastic-Job</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破数据结构 1.线性表]]></title>
+    <url>%2Fp%2Fe8093df2%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>datastucture</category>
+      </categories>
+      <tags>
+        <tag>看破数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破并发 1.基本概念]]></title>
+    <url>%2Fp%2F71b6f09d%2F</url>
+    <content type="text"><![CDATA[#]]></content>
+      <categories>
+        <category>concurrent</category>
+      </categories>
+      <tags>
+        <tag>看破并发</tag>
       </tags>
   </entry>
   <entry>
@@ -485,69 +694,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[看破MacOS 1.快捷键]]></title>
-    <url>%2Fp%2F91dc983c%2F</url>
-    <content type="text"><![CDATA[快捷键打开Finderoption + command + space跳到指定目录shift + command + g 图示]]></content>
-      <categories>
-        <category>devtool</category>
-      </categories>
-      <tags>
-        <tag>看破MacOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Java 5.数据容器]]></title>
-    <url>%2Fp%2Fff55f559%2F</url>
-    <content type="text"><![CDATA[下面对jdk8的数据容器做一次深入，所有传统集合都在rt.jar的java.util包中，1.5后开发的并发集合都在java.util.concurrent包中。 java.util.CollectionCollection接口继承Iterable接口，用于继承迭代遍历集合元素的方法。 List、Set、Queue这三个接口都继承自Collection接口、用于规范所有集合的共性方法。AbstractCollection抽象集合类又实现了Collection的部分方法，AbstractList、AbstractSet、AbstractQueue这三个抽象类也都继承了AbstractCollection。 List 列表列表接口，提供一些方法标准，诸如add()、addAll()、get()、remove()、clear()等，供其子类具体实现。 这里还要提到AbstractList和AbstractSequentialList这两个抽象类，AbstractSequentialList继承自AbstractList，这两个类的作用，其实就是在实现List接口的基础上，又增加了一层抽象，添加和实现了一些个性化方法。 AbstractList支持随机访问，而AbstractSequentialList只支持迭代访问。这也是ArrayList和LinkedList，线性表和链表的区别之一。 ArrayList 线性表基于数组实现，继承AbstractList类，默认长度是10。12345678910public class ArrayList&lt;E&gt; extends AbstractList&lt;E&gt; implements List&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializable /** * Default initial capacity. */ private static final int DEFAULT_CAPACITY = 10; transient Object[] elementData; // non-private to simplify nested class access private int size; 每次固定扩容size+1 + (size+1) &gt;&gt; 1这个数量长度。1234567891011121314151617181920212223242526272829 public boolean add(E e) &#123; ensureCapacityInternal(size + 1); // Increments modCount!! elementData[size++] = e; return true; &#125;private void ensureCapacityInternal(int minCapacity) &#123; ensureExplicitCapacity(calculateCapacity(elementData, minCapacity)); &#125; private void ensureExplicitCapacity(int minCapacity) &#123; modCount++; // overflow-conscious code if (minCapacity - elementData.length &gt; 0) grow(minCapacity); &#125;private void grow(int minCapacity) &#123; // overflow-conscious code int oldCapacity = elementData.length; int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1); if (newCapacity - minCapacity &lt; 0) newCapacity = minCapacity; if (newCapacity - MAX_ARRAY_SIZE &gt; 0) newCapacity = hugeCapacity(minCapacity); // minCapacity is usually close to size, so this is a win: elementData = Arrays.copyOf(elementData, newCapacity); &#125; 方法内没有同步锁修饰，所以非线程安全。 它的增删操作是按照线性表的规则，如果增删都在末尾，则直接操作；否则需要元素移位，所以增删效率很低。123456789101112131415161718192021222324public void add(int index, E element) &#123; rangeCheckForAdd(index); ensureCapacityInternal(size + 1); // Increments modCount!! System.arraycopy(elementData, index, elementData, index + 1, size - index); elementData[index] = element; size++; &#125;public E remove(int index) &#123; rangeCheck(index); modCount++; E oldValue = elementData(index); int numMoved = size - index - 1; if (numMoved &gt; 0) System.arraycopy(elementData, index+1, elementData, index, numMoved); elementData[--size] = null; // clear to let GC do its work return oldValue; &#125; 但获取、设置元素是根据索引直接定位的，所以效率高。123456789public E get(int index) &#123; rangeCheck(index); return elementData(index); &#125; E elementData(int index) &#123; return (E) elementData[index]; &#125; LinkedList 双链表继承AbstractSequentialList类，实现了List和Deque，说明也可以充当栈和队列。123public class LinkedList&lt;E&gt; extends AbstractSequentialList&lt;E&gt; implements List&lt;E&gt;, Deque&lt;E&gt;, Cloneable, java.io.Serializable 节点属性1234567891011private static class Node&lt;E&gt; &#123; E item; Node&lt;E&gt; next; Node&lt;E&gt; prev; Node(Node&lt;E&gt; prev, E element, Node&lt;E&gt; next) &#123; this.item = element; this.next = next; this.prev = prev; &#125;&#125; 方法内没有同步锁修饰，所以非线程安全。 它的增删操作是按照链表的规则，修改前后节点的索引即可，所以效率高。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384 public boolean add(E e) &#123; linkLast(e); return true; &#125;void linkLast(E e) &#123; final Node&lt;E&gt; l = last; final Node&lt;E&gt; newNode = new Node&lt;&gt;(l, e, null); last = newNode; if (l == null) first = newNode; else l.next = newNode; size++; modCount++; &#125;public void add(int index, E element) &#123; checkPositionIndex(index); if (index == size) linkLast(element); else linkBefore(element, node(index)); &#125; void linkBefore(E e, Node&lt;E&gt; succ) &#123; // assert succ != null; final Node&lt;E&gt; pred = succ.prev; final Node&lt;E&gt; newNode = new Node&lt;&gt;(pred, e, succ); succ.prev = newNode; if (pred == null) first = newNode; else pred.next = newNode; size++; modCount++; &#125;public boolean remove(Object o) &#123; if (o == null) &#123; for (Node&lt;E&gt; x = first; x != null; x = x.next) &#123; if (x.item == null) &#123; unlink(x); return true; &#125; &#125; &#125; else &#123; for (Node&lt;E&gt; x = first; x != null; x = x.next) &#123; if (o.equals(x.item)) &#123; unlink(x); return true; &#125; &#125; &#125; return false; &#125;public E remove(int index) &#123; checkElementIndex(index); return unlink(node(index)); &#125; E unlink(Node&lt;E&gt; x) &#123; // assert x != null; final E element = x.item; final Node&lt;E&gt; next = x.next; final Node&lt;E&gt; prev = x.prev; if (prev == null) &#123; first = next; &#125; else &#123; prev.next = next; x.prev = null; &#125; if (next == null) &#123; last = prev; &#125; else &#123; next.prev = prev; x.next = null; &#125; x.item = null; size--; modCount++; return element; &#125; 但获取、设置元素是需要遍历定位的，所以效率低。12345678910111213141516171819public E get(int index) &#123; checkElementIndex(index); return node(index).item;&#125;Node&lt;E&gt; node(int index) &#123; // assert isElementIndex(index); if (index &lt; (size &gt;&gt; 1)) &#123; Node&lt;E&gt; x = first; for (int i = 0; i &lt; index; i++) x = x.next; return x; &#125; else &#123; Node&lt;E&gt; x = last; for (int i = size - 1; i &gt; index; i--) x = x.prev; return x; &#125;&#125; Vector 向量基于数组实现，继承AbstractList类，默认长度是10。1234567891011public class Vector&lt;E&gt; extends AbstractList&lt;E&gt; implements List&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializableprotected Object[] elementData;protected int elementCount; protected int capacityIncrement;public Vector() &#123; this(10);&#125; 所有方法都带同步锁修饰，所以是线程安全的，但效率极低……123456public synchronized boolean add(E e) &#123; modCount++; ensureCapacityHelper(elementCount + 1); elementData[elementCount++] = e; return true; &#125; 默认每次扩容1倍，如果在初始化时指定capacityIncrement，则每次扩容capacityIncrement，最大长度为Integer.MAX_VALUE，超长报OutOfMemoryError错误。12345678910111213141516171819202122232425262728293031323334353637383940 public synchronized boolean add(E e) &#123; modCount++; ensureCapacityHelper(elementCount + 1); elementData[elementCount++] = e; return true; &#125;private void grow(int minCapacity) &#123; // overflow-conscious code int oldCapacity = elementData.length; int newCapacity = oldCapacity + ((capacityIncrement &gt; 0) ? capacityIncrement : oldCapacity); if (newCapacity - minCapacity &lt; 0) newCapacity = minCapacity; if (newCapacity - MAX_ARRAY_SIZE &gt; 0) newCapacity = hugeCapacity(minCapacity); elementData = Arrays.copyOf(elementData, newCapacity); &#125;private static int hugeCapacity(int minCapacity) &#123; if (minCapacity &lt; 0) // overflow throw new OutOfMemoryError(); return (minCapacity &gt; MAX_ARRAY_SIZE) ? Integer.MAX_VALUE : MAX_ARRAY_SIZE; &#125;public synchronized void removeElementAt(int index) &#123; modCount++; if (index &gt;= elementCount) &#123; throw new ArrayIndexOutOfBoundsException(index + " &gt;= " + elementCount); &#125; else if (index &lt; 0) &#123; throw new ArrayIndexOutOfBoundsException(index); &#125; int j = elementCount - index - 1; if (j &gt; 0) &#123; System.arraycopy(elementData, index + 1, elementData, index, j); &#125; elementCount--; elementData[elementCount] = null; /* to let gc do its work */ &#125; Stack 栈是一个栈（后进先出）数据结构的实现，入栈出栈，继承Vector向量。1public class Stack&lt;E&gt; extends Vector&lt;E&gt; &#123; 也是基于Vector向量的数组实现，也是线程安全、效率低。1234567891011121314151617181920212223242526272829 public E push(E item) &#123; addElement(item); return item; &#125;public synchronized void addElement(E obj) &#123; modCount++; ensureCapacityHelper(elementCount + 1); elementData[elementCount++] = obj; &#125;public synchronized E pop() &#123; E obj; int len = size(); obj = peek(); removeElementAt(len - 1); return obj; &#125;public synchronized E peek() &#123; int len = size(); if (len == 0) throw new EmptyStackException(); return elementAt(len - 1); &#125; 这个栈的实现已经没人用了，可以通过ArrayDeque双端队列实现栈的需求。 Set 集合主要特性为集合中不能存在重复元素（复合类型实例需要重写equals()和hashCode()实现去重），其实现类分为无序集合、排序集合、枚举集合三种。 HashSet 哈希集合基于HashMap实现，继承AbstractSet抽象集合。1234567891011public class HashSet&lt;E&gt; extends AbstractSet&lt;E&gt; implements Set&lt;E&gt;, Cloneable, java.io.Serializableprivate transient HashMap&lt;E,Object&gt; map;public HashSet() &#123; map = new HashMap&lt;&gt;(); &#125; HashSet(int initialCapacity, float loadFactor, boolean dummy) &#123; map = new LinkedHashMap&lt;&gt;(initialCapacity, loadFactor); &#125; 实际上就是将HashMap中的key作为容器，实现无序集合。所以这里的无序是由HashMap的key自然排序导致的。123456789// Dummy value to associate with an Object in the backing Mapprivate static final Object PRESENT = new Object(); public boolean add(E e) &#123; return map.put(e, PRESENT)==null;&#125;public boolean remove(Object o) &#123; return map.remove(o)==PRESENT;&#125; LinkedHashSet 链式哈希集合基于LinkedHashMap实现，继承HashSet类。1234567891011121314public class LinkedHashSet&lt;E&gt; extends HashSet&lt;E&gt; implements Set&lt;E&gt;, Cloneable, java.io.Serializable &#123; public LinkedHashSet() &#123; super(16, .75f, true); &#125; public LinkedHashSet(int initialCapacity) &#123; super(initialCapacity, .75f, true); &#125;HashSet(int initialCapacity, float loadFactor, boolean dummy) &#123; map = new LinkedHashMap&lt;&gt;(initialCapacity, loadFactor); &#125; 增删操作与HashSet相同，对LinkedHashMap的key操作，但它是有序的。 TreeSet 树集合基于TreeMap实现，继承AbstractSet类。123456789public class TreeSet&lt;E&gt; extends AbstractSet&lt;E&gt; implements NavigableSet&lt;E&gt;, Cloneable, java.io.Serializable public TreeSet() &#123; this(new TreeMap&lt;E,Object&gt;()); &#125;public TreeSet(Comparator&lt;? super E&gt; comparator) &#123; this(new TreeMap&lt;&gt;(comparator)); &#125; 增删操作与HashSet相同，对TreeMap的key操作，可以指定比较器进行排序控制，默认是自然排序。123456Set&lt;String&gt; treeSet = new TreeSet&lt;&gt;((a, b) -&gt; -a.compareTo(b)); treeSet.add("b"); treeSet.add("a"); treeSet.add("d"); treeSet.add("c"); treeSet.forEach(System.out::println); 结果：1234dcba EnumSet 枚举集合EnumSet是一个枚举抽象类继承AbstractSet类。12public abstract class EnumSet&lt;E extends Enum&lt;E&gt;&gt; extends AbstractSet&lt;E&gt; implements Cloneable, java.io.Serializable 分别记录枚举类型和枚举成员。123456789/** * The class of all the elements of this set. */final Class&lt;E&gt; elementType;/** * All of the values comprising T. (Cached for performance.) */final Enum&lt;?&gt;[] universe; 可通过内部提供的静态方法实例化。1Set&lt;MyEnum&gt; enumSet = EnumSet.allOf(MyEnum.class); 当枚举集合长度不大于64时，实例化RegularEnumSet类，否则实例化JumboEnumSet类。123456789101112131415public static &lt;E extends Enum&lt;E&gt;&gt; EnumSet&lt;E&gt; allOf(Class&lt;E&gt; elementType) &#123; EnumSet&lt;E&gt; result = noneOf(elementType); result.addAll(); return result;&#125;public static &lt;E extends Enum&lt;E&gt;&gt; EnumSet&lt;E&gt; noneOf(Class&lt;E&gt; elementType) &#123; Enum&lt;?&gt;[] universe = getUniverse(elementType); if (universe == null) throw new ClassCastException(elementType + " not an enum"); if (universe.length &lt;= 64) return new RegularEnumSet&lt;&gt;(elementType, universe); else return new JumboEnumSet&lt;&gt;(elementType, universe);&#125; Enum类中ordinal成员变量用于记录枚举常量声明位置，枚举集合的增删操作也是基于这个成员变量进行位运算的。12345678910/** * The ordinal of this enumeration constant (its position * in the enum declaration, where the initial constant is assigned * an ordinal of zero). * * Most programmers will have no use for this field. It is designed * for use by sophisticated enum-based data structures, such as * &#123;@link java.util.EnumSet&#125; and &#123;@link java.util.EnumMap&#125;. */ private final int ordinal; RegularEnumSet 固定尺寸枚举集合实例化直接调用EnumSet的构造器，将类型和成员赋给枚举集合实例。123RegularEnumSet(Class&lt;E&gt;elementType, Enum&lt;?&gt;[] universe) &#123; super(elementType, universe);&#125; RegularEnumSet的增删操作是使用long型elements与枚举的ordinal进行位运算。 add就是将1L左移ordinal位后，与elements进行位或运算，这位变1，从而实现将某类型枚举成员不重复地加到其枚举集合中。 remove就是将1L左移ordinal位后取反，与elements进行位与运算，这位变0，从而实现将其从枚举集合中删除。 这也是为什么RegularEnumSet长度必须不大于64，因为long型就64位能给你玩…… 非线程安全。123456789101112131415161718192021222324 /** * Bit vector representation of this set. The 2^k bit indicates the * presence of universe[k] in this set. */ private long elements = 0L;public boolean add(E e) &#123; typeCheck(e); long oldElements = elements; elements |= (1L &lt;&lt; ((Enum&lt;?&gt;)e).ordinal()); return elements != oldElements; &#125; public boolean remove(Object e) &#123; if (e == null) return false; Class&lt;?&gt; eClass = e.getClass(); if (eClass != elementType &amp;&amp; eClass.getSuperclass() != elementType) return false; long oldElements = elements; elements &amp;= ~(1L &lt;&lt; ((Enum&lt;?&gt;)e).ordinal()); return elements != oldElements; &#125; JumboEnumSet 大尺寸枚举集合实例化直接调用EnumSet的构造器，将类型和成员赋给枚举集合实例，并初始化elements枚举数组，枚举成员个数+63再右移6位相当于除以2^6=64，也就是创建一个包含N个long型的64位的数组给你玩……1234JumboEnumSet(Class&lt;E&gt;elementType, Enum&lt;?&gt;[] universe) &#123; super(elementType, universe); elements = new long[(universe.length + 63) &gt;&gt;&gt; 6];&#125; 增删操作和RegularEnumSet类似，只不过多个除以64的操作。非线程安全。123456789101112131415161718192021222324252627282930313233343536373839 /** * Bit vector representation of this set. The ith bit of the jth * element of this array represents the presence of universe[64*j +i] * in this set. */ private long elements[]; // Redundant - maintained for performance private int size = 0; public boolean add(E e) &#123; typeCheck(e); int eOrdinal = e.ordinal(); int eWordNum = eOrdinal &gt;&gt;&gt; 6; long oldElements = elements[eWordNum]; elements[eWordNum] |= (1L &lt;&lt; eOrdinal); boolean result = (elements[eWordNum] != oldElements); if (result) size++; return result; &#125;public boolean remove(Object e) &#123; if (e == null) return false; Class&lt;?&gt; eClass = e.getClass(); if (eClass != elementType &amp;&amp; eClass.getSuperclass() != elementType) return false; int eOrdinal = ((Enum&lt;?&gt;)e).ordinal(); int eWordNum = eOrdinal &gt;&gt;&gt; 6; long oldElements = elements[eWordNum]; elements[eWordNum] &amp;= ~(1L &lt;&lt; eOrdinal); boolean result = (elements[eWordNum] != oldElements); if (result) size--; return result; &#125; Queue 队列队列的特点就是先进先出，尾进头出。 PriorityQueue 优先级队列这是一个特殊队列。有时间详细分析一下算法// TODO 基于数组实现，继承AbstractCollection类， 默认长度是11。1234567public abstract class AbstractQueue&lt;E&gt; extends AbstractCollection&lt;E&gt; implements Queue&lt;E&gt; &#123;private static final int DEFAULT_INITIAL_CAPACITY = 11;transient Object[] queue; // non-private to simplify nested class access 每次扩容，如果队列长度小于64就扩1倍+2，否则扩50%。12345678910111213141516171819private void grow(int minCapacity) &#123; int oldCapacity = queue.length; // Double size if small; else grow by 50% int newCapacity = oldCapacity + ((oldCapacity &lt; 64) ? (oldCapacity + 2) : (oldCapacity &gt;&gt; 1)); // overflow-conscious code if (newCapacity - MAX_ARRAY_SIZE &gt; 0) newCapacity = hugeCapacity(minCapacity); queue = Arrays.copyOf(queue, newCapacity);&#125;private static int hugeCapacity(int minCapacity) &#123; if (minCapacity &lt; 0) // overflow throw new OutOfMemoryError(); return (minCapacity &gt; MAX_ARRAY_SIZE) ? Integer.MAX_VALUE : MAX_ARRAY_SIZE;&#125; 进出操作，非线程安全。1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495 public boolean offer(E e) &#123; if (e == null) throw new NullPointerException(); modCount++; int i = size; if (i &gt;= queue.length) grow(i + 1); size = i + 1; if (i == 0) queue[0] = e; else siftUp(i, e); return true; &#125;private void siftUp(int k, E x) &#123; if (comparator != null) siftUpUsingComparator(k, x); else siftUpComparable(k, x); &#125; private void siftUpComparable(int k, E x) &#123; Comparable&lt;? super E&gt; key = (Comparable&lt;? super E&gt;) x; while (k &gt; 0) &#123; int parent = (k - 1) &gt;&gt;&gt; 1; Object e = queue[parent]; if (key.compareTo((E) e) &gt;= 0) break; queue[k] = e; k = parent; &#125; queue[k] = key; &#125; private void siftUpUsingComparator(int k, E x) &#123; while (k &gt; 0) &#123; int parent = (k - 1) &gt;&gt;&gt; 1; Object e = queue[parent]; if (comparator.compare(x, (E) e) &gt;= 0) break; queue[k] = e; k = parent; &#125; queue[k] = x; &#125; public E poll() &#123; if (size == 0) return null; int s = --size; modCount++; E result = (E) queue[0]; E x = (E) queue[s]; queue[s] = null; if (s != 0) siftDown(0, x); return result; &#125;private void siftDown(int k, E x) &#123; if (comparator != null) siftDownUsingComparator(k, x); else siftDownComparable(k, x); &#125;private void siftDownComparable(int k, E x) &#123; Comparable&lt;? super E&gt; key = (Comparable&lt;? super E&gt;)x; int half = size &gt;&gt;&gt; 1; // loop while a non-leaf while (k &lt; half) &#123; int child = (k &lt;&lt; 1) + 1; // assume left child is least Object c = queue[child]; int right = child + 1; if (right &lt; size &amp;&amp; ((Comparable&lt;? super E&gt;) c).compareTo((E) queue[right]) &gt; 0) c = queue[child = right]; if (key.compareTo((E) c) &lt;= 0) break; queue[k] = c; k = child; &#125; queue[k] = key; &#125; private void siftDownUsingComparator(int k, E x) &#123; int half = size &gt;&gt;&gt; 1; while (k &lt; half) &#123; int child = (k &lt;&lt; 1) + 1; Object c = queue[child]; int right = child + 1; if (right &lt; size &amp;&amp; comparator.compare((E) c, (E) queue[right]) &gt; 0) c = queue[child = right]; if (comparator.compare(x, (E) c) &lt;= 0) break; queue[k] = c; k = child; &#125; queue[k] = x; &#125; Deque 双端队列双端队列的特点就是两边都能进，两边都能出，所以就有对应的offerFirst、offerLast、pollFirst、pollLast等操作。 ArrayDeque 数组双端队列基于数组实现，继承AbstractCollection类，实现了Deque接口。默认长度为16。最小长度为8。1234567891011121314public class ArrayDeque&lt;E&gt; extends AbstractCollection&lt;E&gt; implements Deque&lt;E&gt;, Cloneable, Serializable transient Object[] elements; // non-private to simplify nested class access transient int head; transient int tail; private static final int MIN_INITIAL_CAPACITY = 8;public ArrayDeque() &#123; elements = new Object[16]; &#125; 头尾进出操作，非线程安全，元素不能为null，每次扩容加1倍。1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950public void addFirst(E e) &#123; if (e == null) throw new NullPointerException(); elements[head = (head - 1) &amp; (elements.length - 1)] = e; if (head == tail) doubleCapacity(); &#125;public void addLast(E e) &#123; if (e == null) throw new NullPointerException(); elements[tail] = e; if ( (tail = (tail + 1) &amp; (elements.length - 1)) == head) doubleCapacity(); &#125;public E pollFirst() &#123; int h = head; @SuppressWarnings("unchecked") E result = (E) elements[h]; // Element is null if deque empty if (result == null) return null; elements[h] = null; // Must null out slot head = (h + 1) &amp; (elements.length - 1); return result; &#125; public E pollLast() &#123; int t = (tail - 1) &amp; (elements.length - 1); @SuppressWarnings("unchecked") E result = (E) elements[t]; if (result == null) return null; elements[t] = null; tail = t; return result; &#125;private void doubleCapacity() &#123; assert head == tail; int p = head; int n = elements.length; int r = n - p; // number of elements to the right of p int newCapacity = n &lt;&lt; 1; if (newCapacity &lt; 0) throw new IllegalStateException("Sorry, deque too big"); Object[] a = new Object[newCapacity]; System.arraycopy(elements, p, a, 0, r); System.arraycopy(elements, 0, a, r, p); elements = a; head = 0; tail = n; &#125; java.util.MapHashMap 哈希表是基于数组加链表的数据结构，默认长度选16,加载因子选0.75，是为了减少哈希碰撞的几率。123456789101112131415161718public class HashMap&lt;K,V&gt; extends AbstractMap&lt;K,V&gt; implements Map&lt;K,V&gt;, Cloneable, Serializable &#123; static final int DEFAULT_INITIAL_CAPACITY = 1 &lt;&lt; 4; // aka 16 static final float DEFAULT_LOAD_FACTOR = 0.75f; transient Node&lt;K,V&gt;[] table; transient Set&lt;Map.Entry&lt;K,V&gt;&gt; entrySet; transient int size; static class Node&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; &#123; final int hash; final K key; V value; Node&lt;K,V&gt; next; 因为索引是通过hash计算的，所以是无序的，而且非线程安全。当发生哈希碰撞时，将元素添加到元素后形成链表，当链表长度大于8并且数组总长度大于64，则将链表改为红黑树。123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155156157158159160161162163164 public V put(K key, V value) &#123; return putVal(hash(key), key, value, false, true); &#125;final V putVal(int hash, K key, V value, boolean onlyIfAbsent, boolean evict) &#123; Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; int n, i; if ((tab = table) == null || (n = tab.length) == 0) n = (tab = resize()).length; if ((p = tab[i = (n - 1) &amp; hash]) == null) tab[i] = newNode(hash, key, value, null); else &#123; Node&lt;K,V&gt; e; K k; if (p.hash == hash &amp;&amp; ((k = p.key) == key || (key != null &amp;&amp; key.equals(k)))) e = p; else if (p instanceof TreeNode) e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, tab, hash, key, value); else &#123; for (int binCount = 0; ; ++binCount) &#123; if ((e = p.next) == null) &#123; p.next = newNode(hash, key, value, null); if (binCount &gt;= TREEIFY_THRESHOLD - 1) // -1 for 1st treeifyBin(tab, hash); break; &#125; if (e.hash == hash &amp;&amp; ((k = e.key) == key || (key != null &amp;&amp; key.equals(k)))) break; p = e; &#125; &#125; if (e != null) &#123; // existing mapping for key V oldValue = e.value; if (!onlyIfAbsent || oldValue == null) e.value = value; afterNodeAccess(e); return oldValue; &#125; &#125; ++modCount; if (++size &gt; threshold) resize(); afterNodeInsertion(evict); return null; &#125;public V get(Object key) &#123; Node&lt;K,V&gt; e; return (e = getNode(hash(key), key)) == null ? null : e.value; &#125;final Node&lt;K,V&gt; getNode(int hash, Object key) &#123; Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; first, e; int n; K k; if ((tab = table) != null &amp;&amp; (n = tab.length) &gt; 0 &amp;&amp; (first = tab[(n - 1) &amp; hash]) != null) &#123; if (first.hash == hash &amp;&amp; // always check first node ((k = first.key) == key || (key != null &amp;&amp; key.equals(k)))) return first; if ((e = first.next) != null) &#123; if (first instanceof TreeNode) return ((TreeNode&lt;K,V&gt;)first).getTreeNode(hash, key); do &#123; if (e.hash == hash &amp;&amp; ((k = e.key) == key || (key != null &amp;&amp; key.equals(k)))) return e; &#125; while ((e = e.next) != null); &#125; &#125; return null; &#125;final Node&lt;K,V&gt;[] resize() &#123; Node&lt;K,V&gt;[] oldTab = table; int oldCap = (oldTab == null) ? 0 : oldTab.length; int oldThr = threshold; int newCap, newThr = 0; if (oldCap &gt; 0) &#123; if (oldCap &gt;= MAXIMUM_CAPACITY) &#123; threshold = Integer.MAX_VALUE; return oldTab; &#125; else if ((newCap = oldCap &lt;&lt; 1) &lt; MAXIMUM_CAPACITY &amp;&amp; oldCap &gt;= DEFAULT_INITIAL_CAPACITY) newThr = oldThr &lt;&lt; 1; // double threshold &#125; else if (oldThr &gt; 0) // initial capacity was placed in threshold newCap = oldThr; else &#123; // zero initial threshold signifies using defaults newCap = DEFAULT_INITIAL_CAPACITY; newThr = (int)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY); &#125; if (newThr == 0) &#123; float ft = (float)newCap * loadFactor; newThr = (newCap &lt; MAXIMUM_CAPACITY &amp;&amp; ft &lt; (float)MAXIMUM_CAPACITY ? (int)ft : Integer.MAX_VALUE); &#125; threshold = newThr; @SuppressWarnings(&#123;"rawtypes","unchecked"&#125;) Node&lt;K,V&gt;[] newTab = (Node&lt;K,V&gt;[])new Node[newCap]; table = newTab; if (oldTab != null) &#123; for (int j = 0; j &lt; oldCap; ++j) &#123; Node&lt;K,V&gt; e; if ((e = oldTab[j]) != null) &#123; oldTab[j] = null; if (e.next == null) newTab[e.hash &amp; (newCap - 1)] = e; else if (e instanceof TreeNode) ((TreeNode&lt;K,V&gt;)e).split(this, newTab, j, oldCap); else &#123; // preserve order Node&lt;K,V&gt; loHead = null, loTail = null; Node&lt;K,V&gt; hiHead = null, hiTail = null; Node&lt;K,V&gt; next; do &#123; next = e.next; if ((e.hash &amp; oldCap) == 0) &#123; if (loTail == null) loHead = e; else loTail.next = e; loTail = e; &#125; else &#123; if (hiTail == null) hiHead = e; else hiTail.next = e; hiTail = e; &#125; &#125; while ((e = next) != null); if (loTail != null) &#123; loTail.next = null; newTab[j] = loHead; &#125; if (hiTail != null) &#123; hiTail.next = null; newTab[j + oldCap] = hiHead; &#125; &#125; &#125; &#125; &#125; return newTab; &#125;final void treeifyBin(Node&lt;K,V&gt;[] tab, int hash) &#123; int n, index; Node&lt;K,V&gt; e; if (tab == null || (n = tab.length) &lt; MIN_TREEIFY_CAPACITY) resize(); else if ((e = tab[index = (n - 1) &amp; hash]) != null) &#123; TreeNode&lt;K,V&gt; hd = null, tl = null; do &#123; TreeNode&lt;K,V&gt; p = replacementTreeNode(e, null); if (tl == null) hd = p; else &#123; p.prev = tl; tl.next = p; &#125; tl = p; &#125; while ((e = e.next) != null); if ((tab[index] = hd) != null) hd.treeify(tab); &#125; &#125; LinkedHashMap 链式哈希表继承HashMap类，是在HashMap基础上实现的双链表数据结构，所以有序，而且非线程安全，但效率与HashMap相比偏低。1234567891011121314public class LinkedHashMap&lt;K,V&gt; extends HashMap&lt;K,V&gt; implements Map&lt;K,V&gt; static class Entry&lt;K,V&gt; extends HashMap.Node&lt;K,V&gt; &#123; Entry&lt;K,V&gt; before, after; Entry(int hash, K key, V value, Node&lt;K,V&gt; next) &#123; super(hash, key, value, next); &#125; &#125; transient LinkedHashMap.Entry&lt;K,V&gt; head; transient LinkedHashMap.Entry&lt;K,V&gt; tail; TreeMap 红黑树表TreeMap能够把它保存的记录根据key排序，默认是自然排序。也可以指定排序的比较器。当用Iteraor遍历TreeMap时，得到的记录是排过序的。TreeMap的键和值都不能为空。 EnumMap 枚举表以Enum为key的Map。不常用不深抠…… WeakHashMap 弱引用哈希表与HashMap的区别是HashMap的key保留了对实际对象的强引用，只要HashMap实例不被销毁，其中的所有value都不会被垃圾回收。而WeakHashMap的key只保留了对实际对象的弱引用，在满足垃圾回收条件下，会被回收删除。 IdentityHashMap 身份证哈希表与HashMap的区别：HashMap中的key只要通过equals和hashCode两个方法就可以判断是否相同，决定保存其中一个还是两个都保存。而IdentityHashMap中的key必须是引用相同。 Hashtable 哈希表看这命名就知道这东西都淘汰多少年了，不想说它了。不过Properties继承了Hashtable。 fail-fast机制集合在增删操作中经常出现 modCount++;或++modCount; 那我很好奇它是什么东西。 它是什么？12345678/** * The number of times this HashMap has been structurally modified * Structural modifications are those that change the number of mappings in * the HashMap or otherwise modify its internal structure (e.g., * rehash). This field is used to make iterators on Collection-views of * the HashMap fail-fast. (See ConcurrentModificationException). */transient int modCount; 翻译： 是HashMap结构改变的次数。结构改变是指更改哈希表的长度或其他改变内部结构的行为。比如再哈希。这个变量是用于使HashMap的迭代器快速失败。参考ConcurrentModificationException异常。 原来fail-fast是Java集合在并发修改场景中的一种错误检测机制。 什么时候会出现ConcurrentModificationException异常？当多个线程同时操作非线程安全的集合时，线程A可能正在使用Iterator或ForEach遍历集合，线程B可能更改了集合结构，那么原来的mc和++后的modCount就不一致了，这时就会进入123456789101112131415@Override public void forEach(BiConsumer&lt;? super K, ? super V&gt; action) &#123; Node&lt;K,V&gt;[] tab; if (action == null) throw new NullPointerException(); if (size &gt; 0 &amp;&amp; (tab = table) != null) &#123; int mc = modCount; for (int i = 0; i &lt; tab.length; ++i) &#123; for (Node&lt;K,V&gt; e = tab[i]; e != null; e = e.next) action.accept(e.key, e.value); &#125; if (modCount != mc) throw new ConcurrentModificationException(); &#125; &#125; 抛出ConcurrentModificationException异常。 java.util.concurrent.*// TODO]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>看破Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破并发 1.基本概念]]></title>
-    <url>%2Fp%2F71b6f09d%2F</url>
-    <content type="text"><![CDATA[#]]></content>
-      <categories>
-        <category>concurrent</category>
-      </categories>
-      <tags>
-        <tag>看破并发</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破数据结构 1.线性表]]></title>
-    <url>%2Fp%2Fe8093df2%2F</url>
+    <title><![CDATA[看破JVM 1.]]></title>
+    <url>%2Fp%2Ff838026c%2F</url>
     <content type="text"><![CDATA[]]></content>
       <categories>
-        <category>datastucture</category>
+        <category>jvm</category>
       </categories>
       <tags>
-        <tag>看破数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Elastic-Job 1.快速安装及使用]]></title>
-    <url>%2Fp%2F75509985%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>elasticjob</category>
-      </categories>
-      <tags>
-        <tag>看破Elastic-Job</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Jmeter 1.快速安装及使用]]></title>
-    <url>%2Fp%2F1631c841%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>testtool</category>
-      </categories>
-      <tags>
-        <tag>看破Jmeter</tag>
+        <tag>看破JVM</tag>
       </tags>
   </entry>
   <entry>
@@ -562,14 +716,25 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[看破Zookeeper 1.快速安装及使用]]></title>
-    <url>%2Fp%2F698730d5%2F</url>
+    <title><![CDATA[看破Spider 2.]]></title>
+    <url>%2Fp%2F715a3df3%2F</url>
     <content type="text"><![CDATA[]]></content>
       <categories>
-        <category>zookeeper</category>
+        <category>spider</category>
       </categories>
       <tags>
-        <tag>看破Zookeeper</tag>
+        <tag>看破Spider</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破MacOS 1.快捷键]]></title>
+    <url>%2Fp%2F91dc983c%2F</url>
+    <content type="text"><![CDATA[快捷键打开Finderoption + command + space跳到指定目录shift + command + g 图示]]></content>
+      <categories>
+        <category>devtool</category>
+      </categories>
+      <tags>
+        <tag>看破MacOS</tag>
       </tags>
   </entry>
   <entry>
@@ -584,182 +749,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[看破Spider 2.]]></title>
-    <url>%2Fp%2F715a3df3%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>spider</category>
-      </categories>
-      <tags>
-        <tag>看破Spider</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Spider 3.]]></title>
-    <url>%2Fp%2F68410cb2%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>spider</category>
-      </categories>
-      <tags>
-        <tag>看破Spider</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Python 1.从语法开始]]></title>
-    <url>%2Fp%2F6bacb559%2F</url>
-    <content type="text"><![CDATA[安装python3mac os从官方下载地址下安装包，跟随可视步骤安装。 linux安装依赖1# yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make libffi-devel 从官方下载地址选择版本下载。1# wget https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tgz 解压1# tar -zxf Python-3.7.3.tgz 安装12# ./configure prefix=/usr/local/python3 # make &amp;&amp; make install 添加软链接12# ln -s /usr/local/python3/bin/python3.7 /usr/bin/python3.7 # ln -s /usr/local/python3/bin/pip3.7 /usr/bin/pip3.7 测试安装是否成功12# python3.7 -V# pip3.7 -V 变量 &amp;&amp; 运算符输入输出容器流程控制函数类导入首先要明确包、模块、类、函数、变量的概念。包就是一个包含__init__.py的文件夹，分包其实是为了工程化开发，易于管理代码。模块是一个包含类、和函数等代码的.py文件。类、函数、变量不用多说了，是面向对象语言的基础。 如果是同一包下的模块，导入使用以下方式：12import 模块from 模块 import 类/函数/变量 不同包下：123import 包.模块from 包 import 模块from 包.模块 import 类/函数/变量 引入别名导入后面加个as即可12import package.module as mfrom math import pi as p __init__.py参考资料 官方文档 《Python编程：从入门到实践》 《Python基础教程（第3版）》 《流畅的Python》]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>看破Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Python 10.从语法开始]]></title>
-    <url>%2Fp%2Fa97da55f%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>看破Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Python 2.构建项目]]></title>
-    <url>%2Fp%2F85d29f5d%2F</url>
-    <content type="text"><![CDATA[安装依赖包pipenvpipfile 打包setuptoolssetup.py wheel]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>看破Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Python 3.从语法开始]]></title>
-    <url>%2Fp%2Fbf90259e%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>看破Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Python 4.从语法开始]]></title>
-    <url>%2Fp%2F9f0259d5%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>看破Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Python 5.从语法开始]]></title>
-    <url>%2Fp%2F18a49296%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>看破Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Python 6.从语法开始]]></title>
-    <url>%2Fp%2F4b3ec912%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>看破Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Python 7.从语法开始]]></title>
-    <url>%2Fp%2Fcc980251%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>看破Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Python 8.从语法开始]]></title>
-    <url>%2Fp%2Fa1a3184%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>看破Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Python 9.从语法开始]]></title>
-    <url>%2Fp%2F8dbcfac7%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>看破Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Spring 1.快速安装及使用]]></title>
-    <url>%2Fp%2F5384e89f%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>spring</category>
-      </categories>
-      <tags>
-        <tag>看破Spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破SpringBoot 1.快速安装及使用]]></title>
-    <url>%2Fp%2Fc40289d2%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>springboot</category>
-      </categories>
-      <tags>
-        <tag>看破SpringBoot</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破SpringCloud 1.快速安装及使用]]></title>
-    <url>%2Fp%2F95e812ed%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>springcloud</category>
-      </categories>
-      <tags>
-        <tag>看破SpringCloud</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破SpringSecurity 1.快速安装及使用]]></title>
-    <url>%2Fp%2F25f2dbaa%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>springsecurity</category>
-      </categories>
-      <tags>
-        <tag>看破SpringSecurity</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[看破ApacheBench 1.快速安装及使用]]></title>
     <url>%2Fp%2Fda68c872%2F</url>
     <content type="text"><![CDATA[]]></content>
@@ -771,14 +760,25 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[看破Java 3.OpenJDK]]></title>
-    <url>%2Fp%2F6a43eebc%2F</url>
-    <content type="text"><![CDATA[为什么用OpenJDK一句话：OracleJDK商用收费。 以下是转载： 作者：Aloys寒风链接：https://www.zhihu.com/question/19646618/answer/40621705来源：知乎著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。 历史上的原因是，OpenJDK是JDK的开放原始码版本，以GPL(General Public License)协议的形式放出(题主提到的open就是指的开源)。在JDK7的时候，OpenJDK已经作为JDK7的主干开发，SUN JDK7是在OpenJDK7的基础上发布的，其大部分原始码都相同，只有少部分原始码被替换掉。使用JRL(JavaResearch License，Java研究授权协议)发布。至于OpenJDK6则更是有其复杂的一面，首先是OpenJDK6是JDK7的一个分支，并且尽量去除Java SE7的新特性，使其尽量的符合Java6的标准。关于JDK和OpenJDK的区别，可以归纳为以下几点：授权协议的不同：OpenJDK采用GPL V2协议放出，而SUN JDK则采用JRL放出。两者协议虽然都是开放源代码的，但是在使用上的不同在于GPL V2允许在商业上使用，而JRL只允许个人研究使用。OpenJDK不包含Deployment（部署）功能：部署的功能包括：Browser Plugin、Java Web Start、以及Java控制面板，这些功能在OpenJDK中是找不到的。OpenJDK源代码不完整：这个很容易想到，在采用GPL协议的OpenJDK中，SUN JDK的一部分源代码因为产权的问题无法开放给OpenJDK使用，其中最主要的部份就是JMX中的可选元件SNMP部份的代码。因此这些不能开放的源代码 将它作成plug，以供OpenJDK编译时使用，你也可以选择不要使用plug。而Icedtea则为这些不完整的部分开发了相同功能的源代码 (OpenJDK6)，促使OpenJDK更加完整。部分源代码用开源代码替换：由于产权的问题，很多产权不是SUN的源代码被替换成一些功能相同的开源代码，比如说字体栅格化引擎，使用Free Type代替。OpenIDK只包含最精简的JDK：OpenJDK不包含其他的软件包，比如Rhino Java DB JAXP……，并且可以分离的软件包也都是尽量的分离，但是这大多数都是自由软件，你可以自己下载加入。不能使用Java商标：这个很容易理解，在安装OpenJDK的机器上，输入“java-version”显示的是OpenJDK，但是如果是使用Icedtea补丁的OpenJDK，显示的是java。总之，在Java体系中，还是有很多不自由的成分，源代码的开发不够彻底，希望Oracle能够让JCP更自由开放一些，这也是所有Java社区所希望的。 安装openjdkLinux如果是手动安装的jdk，删除oracle-jdk所在目录，删除path中jdk环境变量即可。 yum安装openjdk12345# yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel # java -versionopenjdk version "1.8.0_212"OpenJDK Runtime Environment (build 1.8.0_212-b04)OpenJDK 64-Bit Server VM (build 25.212-b04, mixed mode) yum卸载openjdk1# yum -y remove java-* Mac OS删除oracle-jdk1234$ sudo rm -fr /Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin$ sudo rm -fr /Library/PreferencesPanes/JavaControlPanel.prefPane$ sudo rm -fr ~/Library/Application\ Support/Java$ sudo rm -rf /Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/ 从openjdk官网下载指定版本1$ wget https://download.java.net/java/GA/jdk12.0.1/69cfe15208a647278a19ef0990eea691/12/GPL/openjdk-12.0.1_osx-x64_bin.tar.gz 将openjdk解压到macos预设目录下12345$ tar -zxvf openjdk-12.0.1_osx-x64_bin.tar.gz -C /Library/Java/JavaVirtualMachines/$ java -versionopenjdk version "12.0.1" 2019-04-16OpenJDK Runtime Environment (build 12.0.1+12)OpenJDK 64-Bit Server VM (build 12.0.1+12, mixed mode, sharing) 查看jdk安装目录123456$ /usr/libexec/java_home -VMatching Java Virtual Machines (2): 12.0.1, x86_64: "OpenJDK 12.0.1" /Library/Java/JavaVirtualMachines/jdk-12.0.1.jdk/Contents/Home 1.8.0_201, x86_64: "Java SE 8" /Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/Library/Java/JavaVirtualMachines/jdk-12.0.1.jdk/Contents/Home 切换jdk版本，使用jenv1234$ brew install jenv$ echo 'export PATH="$HOME/.jenv/bin:$PATH"' &gt;&gt; ~/.bash_profile$ echo 'eval "$(jenv init -)"' &gt;&gt; ~/.bash_profile$ source ~/.bash_profile 添加jdk目录到jenv12$ jenv add /Library/Java/JavaVirtualMachines/jdk-12.0.1.jdk/Contents/Home$ jenv add /Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home 查看所有版本12345678$ jenv versions* system (set by /Users/nitaoge/.jenv/version) 1.8 1.8.0.201 12.0 12.0.1 openjdk64-12.0.1 oracle64-1.8.0.201 切换版本1234567891011$ jenv local 1.8$ java -versionjava version "1.8.0_201"Java(TM) SE Runtime Environment (build 1.8.0_201-b09)Java HotSpot(TM) 64-Bit Server VM (build 25.201-b09, mixed mode)$ jenv local 12.0$ java -versionopenjdk version "12.0.1" 2019-04-16OpenJDK Runtime Environment (build 12.0.1+12)OpenJDK 64-Bit Server VM (build 12.0.1+12, mixed mode, sharing) 也可以使用jenv global配置所有用户的jdk环境 自己编译openjdkMac OSopenjdk使用Mercurial管理代码，需要安装Mercurial。1$ brew install mercurial 安装依赖123$ brew install ccache$ brew install freetype$ brew install gcc 如果安装依赖过程中报错，按照提示安装xcode-select123456==&gt; Installing mercurial dependency: python@2Error: Xcode alone is not sufficient on High Sierra.Install the Command Line Tools: xcode-select --install $ xcode-select --install 从官方项目地址选择指定版本123$ hg clone http://hg.openjdk.java.net/jdk8u/jdk8u60/$ cd jdk8u60$ bash get_source.sh 设置环境变量1234567891011121314151617181920212223242526272829303132333435363738394041$ vim env-vars# 设定语言选项，必须设置export LANG=C# Mac平台，C编译器不再是GCC，是clangexport CC=clang# 跳过clang的一些严格的语法检查，不然会将N多的警告作为Errorexport COMPILER_WARNINGS_FATAL=false# 链接时使用的参数export LFLAGS='-Xlinker -lstdc++'# 是否使用clangexport USE_CLANG=true# 使用64位数据模型export LP64=1# 告诉编译平台是64位，不然会按32位来编译export ARCH_DATA_MODEL=64# 允许自动下载依赖export ALLOW_DOWNLOADS=true# 并行编译的线程数，编译时间长，为了不影响其他工作，我选择为2export HOTSPOT_BUILD_JOBS=2# 是否跳过与先前版本的比较export SKIP_COMPARE_IMAGES=true# 是否使用预编译头文件，加快编译速度export USE_PRECOMPILED_HEADER=true# 是否使用增量编译export INCREMENTAL_BUILD=true# 编译内容export BUILD_LANGTOOLS=trueexport BUILD_JAXP=trueexport BUILD_JAXWS=trueexport BUILD_CORBA=trueexport BUILD_HOTSPOT=trueexport BUILD_JDK=true# 编译版本export SKIP_DEBUG_BUILD=trueexport SKIP_FASTDEBUG_BUILD=falseexport DEBUG_NAME=debug# 避开javaws和浏览器Java插件之类的部分的buildexport BUILD_DEPLOY=falseexport BUILD_INSTALL=falseunset JAVA_HOME 使环境变量生效1$ source env-vars 配置编译环境1$ bash ./configure --with-freetype-include=/usr/local/include/freetype2 --with-freetype-lib=/usr/local/lib/ 如遇到xcode4问题，注释下面语句12345$ vim common/autoconf/generated-configure.sh#if test ! "$&#123;XC_VERSION_PARTS[0]&#125;" = "4"; then #as_fn_error $? "Xcode 4 is required to build JDK 8, the version found was $XCODE_VERSION. Use --with-xcode-path to specify the location of Xcode 4 or make Xcode 4 active by using xcode-select." "$LINENO" 5#fi 如遇到gcc问题，注释下面两条语句20353行和21954行报错。123$ vim common/autoconf/generated-configure.sh#as_fn_error $? "GCC compiler is required. Try setting --with-tools-dir." "$LINENO" 5 编译环境配置完毕1234567891011121314151617181920212223====================================================A new configuration has been successfully created in/Users/nitaoge/temp/jdk8u60/build/macosx-x86_64-normal-server-releaseusing configure arguments '--with-freetype-include=/usr/local/include/freetype2 --with-freetype-lib=/usr/local/lib/'.Configuration summary:* Debug level: release* JDK variant: normal* JVM variants: server* OpenJDK target: OS: macosx, CPU architecture: x86, address length: 64Tools summary:* Boot JDK: java version "1.8.0_201" Java(TM) SE Runtime Environment (build 1.8.0_201-b09) Java HotSpot(TM) 64-Bit Server VM (build 25.201-b09, mixed mode) (at /Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home)* C Compiler: Apple LLVM version (clang-1000.11.45.5) version 10.0.0 (clang-1000.11.45.5) (at /usr/bin/clang)* C++ Compiler: version (at /usr/bin/g++)Build performance summary:* Cores to use: 4* Memory limit: 16384 MB* ccache status: installed, but disabled (version older than 3.1.4)Build performance tip: ccache gives a tremendous speedup for C++ recompilations.You have ccache installed, but it is a version prior to 3.1.4. Try upgrading. 编译1$ make all 报错langtools找不到，因为执行bash get_source.sh获取存储库时，网络原因有可能获取文件失败，多试几次，我网不好，我放弃了。以后再试。 编译成功之后会在build/linux-x64-normal-server-release下生成jdk包。 参考资料Build Infrastructure Group]]></content>
+    <title><![CDATA[看破Jmeter 1.快速安装及使用]]></title>
+    <url>%2Fp%2F1631c841%2F</url>
+    <content type="text"><![CDATA[]]></content>
       <categories>
-        <category>java</category>
+        <category>testtool</category>
       </categories>
       <tags>
-        <tag>看破Java</tag>
+        <tag>看破Jmeter</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Tcpcopy 1.快速安装及使用]]></title>
+    <url>%2Fp%2Ff9d0a7b1%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>testtool</category>
+      </categories>
+      <tags>
+        <tag>看破Tcpcopy</tag>
       </tags>
   </entry>
   <entry>
@@ -790,94 +790,6 @@
       </categories>
       <tags>
         <tag>看破Guava</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破SaltStack 2.快速安装及使用]]></title>
-    <url>%2Fp%2F6037a63b%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>saltstack</category>
-      </categories>
-      <tags>
-        <tag>看破SaltStack</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Nginx 2.快速安装及使用]]></title>
-    <url>%2Fp%2F5a36280e%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>nginx</category>
-      </categories>
-      <tags>
-        <tag>看破Nginx</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Nginx 2.快速安装及使用]]></title>
-    <url>%2Fp%2F5a36280e%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>nginx</category>
-      </categories>
-      <tags>
-        <tag>看破Nginx</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Nginx 2.快速安装及使用]]></title>
-    <url>%2Fp%2F5a36280e%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>nginx</category>
-      </categories>
-      <tags>
-        <tag>看破Nginx</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Nginx 2.快速安装及使用]]></title>
-    <url>%2Fp%2F5a36280e%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>nginx</category>
-      </categories>
-      <tags>
-        <tag>看破Nginx</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Nginx 2.快速安装及使用]]></title>
-    <url>%2Fp%2F5a36280e%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>nginx</category>
-      </categories>
-      <tags>
-        <tag>看破Nginx</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Nginx 2.快速安装及使用]]></title>
-    <url>%2Fp%2F5a36280e%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>nginx</category>
-      </categories>
-      <tags>
-        <tag>看破Nginx</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[看破Prometheus 1.快速安装及使用]]></title>
-    <url>%2Fp%2Fdd74f01e%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>prometheus</category>
-      </categories>
-      <tags>
-        <tag>看破Prometheus</tag>
       </tags>
   </entry>
   <entry>
@@ -955,6 +867,94 @@
       </categories>
       <tags>
         <tag>看破SaltStack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破SaltStack 2.快速安装及使用]]></title>
+    <url>%2Fp%2F6037a63b%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>saltstack</category>
+      </categories>
+      <tags>
+        <tag>看破SaltStack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Nginx 2.快速安装及使用]]></title>
+    <url>%2Fp%2F5a36280e%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>nginx</category>
+      </categories>
+      <tags>
+        <tag>看破Nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Prometheus 1.快速安装及使用]]></title>
+    <url>%2Fp%2Fdd74f01e%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>prometheus</category>
+      </categories>
+      <tags>
+        <tag>看破Prometheus</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Nginx 2.快速安装及使用]]></title>
+    <url>%2Fp%2F5a36280e%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>nginx</category>
+      </categories>
+      <tags>
+        <tag>看破Nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Nginx 2.快速安装及使用]]></title>
+    <url>%2Fp%2F5a36280e%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>nginx</category>
+      </categories>
+      <tags>
+        <tag>看破Nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Nginx 2.快速安装及使用]]></title>
+    <url>%2Fp%2F5a36280e%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>nginx</category>
+      </categories>
+      <tags>
+        <tag>看破Nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Nginx 2.快速安装及使用]]></title>
+    <url>%2Fp%2F5a36280e%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>nginx</category>
+      </categories>
+      <tags>
+        <tag>看破Nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[看破Nginx 2.快速安装及使用]]></title>
+    <url>%2Fp%2F5a36280e%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>nginx</category>
+      </categories>
+      <tags>
+        <tag>看破Nginx</tag>
       </tags>
   </entry>
   <entry>

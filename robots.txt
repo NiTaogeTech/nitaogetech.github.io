@@ -7,3 +7,4 @@ User-agent: *
 Disallow: /
 
 Sitemap: https://tech.nitaoge.com/sitemap.xml
+Sitemap: https://tech.nitaoge.com/baidusitemap.xml

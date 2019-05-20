@@ -88,15 +88,18 @@
 
 
 
+<meta name="description" content="准备安装通过yum安装123# wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.repo# rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key# yum install jenkins -y 修改数据目录，由/var/lib/jen">
 <meta name="keywords" content="看破DevOps">
 <meta property="og:type" content="article">
-<meta property="og:title" content="看破DevOps - Jenkins单机备份、高可用">
+<meta property="og:title" content="看破DevOps - Jenkins快速安装及使用">
 <meta property="og:url" content="https://tech.nitaoge.com/p/17293ae1/index.html">
 <meta property="og:site_name" content="NiTaogeTech">
+<meta property="og:description" content="准备安装通过yum安装123# wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.repo# rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key# yum install jenkins -y 修改数据目录，由/var/lib/jen">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-20T02:07:31.578Z">
+<meta property="og:updated_time" content="2019-05-20T02:06:48.930Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="看破DevOps - Jenkins单机备份、高可用">
+<meta name="twitter:title" content="看破DevOps - Jenkins快速安装及使用">
+<meta name="twitter:description" content="准备安装通过yum安装123# wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.repo# rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key# yum install jenkins -y 修改数据目录，由/var/lib/jen">
 
 
 
@@ -132,7 +135,7 @@
 
 
 
-  <title>看破DevOps - Jenkins单机备份、高可用 | NiTaogeTech</title>
+  <title>看破DevOps - Jenkins快速安装及使用 | NiTaogeTech</title>
   
 
 
@@ -339,7 +342,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">看破DevOps - Jenkins单机备份、高可用</h1>
+          <h1 class="post-title" itemprop="name headline">看破DevOps - Jenkins快速安装及使用</h1>
         
 
         <div class="post-meta">
@@ -420,7 +423,7 @@
                   <span class="post-meta-item-text">字数&#58;</span>
                 
                 <span title="字数">
-                  0
+                  154
                 </span>
               
 
@@ -457,7 +460,12 @@
       
 
       
-        
+        <h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>通过yum安装<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># wget -O /etc/yum.repos.d/jenkins.repo https:<span class="comment">//pkg.jenkins.io/redhat/jenkins.repo</span></span><br><span class="line"># rpm --<span class="keyword">import</span> https:<span class="comment">//pkg.jenkins.io/redhat/jenkins.io.key</span></span><br><span class="line"># yum install jenkins -y</span><br></pre></td></tr></table></figure></p>
+<p>修改数据目录，由/var/lib/jenkins改为/disk1/data/jenkins<br>修改绑定端口，由8080改为9998，<br>启动（确定jdk已装好）<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mkdir -p /disk1/data/jenkins</span></span><br><span class="line"><span class="comment"># chown -R jenkins.jenkins /disk1/data/jenkins</span></span><br><span class="line"><span class="comment"># vim /etc/sysconfig/jenkins</span></span><br><span class="line"><span class="attr">JENKINS_HOME</span>=<span class="string">"/disk1/data/jenkins"</span></span><br><span class="line"><span class="attr">JENKINS_PORT</span>=<span class="string">"9998"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># systemctl start jenkins</span></span><br></pre></td></tr></table></figure></p>
+<p>访问页面并初始化，<a href="http://jenkins1.ntg:9998" target="_blank" rel="noopener">http://jenkins1.ntg:9998</a><br>按照Unlock Jenkins提示输入密码<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># cat /disk1/data/jenkins/secrets/initialAdminPassword</span></span><br><span class="line">da4a56b6ec5f4d66bcfa3a8cdedd1379</span><br></pre></td></tr></table></figure></p>
+<p>选择安装推荐插件，等待插件安装完毕，设置一个管理员。</p>
+<p>至此安装完毕。</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1>
       
     </div>
     
@@ -495,8 +503,8 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>作者/文章:</span><a href="/" title="访问 中华郑六 的技术博客">中华郑六</a> / <a href="/p/17293ae1/">看破DevOps - Jenkins单机备份、高可用</a></p>
-  <p><span>原始链接:</span><a href="/p/17293ae1/" title="看破DevOps - Jenkins单机备份、高可用">https://tech.nitaoge.com/p/17293ae1/</a>
+  <p><span>作者/文章:</span><a href="/" title="访问 中华郑六 的技术博客">中华郑六</a> / <a href="/p/17293ae1/">看破DevOps - Jenkins快速安装及使用</a></p>
+  <p><span>原始链接:</span><a href="/p/17293ae1/" title="看破DevOps - Jenkins快速安装及使用">https://tech.nitaoge.com/p/17293ae1/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://tech.nitaoge.com/p/17293ae1/" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
@@ -563,8 +571,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/p/91dc983c/" rel="next" title="看破MacOS 1.快捷键">
-                <i class="fa fa-chevron-left"></i> 看破MacOS 1.快捷键
+              <a href="/p/7fde48ab/" rel="next" title="看破DevOps - Gradle常见问题">
+                <i class="fa fa-chevron-left"></i> 看破DevOps - Gradle常见问题
               </a>
             
           </div>
@@ -573,8 +581,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/p/17293ae1/" rel="prev" title="看破DevOps - Jenkins快速安装及使用">
-                看破DevOps - Jenkins快速安装及使用 <i class="fa fa-chevron-right"></i>
+              <a href="/p/f838026c/" rel="prev" title="看破JVM 1.">
+                看破JVM 1. <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -638,8 +646,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -739,6 +756,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">3.</span> <span class="nav-text">使用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -959,7 +992,7 @@
         var disqus_config = function () {
           this.page.url = 'https://tech.nitaoge.com/p/17293ae1/';
           this.page.identifier = 'p/17293ae1/';
-          this.page.title = '看破DevOps - Jenkins单机备份、高可用';
+          this.page.title = '看破DevOps - Jenkins快速安装及使用';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://NiTaogeTech.disqus.com/embed.js';

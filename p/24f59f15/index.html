@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="NiTaogeTech">
 <meta property="og:description" content="服务配置查看服务状态123456789101112$ sudo systemctl status docker● docker.service - Docker Application Container Engine   Loaded: loaded (/usr/lib/systemd/system/docker.service; disabled; vendor preset: disable">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-22T04:46:30.013Z">
+<meta property="og:updated_time" content="2019-05-24T11:34:12.641Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="看破Docker 2.玩转配置">
 <meta name="twitter:description" content="服务配置查看服务状态123456789101112$ sudo systemctl status docker● docker.service - Docker Application Container Engine   Loaded: loaded (/usr/lib/systemd/system/docker.service; disabled; vendor preset: disable">
@@ -423,7 +423,7 @@
                   <span class="post-meta-item-text">字数&#58;</span>
                 
                 <span title="字数">
-                  287
+                  288
                 </span>
               
 
@@ -462,13 +462,12 @@
       
         <h1 id="服务配置"><a href="#服务配置" class="headerlink" title="服务配置"></a>服务配置</h1><p>查看服务状态<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl status docker</span><br><span class="line"></span><br><span class="line">● docker.service - Docker Application Container Engine</span><br><span class="line"><span class="symbol">   Loaded:</span> loaded (<span class="meta-keyword">/usr/</span>lib<span class="meta-keyword">/systemd/</span>system/docker.service; disabled; vendor preset: disabled)</span><br><span class="line"><span class="symbol">   Active:</span> active (running) since 日 <span class="number">2019</span><span class="number">-04</span><span class="number">-21</span> <span class="number">17</span>:<span class="number">23</span>:<span class="number">07</span> CST; <span class="number">34</span>min ago</span><br><span class="line"><span class="symbol">     Docs:</span> https:<span class="comment">//docs.docker.com</span></span><br><span class="line"> Main PID: <span class="number">20760</span> (dockerd)</span><br><span class="line"><span class="symbol">    Tasks:</span> <span class="number">22</span></span><br><span class="line"><span class="symbol">   Memory:</span> <span class="number">251.7</span>M</span><br><span class="line"><span class="symbol">   CGroup:</span> /system.slice/docker.service</span><br><span class="line">           ├─<span class="number">20760</span> <span class="meta-keyword">/usr/</span>bin/dockerd -H fd:<span class="comment">// -H tcp://192.168.1.60</span></span><br><span class="line">           └─<span class="number">20958</span> <span class="meta-keyword">/usr/</span>bin/docker-proxy -proto tcp -host-ip <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span> -host-port <span class="number">80</span> -container-ip <span class="number">172.17</span><span class="number">.0</span><span class="number">.2</span> -container-port <span class="number">80</span></span><br></pre></td></tr></table></figure></p>
 <p>我的docker服务启动脚本位置为/usr/lib/systemd/system/docker.service。</p>
-<h2 id="添加外网访问"><a href="#添加外网访问" class="headerlink" title="添加外网访问"></a>添加外网访问</h2><p>编辑服务脚本，添加允许外网访问（非安全的）：<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">systemd</span>/<span class="title">system</span>/<span class="title">docker</span>.<span class="title">service</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">#ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock</span></span><br><span class="line">ExecStart=<span class="regexp">/usr/bin</span><span class="regexp">/dockerd</span></span><br><span class="line"><span class="regexp">ExecReload=/bin</span><span class="regexp">/kill -s HUP $MAINPID</span></span><br></pre></td></tr></table></figure></p>
-<p>编辑daemon.json，添加一条配置：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim /etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line"><span class="string">"hosts"</span>: [<span class="string">"unix:///var/run/docker.sock"</span>, <span class="string">"tcp://127.0.0.1:2375"</span>]</span><br></pre></td></tr></table></figure></p>
+<h2 id="添加外网访问"><a href="#添加外网访问" class="headerlink" title="添加外网访问"></a>添加外网访问</h2><p>编辑服务脚本，添加允许外网访问（非安全的）：<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">systemd</span>/<span class="title">system</span>/<span class="title">docker</span>.<span class="title">service</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">#ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock</span></span><br><span class="line">ExecStart=<span class="regexp">/usr/bin</span><span class="regexp">/dockerd</span></span><br></pre></td></tr></table></figure></p>
+<p>编辑daemon.json，添加一条配置：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim /etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line"><span class="string">"hosts"</span>: [<span class="string">"unix:///var/run/docker.sock"</span>, <span class="string">"tcp://192.168.1.60:2375"</span>]</span><br></pre></td></tr></table></figure></p>
 <p>重启<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo systemctl daemon-reload</span><br><span class="line"><span class="variable">$ </span>sudo systemctl restart docker</span><br></pre></td></tr></table></figure></p>
-<p>查看连接<br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo netstat -lntp | grep dockerd</span><br><span class="line">tcp        <span class="number">0</span>      <span class="number">0</span> <span class="number">192.168</span><span class="meta">.1</span><span class="meta">.60</span>:<span class="number">2375</span>       <span class="number">0.0</span><span class="meta">.0</span><span class="meta">.0</span>:*               LISTEN      <span class="number">6918</span>/dockerd</span><br></pre></td></tr></table></figure></p>
+<p>查看TCP端口是否绑定成功<br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo netstat -lntp | grep dockerd</span><br><span class="line">tcp        <span class="number">0</span>      <span class="number">0</span> <span class="number">192.168</span><span class="meta">.1</span><span class="meta">.60</span>:<span class="number">2375</span>       <span class="number">0.0</span><span class="meta">.0</span><span class="meta">.0</span>:*               LISTEN      <span class="number">6918</span>/dockerd</span><br></pre></td></tr></table></figure></p>
 <h2 id="修改镜像保存目录"><a href="#修改镜像保存目录" class="headerlink" title="修改镜像保存目录"></a>修改镜像保存目录</h2><p>迁移原docker到新目录<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir -p /disk1/data &amp;&amp; mv /var/<span class="class"><span class="keyword">lib</span>/<span class="title">docker</span> /<span class="title">disk1</span>/<span class="title">data</span></span></span><br></pre></td></tr></table></figure></p>
 <p>编辑daemon.json，添加一条配置：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim /etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line"><span class="string">"data-root"</span>: <span class="string">"/disk1/data/docker"</span></span><br></pre></td></tr></table></figure></p>
-<p>## </p>
 
       
     </div>
@@ -575,8 +574,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/p/8c86c83d/" rel="next" title="看破Docker 7.数据存储">
-                <i class="fa fa-chevron-left"></i> 看破Docker 7.数据存储
+              <a href="/p/906310c9/" rel="next" title="看破Redis 1.快速安装及使用">
+                <i class="fa fa-chevron-left"></i> 看破Redis 1.快速安装及使用
               </a>
             
           </div>
@@ -585,8 +584,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/p/19fe1117/" rel="prev" title="看破Docker 5.容器">
-                看破Docker 5.容器 <i class="fa fa-chevron-right"></i>
+              <a href="/p/2a951b2f/" rel="prev" title="看破Docker 1.基本概念及快速安装">
+                看破Docker 1.基本概念及快速安装 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -837,7 +836,7 @@
     
       <span class="post-meta-item-text">码字&#58;</span>
     
-    <span title="码字">71k</span>
+    <span title="码字">69.7k</span>
   
 
 </div>

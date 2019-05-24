@@ -97,7 +97,7 @@
 <meta property="og:description" content="基本概念Docker是什么？Docker是一个开发，运输和运行应用程序的开放平台。Docker使您可以将应用程序与基础架构分离，以便快速交付软件。使用Docker，您可以像管理应用程序一样管理基础架构。通过利用Docker的方法快速发送，测试和部署代码，您可以显着减少编写代码和在生产中运行代码之间的延迟。 总之Docker结合k8s用于自动化构建微服务架构。 Docker架构为了一统容器江山，Go">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://tech.nitaoge.com/images/docker/architecture.svg">
-<meta property="og:updated_time" content="2019-04-27T03:49:04.765Z">
+<meta property="og:updated_time" content="2019-05-24T11:52:10.520Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="看破Docker 1.基本概念及快速安装">
 <meta name="twitter:description" content="基本概念Docker是什么？Docker是一个开发，运输和运行应用程序的开放平台。Docker使您可以将应用程序与基础架构分离，以便快速交付软件。使用Docker，您可以像管理应用程序一样管理基础架构。通过利用Docker的方法快速发送，测试和部署代码，您可以显着减少编写代码和在生产中运行代码之间的延迟。 总之Docker结合k8s用于自动化构建微服务架构。 Docker架构为了一统容器江山，Go">
@@ -425,7 +425,7 @@
                   <span class="post-meta-item-text">字数&#58;</span>
                 
                 <span title="字数">
-                  3.6k
+                  1.3k
                 </span>
               
 
@@ -441,7 +441,7 @@
                   <span class="post-meta-item-text">时长 &asymp;</span>
                 
                 <span title="时长">
-                  17
+                  5
                 </span>
               
             </div>
@@ -489,263 +489,42 @@
 <h1 id="我的环境"><a href="#我的环境" class="headerlink" title="我的环境"></a>我的环境</h1><p>docker版本: 18.09.5<br>内核版本: 3.10.0-862.el7.x86_64<br>系统版本: CentOS Linux release 7.6.1810 (Core)<br>CPU: Intel(R) Core(TM) i3-8100 CPU @ 3.60GHz 4核<br>Memory: 16G<br>Disk: 128G SSD(/)+1T SATA(/disk1)</p>
 <h1 id="安装准备"><a href="#安装准备" class="headerlink" title="安装准备"></a>安装准备</h1><h2 id="内核支持"><a href="#内核支持" class="headerlink" title="内核支持"></a>内核支持</h2><p>Docker 对 Linux 内核版本的最低要求是3.10，如果内核版本低于 3.10 会缺少一些运行 Docker 容器的功能。这些比较旧的内核，在一定条件下会导致数据丢失和频繁恐慌错误。</p>
 <p>推荐使用版本号为（3.x.y）的 3.10 Linux 内核版本（或者新的维护版本），保持跟上内核的次要版本更新来确保内核的BUG已经被修复。</p>
-<h2 id="系统要求"><a href="#系统要求" class="headerlink" title="系统要求"></a>系统要求</h2><blockquote>
-<p>To install Docker CE, you need a maintained version of CentOS 7. </p>
-</blockquote>
-<blockquote>
-<p>Archived versions aren’t supported or tested.<br>The centos-extras repository must be enabled. This repository is enabled by default, but if you have disabled it, you need to re-enable it.</p>
-</blockquote>
-<blockquote>
-<p>The overlay2 storage driver is recommended.</p>
-</blockquote>
-<ul>
+<h2 id="系统要求"><a href="#系统要求" class="headerlink" title="系统要求"></a>系统要求</h2><ul>
 <li><code>centos-extras repository</code> CentOS7默认是开启的，不用管它。</li>
 <li>官方推荐的 <code>overlay2</code> 是一种文件存储驱动，CentOS老版本内核是不支持的，必须升到3.10以上，CentOS7.6默认是支持的，具体原理以后再深入。</li>
 </ul>
-<h2 id="卸载老版本"><a href="#卸载老版本" class="headerlink" title="卸载老版本"></a>卸载老版本</h2><blockquote>
-<p>Older versions of Docker were called docker or docker-engine. If these are installed, uninstall them, along with associated dependencies.<br><figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum remove docker <span class="string">\</span></span><br><span class="line">                  docker-client <span class="string">\</span></span><br><span class="line">                  docker-client-latest <span class="string">\</span></span><br><span class="line">                  docker-common <span class="string">\</span></span><br><span class="line">                  docker-latest <span class="string">\</span></span><br><span class="line">                  docker-latest-logrotate <span class="string">\</span></span><br><span class="line">                  docker-logrotate <span class="string">\</span></span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<blockquote>
-<p>It’s OK if yum reports that none of these packages are installed.</p>
-</blockquote>
-<blockquote>
-<p>The contents of /var/lib/docker/, including images, containers, volumes, and networks, are preserved. The Docker CE package is now called docker-ce.</p>
-</blockquote>
-<ul>
-<li>官方提供docker-ee（企业版）和docker-ce（社区版）两个版本，我选择docker-ce进行安装。</li>
-</ul>
-<h2 id="安装方式"><a href="#安装方式" class="headerlink" title="安装方式"></a>安装方式</h2><blockquote>
-<p>You can install Docker CE in different ways, depending on your needs:</p>
-</blockquote>
-<blockquote>
-<ul>
-<li>Most users set up Docker’s repositories and install from them, for ease of installation and upgrade tasks. This is the recommended approach.</li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li>Some users download the RPM package and install it manually and manage upgrades completely manually. This is useful in situations such as installing Docker on air-gapped systems with no access to the internet.</li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li>In testing and development environments, some users choose to use automated convenience scripts to install Docker.</li>
-</ul>
-</blockquote>
-<p>可以通过yum源安装，可以下载RPM包安装，也可以使用自动构建脚本安装。<br>既然官方推荐使用yum源方式安装，那就听他的，本文使用yum源安装。</p>
-<blockquote>
-<p>Before you install Docker CE for the first time on a new host machine, you need to set up the Docker repository. Afterward, you can install and update Docker from the repository.</p>
-</blockquote>
-<blockquote>
-<p>SET UP THE REPOSITORY<br>Install required packages. yum-utils provides the yum-config-manager utility, and device-mapper-persistent-data and lvm2 are required by the devicemapper storage driver.<br><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install -y yum-utils \</span><br><span class="line">  device-mapper-persistent-<span class="class"><span class="keyword">data</span> \</span></span><br><span class="line">  lvm2</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<blockquote>
-<p>Use the following command to set up the stable repository.<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum-config-manager \</span><br><span class="line">    --<span class="built_in">add</span>-repo \</span><br><span class="line">    http<span class="variable">s:</span>//download.docker.<span class="keyword">com</span>/linux/centos/docker-<span class="keyword">ce</span>.repo</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<p>确保系统中有yum-utils、device-mapper-persistent-data、lvm2工具，CentOS7.6默认是有的，然后添加docker的yum源即可（官方yum源有可能连接失败，可以使用阿里云的）。<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># sudo yum-config-manager \</span><br><span class="line">  --<span class="built_in">add</span>-repo \</span><br><span class="line">  http<span class="variable">s:</span>//mirrors.aliyun.<span class="keyword">com</span>/docker-<span class="keyword">ce</span>/linux/centos/docker-<span class="keyword">ce</span>.repo</span><br></pre></td></tr></table></figure></p>
-<h2 id="添加持续集成和测试的版本库"><a href="#添加持续集成和测试的版本库" class="headerlink" title="添加持续集成和测试的版本库"></a>添加持续集成和测试的版本库</h2><blockquote>
-<p>Optional: Enable the nightly or test repositories.</p>
-</blockquote>
-<blockquote>
-<p>These repositories are included in the docker.repo file above but are disabled by default. You can enable them alongside the stable repository. The following command enables the nightly repository.<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum-<span class="built_in">config</span>-manager <span class="comment">--enable docker-ce-nightly</span></span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<blockquote>
-<p>To enable the test channel, run the following command:<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum-<span class="built_in">config</span>-manager <span class="comment">--enable docker-ce-test</span></span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<blockquote>
-<p>You can disable the nightly or test repository by running the yum-config-manager command with the –disable flag. To re-enable it, use the –enable flag. The following command disables the nightly repository.<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum-<span class="built_in">config</span>-manager <span class="comment">--disable docker-ce-nightly</span></span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<blockquote>
-<p>Learn about nightly and test channels.</p>
-</blockquote>
-<p>默认持续集成的版本和测试的版本在yum源配置文件中是禁用的。<br>我不添加，我只用稳定版……</p>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><blockquote>
-<p>1.install the latest version of Docker CE and containerd, or go to the next step to install a specific version:<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install docker-<span class="keyword">ce</span> docker-<span class="keyword">ce</span>-cli containerd.io</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<blockquote>
-<p>If prompted to accept the GPG key, verify that the fingerprint matches 060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35, and if so, accept it.</p>
-</blockquote>
-<blockquote>
-<p>Got multiple Docker repositories?</p>
-<blockquote>
-<p>If you have multiple Docker repositories enabled, installing or updating without specifying a version in the yum install or yum update command always installs the highest possible version, which may not be appropriate for your stability needs.</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<p>Docker is installed but not started. The docker group is created, but no users are added to the group.</p>
-</blockquote>
-<blockquote>
-<p>2.To install a specific version of Docker CE, list the available versions in the repo, then select and install:</p>
-</blockquote>
-<blockquote>
-<blockquote>
-<p>a. List and sort the versions available in your repo. This example sorts results by version number, highest to lowest, and is truncated:<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum <span class="keyword">list</span> docker-ce --showduplicates | <span class="keyword">sort</span> -<span class="built_in">r</span></span><br></pre></td></tr></table></figure></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<p>docker-ce.x86_64  3:18.09.1-3.el7                     docker-ce-stable<br>docker-ce.x86_64  3:18.09.0-3.el7                     docker-ce-stable<br>docker-ce.x86_64  18.06.1.ce-3.el7                    docker-ce-stable<br>docker-ce.x86_64  18.06.0.ce-3.el7                    docker-ce-stable</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<p>The list returned depends on which repositories are enabled, and is specific to your version of CentOS (indicated by the .el7 suffix in this example).</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<p>b. Install a specific version by its fully qualified package name, which is the package name (docker-ce) plus the version string (2nd column) starting at the first colon (:), up to the first hyphen, separated by a hyphen (-). For example, docker-ce-18.09.1.<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install docker-<span class="keyword">ce</span>-<span class="symbol">&lt;VERSION_STRING&gt;</span> docker-<span class="keyword">ce</span>-cli-<span class="symbol">&lt;VERSION_STRING&gt;</span> containerd.io</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<p>Docker is installed but not started. The docker group is created, but no users are added to the group.</p>
-</blockquote>
-<p>可以查看可用版本，然后指定版本安装，安装完是不会启动的，创建了docker组，但是没有用户。</p>
-<ul>
-<li>这里我选择安装最新版。</li>
-</ul>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install docker-<span class="keyword">ce</span> docker-<span class="keyword">ce</span>-cli containerd.io</span><br></pre></td></tr></table></figure>
-<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><blockquote>
-<p>3.Start Docker.<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl <span class="literal">start</span> docker</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<blockquote>
-<p>4.Verify that Docker CE is installed correctly by running the hello-world image.<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker <span class="keyword">run</span><span class="bash"> hello-world</span></span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<blockquote>
-<blockquote>
-<p>This command downloads a test image and runs it in a container. When the container runs, it prints an informational message and exits.</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<p>Docker CE is installed and running. You need to use sudo to run Docker commands. Continue to <a href="https://docs.docker.com/install/linux/linux-postinstall/" target="_blank" rel="noopener">Linux postinstall</a> to allow non-privileged users to run Docker commands and for other optional configuration steps.</p>
-</blockquote>
-<ul>
-<li>注意此处启动docker是使用的root用户，以后重点研究一下docker安全问题。</li>
-<li>启动和测试，默认下载个test镜像然后在容器中运行它。</li>
-<li>这里也可以不急着启动，先到Linux postinstall页面查看如何处理安装善后工作。</li>
-<li>我启动之后拉不下来hello-world镜像，所以得配置国内镜像加速。</li>
-</ul>
-<h2 id="善后"><a href="#善后" class="headerlink" title="善后"></a>善后</h2><h3 id="配置国内镜像加速"><a href="#配置国内镜像加速" class="headerlink" title="配置国内镜像加速"></a>配置国内镜像加速</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -<span class="selector-tag">p</span> /etc/docker</span><br><span class="line">sudo tee /etc/docker/daemon<span class="selector-class">.json</span> &lt;&lt;-<span class="string">'EOF'</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"registry-mirrors"</span>: [</span><br><span class="line">  <span class="string">"https://需自己注册阿里云账号.mirror.aliyuncs.com"</span>,</span><br><span class="line">  <span class="string">"https://registry.docker-cn.com"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
-<h3 id="用普通用户管理docker"><a href="#用普通用户管理docker" class="headerlink" title="用普通用户管理docker"></a>用普通用户管理docker</h3><blockquote>
-<p>Manage Docker as a non-root user</p>
-<blockquote>
-<p>The Docker daemon binds to a Unix socket instead of a TCP port. By default that Unix socket is owned by the user root and other users can only access it using sudo. The Docker daemon always runs as the root user.<br>If you don’t want to preface the docker command with sudo, create a Unix group called docker and add users to it. When the Docker daemon starts, it creates a Unix socket accessible by members of the docker group.</p>
-</blockquote>
-</blockquote>
-<p>默认情况下，docker守护进程绑定了一个unix套接字文件来代替tcp套接字，unix套接字<br>属于root用户，其他用户访问必须使用sudo。docker守护进程总是使用root用户启动。<br>如果你不想使用sudo，就建一个docker用户和组（安装后默认建完了），这样当Docker守护进程启动之后，就会创建一个可以让docker组成员访问的unix套接字文件。</p>
-<blockquote>
-<p>Warning</p>
-<blockquote>
-<p>The docker group grants privileges equivalent to the root user. For details on how this impacts security in your system, see Docker Daemon Attack Surface.</p>
-</blockquote>
-</blockquote>
-<p>docker组被授予root同样的权限，如果使用tcp套接字对外开放端口，存在XSS问题。<br>如果您明确决定这样做，也可以通过HTTP公开REST API。但是，如果您这样做，请注意上述安全隐患。确保只能从受信任的网络或VPN访问它，或者使用stunnel和客户端SSL证书等机制进行保护。您还可以使用HTTPS和证书保护API端点。</p>
-<p>守护程序也可能容易受到其他输入的攻击，例如从带有docker load的磁盘加载映像，或者使用docker pull从网络加载。从Docker 1.3.2开始，图像现在在Linux / Unix平台上的chrooted子流程中提取，是更广泛地实现权限分离的第一步。从Docker 1.10.0开始，所有图像都通过其内容的加密校验和进行存储和访问，从而限制了攻击者与现有图像发生冲突的可能性。</p>
-<p>最后，如果您在服务器上运行Docker，建议在服务器上独占运行Docker，并将所有其他服务移动到Docker控制的容器中。当然，保留您喜欢的管理工具（可能至少是SSH服务器）以及现有的监控/监督流程（例如NRPE和collectd）都可以。</p>
-<blockquote>
-<p>To create the docker group and add your user:</p>
-<blockquote>
-<p>1.Create the docker group.<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo groupadd docker</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-</blockquote>
-<p>这步可以略过。</p>
-<blockquote>
-<blockquote>
-<p>2.Add your user to the docker group.<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo usermod -aG docker <span class="variable">$USER</span></span><br></pre></td></tr></table></figure></p>
-</blockquote>
-</blockquote>
-<p>添加当前登录用户到docker组。</p>
-<blockquote>
-<blockquote>
-<p>3.Log out and log back in so that your group membership is re-evaluated.</p>
-<blockquote>
-<p>If testing on a virtual machine, it may be necessary to restart the virtual machine for changes to take effect.<br>On a desktop Linux environment such as X Windows, log out of your session completely and then log back in.</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>注销重新登录。</p>
-<blockquote>
-<blockquote>
-<p>4.Verify that you can run docker commands without sudo.<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker <span class="keyword">run</span><span class="bash"> hello-world</span></span><br></pre></td></tr></table></figure></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<p>This command downloads a test image and runs it in a container. When the container runs, it prints an informational message and exits.</p>
-</blockquote>
-</blockquote>
-<p>测试是否正常运行。</p>
-<p>If you initially ran Docker CLI commands using sudo before adding your user to the docker group, you may see the following error, which indicates that your ~/.docker/ directory was created with incorrect permissions due to the sudo commands.</p>
-<p>WARNING: Error loading config file: /home/user/.docker/config.json -<br>stat /home/user/.docker/config.json: permission denied<br>To fix this problem, either remove the ~/.docker/ directory (it is recreated automatically, but any custom settings are lost), or change its ownership and permissions using the following commands:<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo <span class="keyword">chown</span> <span class="string">"$USER"</span>:<span class="string">"$USER"</span> /home/<span class="string">"$USER"</span>/.docker -R</span><br><span class="line">$ sudo <span class="keyword">chmod</span> g+rwx <span class="string">"$HOME/.docker"</span> -R</span><br></pre></td></tr></table></figure></p>
-<p>如果出现权限问题，给刚加进docker组的当前登录普通用户赋权就完事。</p>
-<h3 id="配置开机启动"><a href="#配置开机启动" class="headerlink" title="配置开机启动"></a>配置开机启动</h3><blockquote>
-<p>Most current Linux distributions (RHEL, CentOS, Fedora, Ubuntu 16.04 and higher) use systemd to manage which services start when the system boots. </p>
-</blockquote>
-<blockquote>
-<p>systemd<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl <span class="builtin-name">enable</span> docker</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<blockquote>
-<p>To disable this behavior, use disable instead.<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl <span class="builtin-name">disable</span> docker</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<p>CentOS7以后使用systemd做系统服务管理，配置简单。</p>
-<h3 id="配置Docker守护程序侦听连接的位置"><a href="#配置Docker守护程序侦听连接的位置" class="headerlink" title="配置Docker守护程序侦听连接的位置"></a>配置Docker守护程序侦听连接的位置</h3><blockquote>
-<p>By default, the Docker daemon listens for connections on a UNIX socket to accept requests from local clients. It is possible to allow Docker to accept requests from remote hosts by configuring it to listen on an IP address and port as well as the UNIX socket. For more detailed information on this configuration option take a look at “Bind Docker to another host/port or a unix socket” section of the Docker CLI Reference article.</p>
-</blockquote>
-<p>默认情况下，Docker守护程序侦听UNIX套接字上的连接以接受来自本地客户端的请求。通过将Docker配置为侦听IP地址和端口以及UNIX套接字，可以允许Docker接受来自远程主机的请求。有关此配置选项的更多详细信息，请参阅Docker CLI参考文章中的“将Docker绑定到另一个主机/端口或unix套接字”部分。</p>
-<blockquote>
-<p>Before configuring Docker to accept connections from remote hosts it is critically important that you understand the security implications of opening docker to the network. If steps are not taken to secure the connection, it is possible for remote non-root users to gain root access on the host. For more information on how to use TLS certificates to secure this connection, check this article on how to protect the Docker daemon socket.</p>
-</blockquote>
-<p>在配置Docker以接受来自远程主机的连接之前，了解打开docker到网络的安全隐患至关重要。 如果不采取步骤来保护连接，则远程非root用户可以在主机上获得root访问权限。 有关如何使用TLS证书保护此连接的更多信息，请查看有关如何保护Docker守护程序套接字的文章。</p>
-<blockquote>
-<p>Configuring Docker to accept remote connections can be done with the docker.service systemd unit file for Linux distributions using systemd, such as recent versions of RedHat, CentOS, Ubuntu and SLES, or with the daemon.json file which is recommended for Linux distributions that do not use systemd.</p>
-</blockquote>
-<p>配置Docker以接受远程连接可以使用systemd的Linux发行版的docker.service systemd单元文件来完成，例如RedHat，CentOS，Ubuntu和SLES的最新版本，或者推荐用于Linux发行版的daemon.json文件。 不要使用systemd。</p>
-<blockquote>
-<p>systemd vs daemon.json<br>Configuring Docker to listen for connections using both the systemd unit file and the daemon.json file causes a conflict that prevents Docker from starting.</p>
-</blockquote>
-<p>同时使用systemd和daemon.json会使docker启动冲突。</p>
-<ul>
-<li>既然官方推荐修改daemon.json开启远程访问，就听他的。</li>
-</ul>
-<blockquote>
-<p>1.Set the hosts array in the /etc/docker/daemon.json to connect to the UNIX socket and an IP address, as follows:<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="attr">"hosts"</span>: [<span class="string">"unix:///var/run/docker.sock"</span>, <span class="string">"tcp://127.0.0.1:2375"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<blockquote>
-<p>2.Restart Docker.<br><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo<span class="keyword"> system</span>ctl daemon-reload</span><br><span class="line">sudo<span class="keyword"> system</span>ctl restart docker</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<blockquote>
-<p>3.Check to see whether the change was honored by reviewing the output of netstat to confirm dockerd is listening on the configured port.<br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo netstat -lntp | grep dockerd</span><br><span class="line">tcp        <span class="number">0</span>      <span class="number">0</span> <span class="number">127.0</span><span class="meta">.0</span><span class="meta">.1</span>:<span class="number">2375</span>          <span class="number">0.0</span><span class="meta">.0</span><span class="meta">.0</span>:*               LISTEN      <span class="number">3758</span>/dockerd</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<ul>
-<li>这里使用不修改服务脚本的话，启动会失败，请参考2.服务配置。</li>
-</ul>
-<h3 id="内核兼容性检查"><a href="#内核兼容性检查" class="headerlink" title="内核兼容性检查"></a>内核兼容性检查</h3><blockquote>
-<p>Docker cannot run correctly if your kernel is older than version 3.10 or if it is missing some modules. To check kernel compatibility, you can download and run the check-config.sh script.<br>The script only works on Linux, not macOS.</p>
-</blockquote>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>curl <span class="symbol">https:</span>/<span class="regexp">/raw.githubusercontent.com/docker</span><span class="regexp">/docker/master</span><span class="regexp">/contrib/check</span>-config.sh &gt; check-config.sh</span><br><span class="line"></span><br><span class="line"><span class="variable">$ </span>bash ./check-config.sh</span><br></pre></td></tr></table></figure>
-<h1 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h1><blockquote>
-<p>To upgrade Docker CE, follow the installation instructions, choosing the new version you want to install.</p>
-</blockquote>
-<p>使用指定版本安装即可更新。</p>
-<h1 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h1><blockquote>
-<p>Uninstall the Docker package:<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum <span class="builtin-name">remove</span> docker-ce</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<blockquote>
-<p>Images, containers, volumes, or customized configuration files on your host are not automatically removed. To delete all images, containers, and volumes:<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo rm -rf /var/<span class="class"><span class="keyword">lib</span>/<span class="title">docker</span></span></span><br></pre></td></tr></table></figure></p>
-</blockquote>
+<h2 id="卸载老版本"><a href="#卸载老版本" class="headerlink" title="卸载老版本"></a>卸载老版本</h2><figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum remove docker <span class="string">\</span></span><br><span class="line">                  docker-client <span class="string">\</span></span><br><span class="line">                  docker-client-latest <span class="string">\</span></span><br><span class="line">                  docker-common <span class="string">\</span></span><br><span class="line">                  docker-latest <span class="string">\</span></span><br><span class="line">                  docker-latest-logrotate <span class="string">\</span></span><br><span class="line">                  docker-logrotate <span class="string">\</span></span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure>
+<h2 id="安装方式"><a href="#安装方式" class="headerlink" title="安装方式"></a>安装方式</h2><p>官方提供docker-ee（企业版）和docker-ce（社区版）两个版本，我选择docker-ce进行安装。</p>
+<p>可以通过yum源安装，可以下载RPM包安装，也可以使用自动构建脚本安装。<br>既然官方推荐使用yum源方式安装，那就听他的，本文使用yum源安装。<br><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install -y yum-utils \</span><br><span class="line">  device-mapper-persistent-<span class="class"><span class="keyword">data</span> \</span></span><br><span class="line">  lvm2</span><br></pre></td></tr></table></figure></p>
+<p>确保系统中有yum-utils、device-mapper-persistent-data、lvm2工具，CentOS7.6默认是有的，然后添加docker的yum源即可（官方yum源有可能连接失败，可以使用阿里云的）。<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum-config-manager \</span><br><span class="line">  --<span class="built_in">add</span>-repo \</span><br><span class="line">  http<span class="variable">s:</span>//mirrors.aliyun.<span class="keyword">com</span>/docker-<span class="keyword">ce</span>/linux/centos/docker-<span class="keyword">ce</span>.repo</span><br></pre></td></tr></table></figure></p>
+<h2 id="添加持续集成和测试的版本库"><a href="#添加持续集成和测试的版本库" class="headerlink" title="添加持续集成和测试的版本库"></a>添加持续集成和测试的版本库</h2><p>默认持续集成的版本和测试的版本在yum源配置文件中是禁用的。<br>如果想用就开启对应版本库<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum-<span class="built_in">config</span>-manager <span class="comment">--enable docker-ce-test</span></span><br><span class="line">$ sudo yum-<span class="built_in">config</span>-manager <span class="comment">--disable docker-ce-nightly</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install docker-<span class="keyword">ce</span> docker-<span class="keyword">ce</span>-cli containerd.io</span><br></pre></td></tr></table></figure>
+<p>想要安装指定版本，查看版本并安装<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum <span class="keyword">list</span> docker-<span class="keyword">ce</span> --showduplicates | <span class="keyword">sort</span> -r</span><br><span class="line"></span><br><span class="line">docker-<span class="keyword">ce</span>.x86_64  <span class="number">3</span>:<span class="number">18.09</span>.<span class="number">1</span>-<span class="number">3</span>.el7                     docker-<span class="keyword">ce</span>-stable</span><br><span class="line">docker-<span class="keyword">ce</span>.x86_64  <span class="number">3</span>:<span class="number">18.09</span>.<span class="number">0</span>-<span class="number">3</span>.el7                     docker-<span class="keyword">ce</span>-stable</span><br><span class="line">docker-<span class="keyword">ce</span>.x86_64  <span class="number">18.06</span>.<span class="number">1</span>.<span class="keyword">ce</span>-<span class="number">3</span>.el7                    docker-<span class="keyword">ce</span>-stable</span><br><span class="line">docker-<span class="keyword">ce</span>.x86_64  <span class="number">18.06</span>.<span class="number">0</span>.<span class="keyword">ce</span>-<span class="number">3</span>.el7                    docker-<span class="keyword">ce</span>-stable</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ sudo yum install docker-<span class="keyword">ce</span>-<span class="symbol">&lt;VERSION_STRING&gt;</span> docker-<span class="keyword">ce</span>-cli-<span class="symbol">&lt;VERSION_STRING&gt;</span> containerd.io</span><br></pre></td></tr></table></figure></p>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>启动docker，配置开机启动<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo systemctl <span class="built_in">enable</span> docker</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo systemctl start docker</span></span><br></pre></td></tr></table></figure></p>
+<p>测试是否安装成功<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker <span class="keyword">run</span><span class="bash"> hello-world</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="安装后续"><a href="#安装后续" class="headerlink" title="安装后续"></a>安装后续</h2><h3 id="配置国内镜像加速"><a href="#配置国内镜像加速" class="headerlink" title="配置国内镜像加速"></a>配置国内镜像加速</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo mkdir -p /etc/docker</span><br><span class="line"><span class="variable">$ </span>sudo tee /etc/docker/daemon.json &lt;&lt;-<span class="string">'EOF'</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"registry-mirrors"</span>: [</span><br><span class="line">  <span class="string">"https://需自己注册阿里云账号.mirror.aliyuncs.com"</span>,</span><br><span class="line">  <span class="string">"https://registry.docker-cn.com"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="variable">$ </span>sudo systemctl daemon-reload</span><br><span class="line"><span class="variable">$ </span>sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
+<h3 id="用普通用户管理docker"><a href="#用普通用户管理docker" class="headerlink" title="用普通用户管理docker"></a>用普通用户管理docker</h3><p>默认安装之后添加了docker组，如果没有需要手动添加。<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo groupadd docker</span><br></pre></td></tr></table></figure></p>
+<p>将当前登录普通用户添加到docker组<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo usermod -aG docker <span class="variable">$USER</span></span><br></pre></td></tr></table></figure></p>
+<p>注销重新登录，测试是否正常运行。<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker <span class="keyword">run</span><span class="bash"> hello-world</span></span><br></pre></td></tr></table></figure></p>
+<p>如果出现权限问题，给刚加进docker组的当前登录普通用户赋权就完事。<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo <span class="keyword">chown</span> <span class="string">"$USER"</span>:<span class="string">"$USER"</span> /home/<span class="string">"$USER"</span>/.docker -R</span><br><span class="line">$ sudo <span class="keyword">chmod</span> g+rwx <span class="string">"$HOME/.docker"</span> -R</span><br></pre></td></tr></table></figure></p>
+<h3 id="内核兼容性检查"><a href="#内核兼容性检查" class="headerlink" title="内核兼容性检查"></a>内核兼容性检查</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>curl <span class="symbol">https:</span>/<span class="regexp">/raw.githubusercontent.com/docker</span><span class="regexp">/docker/master</span><span class="regexp">/contrib/check</span>-config.sh &gt; check-config.sh</span><br><span class="line"></span><br><span class="line"><span class="variable">$ </span>bash ./check-config.sh</span><br></pre></td></tr></table></figure>
+<h1 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h1><p>使用指定版本安装即可更新。</p>
+<h1 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h1><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum <span class="builtin-name">remove</span> docker-ce</span><br></pre></td></tr></table></figure>
+<p>删除数据目录<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo rm -rf /var/<span class="class"><span class="keyword">lib</span>/<span class="title">docker</span></span></span><br></pre></td></tr></table></figure></p>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
-<li><p><a href="https://docs.docker.com/install/linux/docker-ce/centos/" target="_blank" rel="noopener">docker官方文档</a></p>
+<li><a href="https://docs.docker.com/install/linux/docker-ce/centos/" target="_blank" rel="noopener">docker官方文档</a></li>
+<li><p><a href="https://jimmysong.io/docker-handbook/" target="_blank" rel="noopener">docker手册</a></p>
 </li>
 <li><p>《每天5分钟玩转Docker容器技术》</p>
 </li>
 </ul>
 <ul>
-<li><p><a href="https://kubernetes.io/docs/home/" target="_blank" rel="noopener">k8s官方文档</a></p>
+<li><a href="https://kubernetes.io/docs/home/" target="_blank" rel="noopener">k8s官方文档</a></li>
+<li><p><a href="https://jimmysong.io/kubernetes-handbook/" target="_blank" rel="noopener">k8s手册</a></p>
 </li>
-<li><p>《每天5分钟玩转Kubernetes》</p>
+<li><p>《Kubernetes in Action中文版》</p>
 </li>
-</ul>
-<ul>
+<li>《每天5分钟玩转Kubernetes》</li>
 <li>《基于Kubernetes的容器云平台实战》</li>
 </ul>
 
@@ -854,8 +633,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/p/8491e96f/" rel="next" title="看破Docker 3.命令详解">
-                <i class="fa fa-chevron-left"></i> 看破Docker 3.命令详解
+              <a href="/p/24f59f15/" rel="next" title="看破Docker 2.玩转配置">
+                <i class="fa fa-chevron-left"></i> 看破Docker 2.玩转配置
               </a>
             
           </div>
@@ -1049,7 +828,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker是什么？"><span class="nav-number">1.1.</span> <span class="nav-text">Docker是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker架构"><span class="nav-number">1.2.</span> <span class="nav-text">Docker架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#底层使用技术"><span class="nav-number">1.3.</span> <span class="nav-text">底层使用技术</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#我的环境"><span class="nav-number">2.</span> <span class="nav-text">我的环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装准备"><span class="nav-number">3.</span> <span class="nav-text">安装准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内核支持"><span class="nav-number">3.1.</span> <span class="nav-text">内核支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统要求"><span class="nav-number">3.2.</span> <span class="nav-text">系统要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卸载老版本"><span class="nav-number">3.3.</span> <span class="nav-text">卸载老版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装方式"><span class="nav-number">3.4.</span> <span class="nav-text">安装方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加持续集成和测试的版本库"><span class="nav-number">3.5.</span> <span class="nav-text">添加持续集成和测试的版本库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">4.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#启动"><span class="nav-number">4.1.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#善后"><span class="nav-number">4.2.</span> <span class="nav-text">善后</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置国内镜像加速"><span class="nav-number">4.2.1.</span> <span class="nav-text">配置国内镜像加速</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用普通用户管理docker"><span class="nav-number">4.2.2.</span> <span class="nav-text">用普通用户管理docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置开机启动"><span class="nav-number">4.2.3.</span> <span class="nav-text">配置开机启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Docker守护程序侦听连接的位置"><span class="nav-number">4.2.4.</span> <span class="nav-text">配置Docker守护程序侦听连接的位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内核兼容性检查"><span class="nav-number">4.2.5.</span> <span class="nav-text">内核兼容性检查</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更新"><span class="nav-number">5.</span> <span class="nav-text">更新</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#卸载"><span class="nav-number">6.</span> <span class="nav-text">卸载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker是什么？"><span class="nav-number">1.1.</span> <span class="nav-text">Docker是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker架构"><span class="nav-number">1.2.</span> <span class="nav-text">Docker架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#底层使用技术"><span class="nav-number">1.3.</span> <span class="nav-text">底层使用技术</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#我的环境"><span class="nav-number">2.</span> <span class="nav-text">我的环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装准备"><span class="nav-number">3.</span> <span class="nav-text">安装准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内核支持"><span class="nav-number">3.1.</span> <span class="nav-text">内核支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统要求"><span class="nav-number">3.2.</span> <span class="nav-text">系统要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卸载老版本"><span class="nav-number">3.3.</span> <span class="nav-text">卸载老版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装方式"><span class="nav-number">3.4.</span> <span class="nav-text">安装方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加持续集成和测试的版本库"><span class="nav-number">3.5.</span> <span class="nav-text">添加持续集成和测试的版本库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">4.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#启动"><span class="nav-number">4.1.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装后续"><span class="nav-number">4.2.</span> <span class="nav-text">安装后续</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置国内镜像加速"><span class="nav-number">4.2.1.</span> <span class="nav-text">配置国内镜像加速</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用普通用户管理docker"><span class="nav-number">4.2.2.</span> <span class="nav-text">用普通用户管理docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内核兼容性检查"><span class="nav-number">4.2.3.</span> <span class="nav-text">内核兼容性检查</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更新"><span class="nav-number">5.</span> <span class="nav-text">更新</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#卸载"><span class="nav-number">6.</span> <span class="nav-text">卸载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
 
           </div>
@@ -1116,7 +895,7 @@
     
       <span class="post-meta-item-text">码字&#58;</span>
     
-    <span title="码字">71k</span>
+    <span title="码字">69.7k</span>
   
 
 </div>
